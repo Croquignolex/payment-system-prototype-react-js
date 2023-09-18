@@ -1,4 +1,4 @@
-export interface URLParam {
+export interface URLParamType {
     param: string;
     value: string;
 }

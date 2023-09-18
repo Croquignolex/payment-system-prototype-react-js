@@ -4,6 +4,7 @@ import AnonymousLayout from "../layouts/AnonymousLayout";
 import MainLayout from "../layouts/MainLayout";
 
 const LazyLoginPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/login'));
+const LazyRegisterPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register'));
 const LazyHomePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/home'));
 const LazyUsersPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/users/items'));
 const LazyUserPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/users/item'));
@@ -20,6 +21,12 @@ export const ROUTES = [
                 title: 'Login page',
                 component: LazyLoginPage,
                 path: '/'
+            },
+            {
+                name: 'register',
+                title: 'Register page',
+                component: LazyRegisterPage,
+                path: '/register'
             }
         ]
     },

@@ -1,10 +1,20 @@
 import React, {ReactElement} from 'react';
 import {Outlet} from 'react-router-dom';
+import {Flex, Stack, Image} from '@chakra-ui/react';
+
+import authBg from '../assets/img/auth-bg.jpg';
 
 const Home = (): ReactElement => {
     return (
-        <Outlet />
-    )
-}
+        <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
+            <Flex p={8} flex={1} align={'center'} justify={'center'}>
+                <Outlet />
+            </Flex>
+            <Flex flex={1}>
+                <Image alt={'auth bg'} objectFit={'cover'} src={authBg} />
+            </Flex>
+        </Stack>
+    );
+};
 
 export default Home;
