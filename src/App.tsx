@@ -1,13 +1,22 @@
-import React, {ReactElement} from 'react';
-import { Card, CardHeader, CardBody, CardFooter, Text } from '@chakra-ui/react'
+import React, {ReactElement, Suspense} from 'react';
+import {Routes} from './routes';
+import {Spinner, Box, AbsoluteCenter} from '@chakra-ui/react';
+
+const SuspenseLoader = (): ReactElement => {
+    return (
+        <Box position='relative' h='100vh'>
+            <AbsoluteCenter axis='both'>
+                <Spinner color='blue.500' size='xl' />
+            </AbsoluteCenter>
+        </Box>
+    );
+}
 
 const App = (): ReactElement => {
     return (
-        <Card>
-            <CardBody>
-                <Text>View a summary of all your customers over the last month.</Text>
-            </CardBody>
-        </Card>
+        <Suspense fallback={<SuspenseLoader />}>
+            <Routes isAuthorized={true} />
+        </Suspense>
     );
 }
 

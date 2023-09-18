@@ -1,3 +1,5 @@
+import flattenDeep from "lodash/flattenDeep";
+
 // Custom log
 export const log = (message: string, data: any|null = null, highPriority: boolean = false): void => {
     // Only in local environment
@@ -29,4 +31,10 @@ export const formatString = (text: string, maxCharacters: number): string => {
         log("Format string function error", {text, maxCharacters, exception: e});
     }
     return text;
+};
+
+// Flatten nested routes
+export const generateFlattenRoutes = (routes: any[]): any[] => {
+    if (!routes) return [];
+    return flattenDeep(routes.map(({ routes: subRoutes, ...rest }) => [rest, generateFlattenRoutes(subRoutes)]));
 };

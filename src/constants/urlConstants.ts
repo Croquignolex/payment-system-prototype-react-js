@@ -1,8 +1,8 @@
 export const AUTH = {
-    LOGIN: '/login',
+    login: '/login',
 } as const;
 
 export const USERS = {
-    ITEM: '/users',
-    ITEMS: '/users/{user}',
+    item: '/users',
+    items: '/users/{user}',
 } as const;

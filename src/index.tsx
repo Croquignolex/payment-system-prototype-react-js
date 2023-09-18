@@ -1,5 +1,5 @@
 import React from 'react';
-// import React, {lazy, Suspense} from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import {ChakraProvider} from '@chakra-ui/react';
 
@@ -12,10 +12,9 @@ const root: ReactDOM.Root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <ChakraProvider>
-          {/*<Suspense fallback={<PageLoader />}>
-              <Layout><LazyApp /></Layout>
-          </Suspense>*/}
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
       </ChakraProvider>
   </React.StrictMode>
 );
