@@ -5,7 +5,3 @@ export const APP = {
     version: process.env.REACT_APP_APP_VERSION,
     fullName: process.env.REACT_APP_APP_FULL_NAME
 } as const;
-
-export const LOCAL_STORAGE_KEY = {
-    users: process.env.REACT_APP_LOCAL_STORAGE_USER_KEY,
-} as const;

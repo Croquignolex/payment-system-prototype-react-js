@@ -1,6 +1,7 @@
 import React, {ReactElement, Suspense} from 'react';
 import {Routes} from './routes';
 import {Spinner, Box, AbsoluteCenter} from '@chakra-ui/react';
+import { BrowserRouter } from 'react-router-dom';
 
 const SuspenseLoader = (): ReactElement => {
     return (
@@ -15,7 +16,9 @@ const SuspenseLoader = (): ReactElement => {
 const App = (): ReactElement => {
     return (
         <Suspense fallback={<SuspenseLoader />}>
-            <Routes isAuthorized={true} />
+            <BrowserRouter>
+                <Routes isAuthorized={true} />
+            </BrowserRouter>
         </Suspense>
     );
 }
