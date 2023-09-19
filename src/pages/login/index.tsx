@@ -1,62 +1,35 @@
-import React, {ReactElement, useState} from 'react';
+import React, {ReactElement} from 'react';
 import {Link} from "react-router-dom";
-import {Button, Checkbox, FormControl, FormErrorMessage, FormLabel, Heading, Input, Stack, Text, InputGroup, InputRightElement, IconButton} from "@chakra-ui/react";
-import {FaEye, FaEyeSlash} from 'react-icons/fa'
-import {Field, Form, Formik, FormikProps, FormikHelpers} from 'formik';
-import * as Yup from 'yup';
+import {Form, Formik, FormikProps} from 'formik';
+import {Button, Checkbox, Heading, Stack, Text} from "@chakra-ui/react";
 
-import {ROUTES} from "../../constants/routeConstants";
-
-const registerUrl: string = ROUTES[0]?.routes[1]?.name;
+import TextField from "../../components/form/TextField";
+import PasswordField from "../../components/form/PasswordField";
+import {initialValues, LoginFormType, LoginSchema, registerUrl} from "./loginPageData";
+import useLoginPageHook from "./useLoginPageHook";
 
 const Login = (): ReactElement => {
-    const [showPassword, setShowPassword] = useState<boolean>(false);
-    const initialValues: LoginFormType = { email: '', password: '' };
+    const {handleLogin} = useLoginPageHook();
 
     return (
         <>
             <Stack spacing={4} w={'full'} maxW={'md'}>
                 <Heading fontSize={'2xl'}>Connectez-vous à votre compte</Heading>
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={LoginSchema}
-                    onSubmit={(values: LoginFormType, actions: FormikHelpers<LoginFormType>) => {
-                        console.log({ values, actions });
-                        alert(JSON.stringify(values, null, 2));
-                        actions.setSubmitting(false);
-                    }}
-                >
+                <Formik initialValues={initialValues} validationSchema={LoginSchema} onSubmit={handleLogin}>
                     {(props: FormikProps<LoginFormType>) => (
                         <Form>
-                            {/* Email input */}
-                            <FormControl isInvalid={!!props.errors.email && props.touched.email}>
-                                <FormLabel>Email</FormLabel>
-                                <Field as={Input} id="email" name="email" type="text" />
-                                <FormErrorMessage>{props.errors.email}</FormErrorMessage>
-                                <FormErrorMessage>{props.errors.password}</FormErrorMessage>
-                            </FormControl>
-                            {/* Password input */}
-                            <FormControl id="password">
-                                <FormLabel>Mot de passe</FormLabel>
-                                <InputGroup>
-                                    <InputRightElement>
-                                        <IconButton
-                                            variant="text"
-                                            color={'blue.500'}
-                                            aria-label={showPassword ? 'Mask password' : 'Reveal password'}
-                                            icon={showPassword ? <FaEyeSlash /> : <FaEye />}
-                                            onClick={() => setShowPassword(!showPassword)}
-                                        />
-                                    </InputRightElement>
-                                    <Input
-                                        id="password"
-                                        name="password"
-                                        type={showPassword ? 'text' : 'password'}
-                                        autoComplete="current-password"
-                                        required
-                                    />
-                                </InputGroup>
-                            </FormControl>
+                            <TextField
+                                label="Email"
+                                name="email"
+                                isInvalid={!!props.errors.email && !!props.touched.email}
+                                errorMessage={props.errors.email}
+                            />
+                            <PasswordField
+                                label="Mot de passe"
+                                name="password"
+                                isInvalid={!!props.errors.password && !!props.touched.password}
+                                errorMessage={props.errors.password}
+                            />
                             <Stack spacing={6}>
                                 <Stack
                                     direction={{ base: 'column', sm: 'row' }}
@@ -81,19 +54,5 @@ const Login = (): ReactElement => {
         </>
     );
 };
-
-const LoginSchema: Yup.ObjectSchema<LoginFormType> = Yup.object().shape({
-    email: Yup.string()
-        .email("L'addresse email invalide")
-        .required("L'addresse email est réquise"),
-    password: Yup.string()
-        .min(2, 'Le mot de passe doit avoir au moins 2 caratères')
-        .required('Le mot de passe est réquis'),
-});
-
-interface LoginFormType {
-    email: string;
-    password: string;
-}
 
 export default Login;
