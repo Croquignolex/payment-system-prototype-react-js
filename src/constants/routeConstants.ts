@@ -11,7 +11,7 @@ const LazyUserPage: LazyExoticComponent<() => ReactElement> = lazy(() => import(
 const LazyUserCreatePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/users/create'));
 const LazyNotFoundPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/notFound'));
 
-export const ROUTES = [
+export const routesDefinition = [
     {
         layout: AnonymousLayout,
         isPublic: true,

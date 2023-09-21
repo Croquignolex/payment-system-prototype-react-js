@@ -1,17 +1,18 @@
 import * as Yup from "yup";
-import {ROUTES} from "../../constants/routeConstants";
 
-export const registerUrl: string = ROUTES[0]?.routes[1]?.name;
+import {routesDefinition} from "../../constants/routeConstants";
+
+export const registerUrl: string = routesDefinition[0]?.routes[1]?.path || '';
 
 export const initialValues: LoginFormType = {email: '', password: ''};
 
-export const LoginSchema: Yup.ObjectSchema<LoginFormType> = Yup.object().shape({
+export const loginSchema: Yup.ObjectSchema<LoginFormType> = Yup.object().shape({
     email: Yup.string()
-        .email("L'addresse email invalide")
-        .required("L'addresse email est réquise"),
+        .required("L'addresse email est réquise")
+        .email("L'addresse email invalide"),
     password: Yup.string()
-        .min(2, 'Le mot de passe doit avoir au moins 2 caratères')
-        .required('Le mot de passe est réquis'),
+        .required('Le mot de passe est réquis')
+        .min(2, 'Le mot de passe doit avoir au moins 2 caratères'),
 });
 
 export interface LoginFormType {

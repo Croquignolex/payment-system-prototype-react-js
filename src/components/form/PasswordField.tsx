@@ -9,26 +9,24 @@ const PasswordField: FC<FieldType> = ({label, name, isInvalid, errorMessage}): R
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     return (
-        <>
-            <FormControl isInvalid={isInvalid}>
-                <FormLabel>{label}</FormLabel>
+        <FormControl isInvalid={isInvalid} mt={4}>
+            <FormLabel>{label}</FormLabel>
 
-                <InputGroup>
-                    <InputRightElement>
-                        <IconButton
-                            variant="text"
-                            color={'blue.500'}
-                            aria-label={showPassword ? 'Mask password' : 'Reveal password'}
-                            icon={showPassword ? <FaEyeSlash /> : <FaEye />}
-                            onClick={() => setShowPassword(!showPassword)}
-                        />
-                    </InputRightElement>
-                    <Field as={Input} name={name} type={showPassword ? 'text' : 'password'} />
-                </InputGroup>
+            <InputGroup>
+                <InputRightElement>
+                    <IconButton
+                        variant="text"
+                        color={isInvalid ? 'red.500' : 'blue.500'}
+                        aria-label={showPassword ? 'Mask password' : 'Reveal password'}
+                        icon={showPassword ? <FaEyeSlash /> : <FaEye />}
+                        onClick={() => setShowPassword(!showPassword)}
+                    />
+                </InputRightElement>
+                <Field as={Input} name={name} type={showPassword ? 'text' : 'password'} />
+            </InputGroup>
 
-                <FormErrorMessage>{errorMessage}</FormErrorMessage>
-            </FormControl>
-        </>
+            <FormErrorMessage>{errorMessage}</FormErrorMessage>
+        </FormControl>
     );
 };
 

@@ -1,90 +1,66 @@
-import React, {ReactElement, useState} from 'react';
+import React, {ReactElement} from 'react';
 import {Link} from "react-router-dom";
-import {
-    Box,
-    Button,
-    Checkbox,
-    Divider,
-    FormControl,
-    FormLabel,
-    Heading,
-    HStack,
-    Input, InputGroup, InputRightElement,
-    Stack,
-    Text
-} from "@chakra-ui/react";
-// import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-import {ROUTES} from "../../constants/routeConstants";
+import {Form, Formik, FormikProps} from 'formik';
+import {Button, Heading, Stack, Text} from "@chakra-ui/react";
 
-const registerUrl: string = ROUTES[0]?.routes[1]?.name;
+import TextField from "../../components/form/TextField";
+import PasswordField from "../../components/form/PasswordField";
+import {initialValues, loginUrl, RegisterFormType, registerSchema} from "./registerPageData";
+import useRegisterPageHook from "./useRegisterPageHook";
+import DisplayAlert from "../../components/DisplayAlert";
+import {AlertStatusType} from "../../types/AlertStatusType";
 
-const Register = (): ReactElement => {
-    const [showPassword, setShowPassword] = useState<boolean>(false);
+const RegisterPage = (): ReactElement => {
+    const {handleRegister, isRegisterLoading, isRegisterError, registerError} = useRegisterPageHook();
 
     return (
         <>
-            <Stack align={'center'}>
-                <Heading fontSize={'4xl'} textAlign={'center'}>
-                    Sign up
-                </Heading>
-                <Text fontSize={'lg'} color={'gray.600'}>
-                    to enjoy all of our cool features ✌️
-                </Text>
-            </Stack>
-            <Box rounded={'lg'} bg='white' boxShadow={'lg'} p={8}>
-                <Stack spacing={4}>
-                    <HStack>
-                        <Box>
-                            <FormControl id="firstName" isRequired>
-                                <FormLabel>First Name</FormLabel>
-                                <Input type="text" />
-                            </FormControl>
-                        </Box>
-                        <Box>
-                            <FormControl id="lastName">
-                                <FormLabel>Last Name</FormLabel>
-                                <Input type="text" />
-                            </FormControl>
-                        </Box>
-                    </HStack>
-                    <FormControl id="email" isRequired>
-                        <FormLabel>Email address</FormLabel>
-                        <Input type="email" />
-                    </FormControl>
-                    <FormControl id="password" isRequired>
-                        <FormLabel>Password</FormLabel>
-                        <InputGroup>
-                            <Input type={showPassword ? 'text' : 'password'} />
-                            <InputRightElement h={'full'}>
-                                <Button
-                                    variant={'ghost'}
-                                    onClick={() => setShowPassword((showPassword) => !showPassword)}>
-                                    {/*{showPassword ? <ViewIcon /> : <ViewOffIcon />}*/}
+            <Stack spacing={4} w={'full'} maxW={'md'}>
+                <Heading fontSize={'2xl'}>Créer votre compte</Heading>
+                {isRegisterError && <DisplayAlert status={AlertStatusType.Error} message={registerError?.message}/>}
+                <Formik initialValues={initialValues} validationSchema={registerSchema} onSubmit={handleRegister}>
+                    {(props: FormikProps<RegisterFormType>) => (
+                        <Form>
+                            <TextField
+                                label="Nom"
+                                name="name"
+                                isInvalid={!!props.errors.name && !!props.touched.name}
+                                errorMessage={props.errors.name}
+                            />
+                            <TextField
+                                label="Email"
+                                name="email"
+                                isInvalid={!!props.errors.email && !!props.touched.email}
+                                errorMessage={props.errors.email}
+                            />
+                            <PasswordField
+                                label="Mot de passe"
+                                name="password"
+                                isInvalid={!!props.errors.password && !!props.touched.password}
+                                errorMessage={props.errors.password}
+                            />
+                            <PasswordField
+                                label="Cofirmation du mot de passe"
+                                name="confirm"
+                                isInvalid={!!props.errors.confirm && !!props.touched.confirm}
+                                errorMessage={props.errors.confirm}
+                            />
+                            <Stack mt={6}>
+                                <Button colorScheme={'blue'} variant={'solid'} isLoading={isRegisterLoading} type='submit'>
+                                    Enrégistrer
                                 </Button>
-                            </InputRightElement>
-                        </InputGroup>
-                    </FormControl>
-                    <Stack spacing={10} pt={2}>
-                        <Button
-                            loadingText="Submitting"
-                            size="lg"
-                            bg={'blue.400'}
-                            color={'white'}
-                            _hover={{
-                                bg: 'blue.500',
-                            }}>
-                            Sign up
-                        </Button>
-                    </Stack>
-                    <Stack pt={6}>
-                        <Text align={'center'}>
-                            Already a user? <Link to={registerUrl} color={'blue.400'}>Login</Link>
-                        </Text>
-                    </Stack>
+                            </Stack>
+                        </Form>
+                    )}
+                </Formik>
+                <Stack pt={6}>
+                    <Text align={'center'}>
+                        Vous avez déjà un compte? <Link to={loginUrl} style={{color: '#3182CE'}}>Cliquez ici</Link>
+                    </Text>
                 </Stack>
-            </Box>
+            </Stack>
         </>
-    )
-}
+    );
+};
 
-export default Register;
+export default RegisterPage;

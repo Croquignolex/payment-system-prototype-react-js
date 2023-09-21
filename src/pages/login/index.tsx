@@ -1,21 +1,27 @@
 import React, {ReactElement} from 'react';
 import {Link} from "react-router-dom";
 import {Form, Formik, FormikProps} from 'formik';
-import {Button, Checkbox, Heading, Stack, Text} from "@chakra-ui/react";
+import {Button, Checkbox, Heading, Stack, Text, Alert, AlertIcon} from "@chakra-ui/react";
 
 import TextField from "../../components/form/TextField";
 import PasswordField from "../../components/form/PasswordField";
-import {initialValues, LoginFormType, LoginSchema, registerUrl} from "./loginPageData";
+import {initialValues, LoginFormType, loginSchema, registerUrl} from "./loginPageData";
 import useLoginPageHook from "./useLoginPageHook";
 
-const Login = (): ReactElement => {
+const LoginPage = (): ReactElement => {
     const {handleLogin} = useLoginPageHook();
 
     return (
         <>
             <Stack spacing={4} w={'full'} maxW={'md'}>
                 <Heading fontSize={'2xl'}>Connectez-vous à votre compte</Heading>
-                <Formik initialValues={initialValues} validationSchema={LoginSchema} onSubmit={handleLogin}>
+                <Stack spacing={3}>
+                    <Alert status='error'>
+                        <AlertIcon />
+                        There was an error processing your request
+                    </Alert>
+                </Stack>
+                <Formik initialValues={initialValues} validationSchema={loginSchema} onSubmit={handleLogin}>
                     {(props: FormikProps<LoginFormType>) => (
                         <Form>
                             <TextField
@@ -39,7 +45,7 @@ const Login = (): ReactElement => {
                                     <Text color={'blue.500'}>Mot de passe oublié?</Text>
                                 </Stack>
                                 <Button colorScheme={'blue'} variant={'solid'} isLoading={props.isSubmitting} type='submit'>
-                                    Sign in
+                                    Connexion
                                 </Button>
                             </Stack>
                         </Form>
@@ -55,4 +61,4 @@ const Login = (): ReactElement => {
     );
 };
 
-export default Login;
+export default LoginPage;

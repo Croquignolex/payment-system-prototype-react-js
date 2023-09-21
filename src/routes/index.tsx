@@ -1,7 +1,7 @@
 import React, {FC, ReactElement} from 'react';
 import {Route, Routes as ReactRoutes} from 'react-router-dom';
 
-import {ROUTES} from "../constants/routeConstants";
+import {routesDefinition} from "../constants/routeConstants";
 import {generateFlattenRoutes} from "../helpers/generalHelpers";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -33,4 +33,4 @@ const renderRoutes = (mainRoutes: any[]) => {
     return Routes;
 };
 
-export const Routes: FC<{isAuthorized: boolean}> = renderRoutes(ROUTES);
+export const Routes: FC<{isAuthorized: boolean}> = renderRoutes(routesDefinition);
