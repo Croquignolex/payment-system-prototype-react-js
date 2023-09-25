@@ -1,8 +1,9 @@
 import * as Yup from "yup";
 
-import {routesDefinition} from "../../constants/routeConstants";
+import {routesPath} from "../../constants/routeConstants";
 
-export const registerUrl: string = routesDefinition[0]?.routes[1]?.path || '';
+export const registerUrl: string = routesPath.register;
+export const homeUrl: string = routesPath.home;
 
 export const initialValues: LoginFormType = {email: '', password: ''};
 

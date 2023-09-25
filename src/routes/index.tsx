@@ -24,11 +24,11 @@ const renderRoutes = (mainRoutes: any[]) => {
                         }
                     </Route>
                 </Route>
-             )
+            );
         });
 
         return <ReactRoutes>{layouts}</ReactRoutes>;
-    }
+    };
 
     return Routes;
 };

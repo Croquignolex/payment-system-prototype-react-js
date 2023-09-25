@@ -3,9 +3,9 @@ import {Input, FormLabel, FormErrorMessage, FormControl, InputGroup, InputRightE
 import {Field} from "formik";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 
-import {FieldType} from "../../types/FieldType";
+import {FormFieldType} from "../../types/FormFieldType";
 
-const PasswordField: FC<FieldType> = ({label, name, isInvalid, errorMessage}): ReactElement => {
+const PasswordField: FC<FormFieldType> = ({label, name, isInvalid, errorMessage}): ReactElement => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     return (

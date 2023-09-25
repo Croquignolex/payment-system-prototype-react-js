@@ -5,9 +5,7 @@ import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
 
 import App from './App';
 
-const root: ReactDOM.Root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root: ReactDOM.Root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 const queryClient: QueryClient = new QueryClient();
 
@@ -15,9 +13,10 @@ root.render(
   <React.StrictMode>
       <ChakraProvider>
           <QueryClientProvider client={queryClient}>
-            <App />
+              <App />
           </QueryClientProvider>
       </ChakraProvider>
   </React.StrictMode>
 );
+
 

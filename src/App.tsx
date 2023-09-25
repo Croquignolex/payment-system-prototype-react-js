@@ -1,9 +1,11 @@
-import React, {ReactElement, Suspense} from 'react';
-import {Routes} from './routes';
-import {Spinner, Box, AbsoluteCenter} from '@chakra-ui/react';
-import { BrowserRouter } from 'react-router-dom';
+import React, {FC, ReactElement, Suspense, useContext, useReducer, useEffect} from 'react';
+import {BrowserRouter} from 'react-router-dom';
+import {AbsoluteCenter, Box, Spinner} from "@chakra-ui/react";
 
-const SuspenseLoader = (): ReactElement => {
+import {AUTHORIZE_USER, initialGlobalState, reducer, UserContext} from "./components/UserContext";
+import {Routes} from "./routes";
+
+const SuspenseLoader: FC = (): ReactElement => {
     return (
         <Box position='relative' h='100vh'>
             <AbsoluteCenter axis='both'>
@@ -11,16 +13,37 @@ const SuspenseLoader = (): ReactElement => {
             </AbsoluteCenter>
         </Box>
     );
-}
+};
+
+const GlobalState: FC = (): ReactElement => {
+    const {globalState, setGlobalState} = useContext(UserContext);
+
+    useEffect((): void => {
+        setGlobalState({type: AUTHORIZE_USER});
+    }, []);
+
+    if(!globalState.isTrusted) {
+        return <SuspenseLoader />;
+    }
+
+    return (
+        <Routes isAuthorized={globalState.isAuthorized} />
+    );
+};
+
 
 const App = (): ReactElement => {
+    const [globalState, setGlobalState] = useReducer(reducer, initialGlobalState);
+
     return (
-        <Suspense fallback={<SuspenseLoader />}>
-            <BrowserRouter>
-                <Routes isAuthorized={true} />
-            </BrowserRouter>
-        </Suspense>
+        <UserContext.Provider value={{globalState, setGlobalState}}>
+            <Suspense fallback={<SuspenseLoader />}>
+                <BrowserRouter>
+                    <GlobalState />
+                </BrowserRouter>
+            </Suspense>
+        </UserContext.Provider>
     );
-}
+};
 
 export default App;

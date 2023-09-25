@@ -1,4 +1,4 @@
-export interface FieldType {
+export interface FormFieldType {
     label: string;
     name: string;
     isInvalid: boolean;

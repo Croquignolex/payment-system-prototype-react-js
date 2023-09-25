@@ -11,13 +11,13 @@ import DisplayAlert from "../../components/DisplayAlert";
 import {AlertStatusType} from "../../types/AlertStatusType";
 
 const RegisterPage = (): ReactElement => {
-    const {handleRegister, isRegisterLoading, isRegisterError, registerError} = useRegisterPageHook();
+    const {handleRegister, isLoading, isError, errorMessage} = useRegisterPageHook();
 
     return (
         <>
             <Stack spacing={4} w={'full'} maxW={'md'}>
                 <Heading fontSize={'2xl'}>Créer votre compte</Heading>
-                {isRegisterError && <DisplayAlert status={AlertStatusType.Error} message={registerError?.message}/>}
+                {isError && <DisplayAlert status={AlertStatusType.Error} message={errorMessage}/>}
                 <Formik initialValues={initialValues} validationSchema={registerSchema} onSubmit={handleRegister}>
                     {(props: FormikProps<RegisterFormType>) => (
                         <Form>
@@ -46,7 +46,7 @@ const RegisterPage = (): ReactElement => {
                                 errorMessage={props.errors.confirm}
                             />
                             <Stack mt={6}>
-                                <Button colorScheme={'blue'} variant={'solid'} isLoading={isRegisterLoading} type='submit'>
+                                <Button colorScheme={'blue'} variant={'solid'} isLoading={isLoading} type='submit'>
                                     Enrégistrer
                                 </Button>
                             </Stack>
