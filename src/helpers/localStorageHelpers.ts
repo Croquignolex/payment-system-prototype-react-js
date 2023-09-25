@@ -9,12 +9,12 @@ export const getLocaleStorageItem = (key: string): any|null => {
         return data;
     }
 
-    return data;
+    return JSON.parse(data);
 };
 
 // Set local storage item
 export const setLocaleStorageItem = (key: string, data: any): void => {
-    localStorage.setItem(key, data);
+    localStorage.setItem(key, JSON.stringify(data));
 };
 
 // Remove local storage item

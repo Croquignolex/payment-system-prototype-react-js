@@ -2,8 +2,9 @@ import React, {FC, ReactElement, Suspense, useContext, useReducer, useEffect} fr
 import {BrowserRouter} from 'react-router-dom';
 import {AbsoluteCenter, Box, Spinner} from "@chakra-ui/react";
 
-import {AUTHORIZE_USER, initialGlobalState, reducer, UserContext} from "./components/UserContext";
+import {initialGlobalState, reducer, TRUST_UNAUTHORIZED_USER, UPDATE_USER_DATA, UserContext} from "./components/UserContext";
 import {Routes} from "./routes";
+import {getLocaleStorageItem} from "./helpers/localStorageHelpers";
 
 const SuspenseLoader: FC = (): ReactElement => {
     return (
@@ -19,10 +20,18 @@ const GlobalState: FC = (): ReactElement => {
     const {globalState, setGlobalState} = useContext(UserContext);
 
     useEffect((): void => {
-        setGlobalState({type: AUTHORIZE_USER});
+        const userPersistedData = getLocaleStorageItem('user');
+
+        if(userPersistedData) {
+            const {name, email} = userPersistedData;
+
+            setGlobalState({type: UPDATE_USER_DATA, payload: {isAuthorized: true, name, email}});
+        } else {
+            setGlobalState({type: TRUST_UNAUTHORIZED_USER});
+        }
     }, []);
 
-    if(!globalState.isTrusted) {
+    if(!globalState.isTrustedData) {
         return <SuspenseLoader />;
     }
 

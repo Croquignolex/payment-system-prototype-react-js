@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 import {Link, useLocation} from "react-router-dom";
 import {Form, Formik, FormikProps} from 'formik';
-import {Button, Checkbox, Heading, Stack, Text, Alert, AlertIcon} from "@chakra-ui/react";
+import {Button, Checkbox, Heading, Stack, Text} from "@chakra-ui/react";
 
 import TextField from "../../components/form/TextField";
 import PasswordField from "../../components/form/PasswordField";
@@ -12,14 +12,14 @@ import {AlertStatusType} from "../../types/AlertStatusType";
 
 const LoginPage = (): ReactElement => {
     const {handleLogin, isLoading, isError, errorMessage} = useLoginPageHook();
-    const {state} = useLocation();
+    const {state: routeState} = useLocation();
 
     return (
         <>
             <Stack spacing={4} w={'full'} maxW={'md'}>
                 <Heading fontSize={'2xl'}>Connectez-vous à votre compte</Heading>
                 {isError && <DisplayAlert status={AlertStatusType.Error} message={errorMessage} />}
-                {(state?.registerMessage) && <DisplayAlert status={AlertStatusType.Success} message={state?.registerMessage || ""} />}
+                {(routeState?.registerMessage) && <DisplayAlert status={AlertStatusType.Success} message={routeState?.registerMessage || ""} />}
                 <Formik initialValues={initialValues} validationSchema={loginSchema} onSubmit={handleLogin}>
                     {(props: FormikProps<LoginFormType>) => (
                         <Form>
