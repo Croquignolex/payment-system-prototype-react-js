@@ -1,17 +1,15 @@
-import React, {ReactElement, FC} from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import {routesPath} from "../constants/routeConstants";
+import React, { ReactElement, FC } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 
-const homeUrl: string = routesPath.home;
-const loginUrl: string = routesPath.login;
+import { routes } from "../constants/routeConstants";
 
-const ProtectedRoute: FC<{isPublic: boolean, isAuthorized: boolean}> = ({ isPublic, isAuthorized }): ReactElement => {
+const ProtectedRoute: FC<{ isPublic: boolean, isAuthorized: boolean }> = ({ isPublic, isAuthorized }): ReactElement => {
     if(isAuthorized && isPublic) {
-        return <Navigate to={homeUrl} />;
+        return <Navigate to={routes.home.path} />;
     }
 
     if(!isAuthorized && !isPublic) {
-        return <Navigate to={loginUrl} />;
+        return <Navigate to={routes.login.path} />;
     }
 
     return <Outlet />;

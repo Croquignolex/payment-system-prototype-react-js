@@ -1,10 +1,10 @@
-import React, {ReactElement} from 'react';
-import {Outlet} from 'react-router-dom';
-import {Flex, Stack, Image} from '@chakra-ui/react';
+import React, { FC, ReactElement } from "react";
+import { Outlet } from "react-router-dom";
+import { Flex, Stack, Image } from "@chakra-ui/react";
 
-import authBg from '../assets/img/auth-bg.jpg';
+import authBg from "../assets/img/auth-bg.png";
 
-const Home = (): ReactElement => {
+const AnonymousLayout: FC = (): ReactElement => {
     return (
         <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
@@ -17,4 +17,4 @@ const Home = (): ReactElement => {
     );
 };
 
-export default Home;
+export default AnonymousLayout;

@@ -1,12 +1,12 @@
-import React, {FC, ReactElement} from 'react';
-import {Route, Routes as ReactRoutes} from 'react-router-dom';
+import React, { FC, ReactElement } from "react";
+import { Route, Routes as ReactRoutes } from "react-router-dom";
 
-import {routesDefinition} from "../constants/routeConstants";
-import {generateFlattenRoutes} from "../helpers/generalHelpers";
+import { routesDefinition } from "../constants/routeConstants";
+import { generateFlattenRoutes } from "../helpers/generalHelpers";
 import ProtectedRoute from "./ProtectedRoute";
 
 const renderRoutes = (mainRoutes: any[]) => {
-    const Routes: FC<{isAuthorized: boolean}> = ({ isAuthorized }) => {
+    const Routes: FC<{ isAuthorized: boolean }> = ({ isAuthorized }) => {
         const layouts: ReactElement[] = mainRoutes.map(({ layout: Layout, routes, isPublic }, index: number) => {
             const subRoutes: any[] = generateFlattenRoutes(routes);
 
@@ -33,4 +33,4 @@ const renderRoutes = (mainRoutes: any[]) => {
     return Routes;
 };
 
-export const Routes: FC<{isAuthorized: boolean}> = renderRoutes(routesDefinition);
+export const Routes: FC<{ isAuthorized: boolean }> = renderRoutes(routesDefinition);

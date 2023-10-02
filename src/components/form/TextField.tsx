@@ -1,10 +1,10 @@
-import React, {ReactElement, FC} from 'react';
-import {Input, FormLabel, FormErrorMessage, FormControl} from "@chakra-ui/react";
-import {Field} from "formik";
+import React, { ReactElement, FC } from "react";
+import { Input, FormLabel, FormErrorMessage, FormControl } from "@chakra-ui/react";
+import { Field } from "formik";
 
-import {FormFieldType} from "../../types/FormFieldType";
+import { FormFieldProps } from "../../types/othersTypes";
 
-const TextField: FC<FormFieldType> = ({label, name, isInvalid, errorMessage}): ReactElement => {
+const TextField: FC<FormFieldProps> = ({ label, name, isInvalid, errorMessage }): ReactElement => {
     return (
         <FormControl isInvalid={isInvalid} mt={4}>
             <FormLabel>{label}</FormLabel>

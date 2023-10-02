@@ -1,10 +1,10 @@
-import React, {FC, ReactElement, Suspense, useContext, useReducer, useEffect} from 'react';
-import {BrowserRouter} from 'react-router-dom';
-import {AbsoluteCenter, Box, Spinner} from "@chakra-ui/react";
+import React, { FC, ReactElement, Suspense, useContext, useReducer, useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { AbsoluteCenter, Box, Spinner } from "@chakra-ui/react";
 
-import {initialGlobalState, reducer, TRUST_UNAUTHORIZED_USER, UPDATE_USER_DATA, UserContext} from "./components/UserContext";
-import {Routes} from "./routes";
-import {getLocaleStorageItem} from "./helpers/localStorageHelpers";
+import { initialGlobalState, reducer, TRUST_UNAUTHORIZED_USER, UPDATE_USER_DATA, UserContext } from "./components/UserContext";
+import { Routes } from "./routes";
+import { getLocaleStorageItem } from "./helpers/localStorageHelpers";
 
 const SuspenseLoader: FC = (): ReactElement => {
     return (
@@ -17,17 +17,17 @@ const SuspenseLoader: FC = (): ReactElement => {
 };
 
 const GlobalState: FC = (): ReactElement => {
-    const {globalState, setGlobalState} = useContext(UserContext);
+    const { globalState, setGlobalState } = useContext(UserContext);
 
     useEffect((): void => {
         const userPersistedData = getLocaleStorageItem('user');
 
         if(userPersistedData) {
-            const {name, email} = userPersistedData;
+            const { name, email } = userPersistedData;
 
-            setGlobalState({type: UPDATE_USER_DATA, payload: {isAuthorized: true, name, email}});
+            setGlobalState({ type: UPDATE_USER_DATA, payload: { isAuthorized: true, name, email } });
         } else {
-            setGlobalState({type: TRUST_UNAUTHORIZED_USER});
+            setGlobalState({ type: TRUST_UNAUTHORIZED_USER });
         }
     }, []);
 
@@ -40,12 +40,11 @@ const GlobalState: FC = (): ReactElement => {
     );
 };
 
-
-const App = (): ReactElement => {
+const App: FC = (): ReactElement => {
     const [globalState, setGlobalState] = useReducer(reducer, initialGlobalState);
 
     return (
-        <UserContext.Provider value={{globalState, setGlobalState}}>
+        <UserContext.Provider value={{ globalState, setGlobalState }}>
             <Suspense fallback={<SuspenseLoader />}>
                 <BrowserRouter>
                     <GlobalState />

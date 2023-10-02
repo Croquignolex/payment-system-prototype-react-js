@@ -1,23 +1,25 @@
-import React, {ReactElement} from 'react';
-import {Link} from "react-router-dom";
-import {Form, Formik, FormikProps} from 'formik';
-import {Button, Heading, Stack, Text} from "@chakra-ui/react";
+import React, { ReactElement } from "react";
+import { Link } from "react-router-dom";
+import { Form, Formik, FormikProps } from "formik";
+import { Button, Heading, Stack, Text } from "@chakra-ui/react";
 
 import TextField from "../../components/form/TextField";
 import PasswordField from "../../components/form/PasswordField";
-import {initialValues, loginUrl, RegisterFormType, registerSchema} from "./registerPageData";
+import { initialValues, registerSchema } from "./registerPageData";
 import useRegisterPageHook from "./useRegisterPageHook";
 import DisplayAlert from "../../components/DisplayAlert";
-import {AlertStatusType} from "../../types/AlertStatusType";
+import { RegisterFormType } from "../../types/authTypes";
+import { AlertStatusType } from "../../types/enumsTypes";
+import { routes } from "../../constants/routeConstants";
 
 const RegisterPage = (): ReactElement => {
-    const {handleRegister, isLoading, isError, errorMessage} = useRegisterPageHook();
+    const { handleRegister, isLoading, isError, errorMessage } = useRegisterPageHook();
 
     return (
         <>
             <Stack spacing={4} w={'full'} maxW={'md'}>
                 <Heading fontSize={'2xl'}>Créer votre compte</Heading>
-                {isError && <DisplayAlert status={AlertStatusType.Error} message={errorMessage}/>}
+                {isError && <DisplayAlert status={AlertStatusType.error} message={errorMessage}/>}
                 <Formik initialValues={initialValues} validationSchema={registerSchema} onSubmit={handleRegister}>
                     {(props: FormikProps<RegisterFormType>) => (
                         <Form>
@@ -55,7 +57,7 @@ const RegisterPage = (): ReactElement => {
                 </Formik>
                 <Stack pt={6}>
                     <Text align={'center'}>
-                        Vous avez déjà un compte? <Link to={loginUrl} style={{color: '#3182CE'}}>Cliquez ici</Link>
+                        Vous avez déjà un compte? <Link to={routes.login.path} style={{ color: '#3182CE' }}>Cliquez ici</Link>
                     </Text>
                 </Stack>
             </Stack>

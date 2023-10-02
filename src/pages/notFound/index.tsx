@@ -1,8 +1,8 @@
-import React, {ReactElement} from 'react';
+import React, { ReactElement } from "react";
 
 const NotFound = (): ReactElement => {
     return (
-        <div>404</div>
+        <>404</>
     )
 }
 

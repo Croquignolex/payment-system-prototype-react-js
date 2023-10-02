@@ -1,10 +1,9 @@
-import axios, {InternalAxiosRequestConfig, AxiosInstance, AxiosRequestConfig} from "axios";
+import axios, { InternalAxiosRequestConfig, AxiosInstance, AxiosRequestConfig } from "axios";
 
-import {getLocaleStorageItem} from "./localStorageHelpers";
+import { getLocaleStorageItem } from "./localStorageHelpers";
 
-const axiosApiInstance: AxiosInstance = axios.create({timeout: 30000});
+const axiosApiInstance: AxiosInstance = axios.create({ timeout: 30000 });
 
-// Axios request interceptor to add automatically token
 axiosApiInstance.interceptors.request.use((config: InternalAxiosRequestConfig<any>) => {
     config.headers["content-type"] = 'application/json';
     const accessToken = getLocaleStorageItem('access-token');

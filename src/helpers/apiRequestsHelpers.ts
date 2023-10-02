@@ -1,17 +1,18 @@
-import {postRequest} from "./axiosHelpers";
-import {authApiURI} from "../constants/apiURIConstants";
-import {apiBaseURL} from "../constants/envConstants";
+import { postRequest } from "./axiosHelpers";
+import { authApiURI } from "../constants/apiURIConstants";
+import { apiBaseURL } from "../constants/envConstants";
+import { LoginRequestType, RegisterRequestType } from "../types/authTypes";
 
 const API_V1_URL: string = `${apiBaseURL}/api/v1`;
 
-export const loginRequest = ({email, password}: {email: string, password: string}): Promise<any> => {
+export const loginRequest = ({ email, password }: LoginRequestType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(authApiURI.login);
-    return postRequest(url, {email, password});
+    return postRequest(url, { email, password });
 };
 
-export const registerRequest = ({name, email, password}: {name: string, email: string, password: string}): Promise<any> => {
+export const registerRequest = ({ name, email, password }: RegisterRequestType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(authApiURI.register);
-    return postRequest(url, {name, email, password});
+    return postRequest(url, { name, email, password });
 };
 
 // Build complete url

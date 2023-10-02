@@ -1,88 +1,68 @@
-import {lazy, LazyExoticComponent, ReactElement} from 'react';
+import { lazy, LazyExoticComponent, ReactElement } from 'react';
 
 import AnonymousLayout from "../layouts/AnonymousLayout";
 import MainLayout from "../layouts/MainLayout";
+import { FiHome } from "react-icons/fi";
+import ErrorLayout from "../layouts/ErrorLayout";
 
 const LazyLoginPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/login'));
 const LazyRegisterPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register'));
 const LazyHomePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/home'));
 const LazyNotFoundPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/notFound'));
 
-export const routesPath = {
-    login: '/',
-    register: '/register',
-    home: '/home',
-} as const;
+export const routes = {
+    login: {
+        name: 'login',
+        title: 'Connexion',
+        component: LazyLoginPage,
+        path: '/',
+        icon: null,
+        onSidebar: false,
+        onHeader: false,
+    },
+    register: {
+        name: 'register',
+        title: 'Inscription',
+        component: LazyRegisterPage,
+        path: '/register',
+        icon: null,
+        onSidebar: false,
+        onHeader: false,
+    },
+    home: {
+        name: 'home',
+        title: 'Accueil',
+        component: LazyHomePage,
+        path: '/home',
+        icon: FiHome,
+        onSidebar: true,
+        onHeader: false,
+    },
+    404: {
+        name: '404',
+        title: 'Page introuvable',
+        component: LazyNotFoundPage,
+        path: '*',
+        icon: null,
+        onSidebar: false,
+        onHeader: false,
+    }
+};
 
 export const routesDefinition = [
     {
         layout: AnonymousLayout,
         isPublic: true,
-        routes: [
-            {
-                name: 'login',
-                title: 'Login page',
-                component: LazyLoginPage,
-                path: routesPath.login
-            },
-            {
-                name: 'register',
-                title: 'Register page',
-                component: LazyRegisterPage,
-                path: routesPath.register
-            }
-        ]
+        routes: [routes.login, routes.register]
     },
     {
         layout: MainLayout,
         isPublic: false,
-        routes: [
-            {
-                name: 'home',
-                title: 'Home page',
-                component: LazyHomePage,
-                path: routesPath.home
-            },
-            /*{
-                name: 'users',
-                title: 'Users',
-                hasSideLink: true,
-                routes: [
-                    {
-                        name: 'list-users',
-                        title: 'List of users',
-                        hasSideLink: true,
-                        component: LazyUsersPage,
-                        path: '/users'
-                    },
-                    {
-                        name: 'create-user',
-                        title: 'Add user',
-                        hasSideLink: true,
-                        component: LazyUserCreatePage,
-                        path: '/users/create'
-                    },
-                    {
-                        name: 'details-user',
-                        title: 'User details',
-                        hasSideLink: false,
-                        component: LazyUserPage,
-                        path: '/users/{id}'
-                    }
-                ]
-            }*/
-        ]
+        routes: [routes.home]
     },
     {
-        layout: AnonymousLayout,
+        layout: ErrorLayout,
         isPublic: true,
-        routes: [
-            {
-                name: 'not-found',
-                title: 'Page not found',
-                component: LazyNotFoundPage,
-                path: '*'
-            }
-        ]
+        routes: [routes.login, routes.register]
     },
 ];
