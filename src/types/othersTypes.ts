@@ -10,6 +10,7 @@ export interface RequestResponseType {
     data?: any;
     error?: any;
     mutate: any;
+    variables?: any;
 }
 
 export interface FormFieldProps {

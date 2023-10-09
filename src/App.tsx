@@ -23,9 +23,9 @@ const GlobalState: FC = (): ReactElement => {
         const userPersistedData = getLocaleStorageItem('user');
 
         if(userPersistedData) {
-            const { name, email } = userPersistedData;
+            const { lastName, firstName, email, accountId } = userPersistedData;
 
-            setGlobalState({ type: UPDATE_USER_DATA, payload: { isAuthorized: true, name, email } });
+            setGlobalState({ type: UPDATE_USER_DATA, payload: { isAuthorized: true, lastName, firstName, email, accountId } });
         } else {
             setGlobalState({ type: TRUST_UNAUTHORIZED_USER });
         }

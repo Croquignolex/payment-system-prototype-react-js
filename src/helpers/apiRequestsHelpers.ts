@@ -10,9 +10,9 @@ export const loginRequest = ({ email, password }: LoginRequestType): Promise<any
     return postRequest(url, { email, password });
 };
 
-export const registerRequest = ({ name, email, password }: RegisterRequestType): Promise<any> => {
+export const registerRequest = ({ firstName, lastName, email, password }: RegisterRequestType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(authApiURI.register);
-    return postRequest(url, { name, email, password });
+    return postRequest(url, { firstName, lastName, email, password });
 };
 
 // Build complete url

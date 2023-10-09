@@ -10,8 +10,10 @@ export const CLEAR_USER_DATA: string = 'CLEAR_USER_DATA';
 export const initialGlobalState: UserModelType = {
     isTrustedData: false,
     isAuthorized: false,
-    name: '',
     email: '',
+    lastName: '',
+    firstName: '',
+    accountId: '',
 };
 
 export const reducer = (state: UserModelType = initialGlobalState, action: ReducerActionType): UserModelType => {
@@ -27,8 +29,10 @@ export const reducer = (state: UserModelType = initialGlobalState, action: Reduc
                 ...state,
                 isTrustedData: true,
                 isAuthorized: action.payload?.isAuthorized,
-                name: action.payload?.name,
-                email: action.payload?.email
+                firstName: action.payload?.firstName,
+                lastName: action.payload?.lastName,
+                email: action.payload?.email,
+                accountId: action.payload?.accountId,
             };
             return nextState || state;
 

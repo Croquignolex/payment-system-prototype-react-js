@@ -46,7 +46,7 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, ...rest }) => {
                             <HStack>
                                 <Avatar bg='blue.500' icon={<FiUser fontSize='1.5rem' />} />
                                 <VStack display={{ base: 'none', md: 'flex' }} alignItems="flex-start">
-                                    <Text fontSize="sm">{globalState?.name}</Text>
+                                    <Text fontSize="sm">{globalState?.firstName}</Text>
                                 </VStack>
                                 <Box display={{ base: 'none', md: 'flex' }}>
                                     <FiChevronDown />
@@ -60,7 +60,7 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, ...rest }) => {
                             {manuItems.map((route: any): ReactElement|null => {
                                 if(route?.onHeader) {
                                     return (
-                                        <Link to={route?.path}>
+                                        <Link to={route?.path} key={route?.name}>
                                             <MenuItem
                                                 key={route?.name}
                                                 icon={route?.icon}

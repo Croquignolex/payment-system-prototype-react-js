@@ -4,7 +4,8 @@ export interface LoginRequestType {
 }
 
 export interface RegisterRequestType extends LoginRequestType {
-    name: string
+    lastName: string,
+    firstName: string,
 }
 
 export interface LoginFormType extends LoginRequestType {
@@ -12,5 +13,5 @@ export interface LoginFormType extends LoginRequestType {
 
 
 export interface RegisterFormType extends RegisterRequestType {
-    confirm: string;
+    confirmPassword: string;
 }

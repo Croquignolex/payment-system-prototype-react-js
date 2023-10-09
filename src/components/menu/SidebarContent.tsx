@@ -29,7 +29,7 @@ const SidebarContent: FC<SidebarContentProps> = ({ onClose, ...rest }): ReactEle
             {manuItems.map((route: any): ReactElement|null => {
                 if(route?.onSidebar) {
                     return (
-                        <Link to={route?.path}>
+                        <Link to={route?.path} key={route?.name}>
                             <NavItem key={route?.name} icon={route?.icon} isActive={currentPath === route?.path}>
                                 {route?.title}
                             </NavItem>
