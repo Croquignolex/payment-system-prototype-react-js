@@ -2,12 +2,13 @@ import { lazy, LazyExoticComponent, ReactElement } from 'react';
 
 import AnonymousLayout from "../layouts/AnonymousLayout";
 import MainLayout from "../layouts/MainLayout";
-import { FiHome } from "react-icons/fi";
+import { FiHome, FiUser } from "react-icons/fi";
 import ErrorLayout from "../layouts/ErrorLayout";
 
 const LazyLoginPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/login'));
 const LazyRegisterPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register'));
 const LazyHomePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/home'));
+const LazyProfilePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/profile'));
 const LazyNotFoundPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/notFound'));
 
 export const routes = {
@@ -38,6 +39,15 @@ export const routes = {
         onSidebar: true,
         onHeader: false,
     },
+    profile: {
+        name: 'profile',
+        title: 'Profil',
+        component: LazyProfilePage,
+        path: '/profile',
+        icon: FiUser,
+        onSidebar: false,
+        onHeader: true,
+    },
     404: {
         name: '404',
         title: 'Page introuvable',
@@ -58,11 +68,11 @@ export const routesDefinition = [
     {
         layout: MainLayout,
         isPublic: false,
-        routes: [routes.home]
+        routes: [routes.home, routes.profile]
     },
     {
         layout: ErrorLayout,
         isPublic: true,
-        routes: [routes.login, routes.register]
+        routes: [routes["404"]]
     },
 ];

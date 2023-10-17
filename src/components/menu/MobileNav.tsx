@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FiLogOut, FiChevronDown, FiMenu, FiSettings, FiUser } from "react-icons/fi";
 import {
     Box, Flex, FlexProps, useColorModeValue, IconButton, Text, HStack,
-    Menu, MenuButton, Avatar, VStack, MenuList, MenuItem,
+    Menu, MenuButton, Avatar, VStack, MenuList, MenuItem, Icon,
 } from "@chakra-ui/react";
 
 import { UserContext } from "../UserContext";
@@ -13,6 +13,7 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, ...rest }) => {
     const { globalState } = useContext(UserContext);
     const { pathname: currentPath } = useLocation();
     const manuItems: any[] = useMemo((): any[] => Object.values(routes), []);
+    console.log({manuItems})
 
     return (
         <Flex
@@ -63,10 +64,11 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, ...rest }) => {
                                         <Link to={route?.path} key={route?.name}>
                                             <MenuItem
                                                 key={route?.name}
-                                                icon={route?.icon}
                                                 background={(currentPath === route?.path) ? 'blue.500' : 'white'}
                                                 color={(currentPath === route?.path) ? 'white' : 'black'}
+                                                _hover={{ bg: 'gray.100', color: 'black' }}
                                             >
+                                                <Icon mr="2" as={route?.icon} />
                                                 {route?.title}
                                             </MenuItem>
                                         </Link>
@@ -74,11 +76,6 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, ...rest }) => {
                                 }
                                 return null;
                             })}
-                            <Link to={'/'}>
-                                <MenuItem icon={<FiUser />}>
-                                    Profil
-                                </MenuItem>
-                            </Link>
                             <Link to={'/'}>
                                 <MenuItem icon={<FiSettings />}>
                                     Paramètres

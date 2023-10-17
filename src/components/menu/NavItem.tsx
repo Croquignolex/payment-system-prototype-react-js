@@ -17,7 +17,7 @@ const NavItem: FC<NavItemProps> = ({ icon, isActive, children, ...rest }): React
                 color={isActive ? 'white' : 'black'}
                 {...rest}
             >
-                { icon && (<Icon mr="4" fontSize="16" _groupHover={{ color: 'white' }} as={icon} />) }
+                { icon && (<Icon mr="4" as={icon} />) }
                 {children}
             </Flex>
         </Box>
