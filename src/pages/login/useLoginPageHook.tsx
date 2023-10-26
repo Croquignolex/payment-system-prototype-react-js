@@ -17,12 +17,21 @@ const useLoginPageHook = (): any => {
 
     const errorMessage: string = error?.response?.data?.message || error?.message;
 
-    if(isSuccess) {
-        const { message, name, email, token } = data?.data;
+    if(isSuccess || isError) {
+        // const { message, firstName, lastName, email, accountId, token } = data?.data;
 
-        setLocaleStorageItem('user', { name, email, 'access-token': token });
+        // *************************************** TO REMOVE *************************************** //
+        const message: string = "Bienvenue Croquy";
+        const firstName: string = "Croquy";
+        const lastName: string = "Corquignolex";
+        const email: string = "crouy@exemple.com";
+        const accountId: string = "73d5e89c-a221-4876-9ac9-09b7bcf2ec29";
+        const token: string = "secrete-access-token";
+        // *************************************** TO REMOVE *************************************** //
 
-        setGlobalState({type: UPDATE_USER_DATA, payload: { isAuthorized: true, name, email }});
+        setLocaleStorageItem('user', { firstName, lastName, email, accountId, 'access-token': token });
+
+        setGlobalState({type: UPDATE_USER_DATA, payload: { isAuthorized: true, firstName, lastName, email, accountId }});
 
         navigate(routes.home.path, {state: { loginMessage: message }});
     }

@@ -1,12 +1,13 @@
 import React, { ReactElement, useContext } from "react";
-
-import { UserContext } from "../../components/UserContext";
+import { Box, Heading } from '@chakra-ui/react'
 
 const Home = (): ReactElement => {
-    const {globalState} = useContext(UserContext);
-
     return (
-        <div>Home</div>
+        <Box textAlign="center" py={10} px={6}>
+            <Heading as="h2" size="xl" mt={6} mb={2} color={"blue.500"}>
+                Bienvenue
+            </Heading>
+        </Box>
     )
 }
 

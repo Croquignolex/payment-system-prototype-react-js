@@ -48,8 +48,8 @@ export const routes = {
         onSidebar: false,
         onHeader: true,
     },
-    404: {
-        name: '404',
+    notFound: {
+        name: 'notFound',
         title: 'Page introuvable',
         component: LazyNotFoundPage,
         path: '*',
@@ -67,12 +67,11 @@ export const routesDefinition = [
     },
     {
         layout: MainLayout,
-        isPublic: false,
         routes: [routes.home, routes.profile]
     },
     {
         layout: ErrorLayout,
-        isPublic: true,
-        routes: [routes["404"]]
+        isError: true,
+        routes: [routes.notFound]
     },
 ];

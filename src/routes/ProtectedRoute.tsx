@@ -3,16 +3,24 @@ import { Navigate, Outlet } from "react-router-dom";
 
 import { routes } from "../constants/routeConstants";
 
-const ProtectedRoute: FC<{ isPublic: boolean, isAuthorized: boolean }> = ({ isPublic, isAuthorized }): ReactElement => {
-    if(isAuthorized && isPublic) {
-        return <Navigate to={routes.home.path} />;
-    }
+const ProtectedRoute: FC<ProtectedRouteProps> = ({ isPublic, isAuthorized, isError }): ReactElement => {
+    if(!isError) {
+        if(isAuthorized && isPublic) {
+            return <Navigate to={routes.home.path} />;
+        }
 
-    if(!isAuthorized && !isPublic) {
-        return <Navigate to={routes.login.path} />;
+        if(!isAuthorized && !isPublic) {
+            return <Navigate to={routes.login.path} />;
+        }
     }
 
     return <Outlet />;
 };
+
+export interface ProtectedRouteProps {
+    isPublic?: boolean,
+    isAuthorized: boolean,
+    isError?: boolean
+}
 
 export default ProtectedRoute;

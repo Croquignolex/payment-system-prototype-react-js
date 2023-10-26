@@ -7,12 +7,12 @@ import ProtectedRoute from "./ProtectedRoute";
 
 const renderRoutes = (mainRoutes: any[]) => {
     const Routes: FC<{ isAuthorized: boolean }> = ({ isAuthorized }) => {
-        const layouts: ReactElement[] = mainRoutes.map(({ layout: Layout, routes, isPublic }, index: number) => {
+        const layouts: ReactElement[] = mainRoutes.map(({ layout: Layout, routes, isPublic, isError }, index: number) => {
             const subRoutes: any[] = generateFlattenRoutes(routes);
 
             return (
                 <Route key={index} element={<Layout />}>
-                    <Route element={<ProtectedRoute isAuthorized={isAuthorized} isPublic={isPublic} />}>
+                    <Route element={<ProtectedRoute isAuthorized={isAuthorized} isPublic={isPublic} isError={isError} />}>
                         {
                             subRoutes.map(({ component: Component, path, name }) => {
                                 return (

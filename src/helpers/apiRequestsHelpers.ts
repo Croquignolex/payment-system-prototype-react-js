@@ -3,7 +3,8 @@ import { authApiURI } from "../constants/apiURIConstants";
 import { apiBaseURL } from "../constants/envConstants";
 import { LoginRequestType, RegisterRequestType } from "../types/authTypes";
 
-const API_V1_URL: string = `${apiBaseURL}/api/v1`;
+// const API_V1_URL: string = `${apiBaseURL}/api/v1`;
+const API_V1_URL: string = `${apiBaseURL}`;
 
 export const loginRequest = ({ email, password }: LoginRequestType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(authApiURI.login);
