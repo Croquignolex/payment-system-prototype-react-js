@@ -5,9 +5,10 @@ import { useNavigate, NavigateFunction } from "react-router-dom";
 import { routes } from "../../constants/routeConstants";
 import { registerRequest } from "../../helpers/apiRequestsHelpers";
 import { RegisterFormType } from "../../types/authTypes";
-import { RequestResponseType } from "../../types/othersTypes";
+import {ErrorAlertType, RequestResponseType} from "../../types/othersTypes";
 import { setLocaleStorageItem } from "../../helpers/localStorageHelpers";
 import { UPDATE_USER_DATA, UserContext } from "../../components/UserContext";
+import {AlertStatusType} from "../../types/enumsTypes";
 
 const useRegisterPageHook = (): any => {
     const navigate: NavigateFunction = useNavigate();
@@ -16,7 +17,7 @@ const useRegisterPageHook = (): any => {
     const { isLoading, isError, isSuccess, data, error, variables, mutate }: RequestResponseType = useMutation(registerRequest);
 
     const errorMessage: string = error?.response?.data?.message || error?.message;
-
+    const errorAlertData: ErrorAlertType = { show: isError, status: AlertStatusType.error, message: errorMessage };
 
     if(isSuccess) {
         const accountId: string = data?.data?.accountId;
@@ -26,12 +27,12 @@ const useRegisterPageHook = (): any => {
 
         setGlobalState({type: UPDATE_USER_DATA, payload: { isAuthorized: true, lastName, firstName, email, accountId }});
 
-        navigate(routes.home.path, {state: { loginMessage: `Bienvenue ${firstName}` }});
+        navigate(routes.home.path, {state: { welcomeAlert: true }});
     }
 
     const handleRegister = ({ firstName, lastName, email, password }: RegisterFormType): void => mutate({ firstName, lastName, email, password });
 
-    return { handleRegister, isLoading, isError, errorMessage };
+    return { handleRegister, isLoading, errorAlertData };
 };
 
 export default useRegisterPageHook;

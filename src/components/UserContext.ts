@@ -37,7 +37,7 @@ export const reducer = (state: UserModelType = initialGlobalState, action: Reduc
             return nextState || state;
 
         case CLEAR_USER_DATA:
-            nextState = initialGlobalState;
+            nextState = {...initialGlobalState, isTrustedData: true};
             return nextState || state;
 
         default:

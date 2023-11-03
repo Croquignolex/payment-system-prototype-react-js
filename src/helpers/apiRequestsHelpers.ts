@@ -11,6 +11,11 @@ export const loginRequest = ({ email, password }: LoginRequestType): Promise<any
     return postRequest(url, { email, password });
 };
 
+export const logoutRequest = (): Promise<any> => {
+    const url: string = joinBaseUrlWithParams(authApiURI.logout);
+    return postRequest(url);
+};
+
 export const registerRequest = ({ firstName, lastName, email, password }: RegisterRequestType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(authApiURI.register);
     return postRequest(url, { firstName, lastName, email, password });

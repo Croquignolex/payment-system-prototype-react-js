@@ -6,22 +6,24 @@ import { routes } from "../../constants/routeConstants";
 import { loginRequest } from "../../helpers/apiRequestsHelpers";
 import { setLocaleStorageItem } from "../../helpers/localStorageHelpers";
 import { UPDATE_USER_DATA, UserContext } from "../../components/UserContext";
-import { RequestResponseType } from "../../types/othersTypes";
+import {ErrorAlertType, RequestResponseType} from "../../types/othersTypes";
 import { LoginFormType } from "../../types/authTypes";
+import {AlertStatusType} from "../../types/enumsTypes";
 
 const useLoginPageHook = (): any => {
     const navigate: NavigateFunction = useNavigate();
     const { setGlobalState } = useContext(UserContext);
 
-    const { isLoading, isError, isSuccess, data, error, mutate }: RequestResponseType = useMutation(loginRequest);
+    // const { isLoading, isError, isSuccess, data, error, mutate }: RequestResponseType = useMutation(loginRequest);
+    const { isLoading, isError, isSuccess, error, mutate }: RequestResponseType = useMutation(loginRequest);
 
     const errorMessage: string = error?.response?.data?.message || error?.message;
+    const errorAlertData: ErrorAlertType = { show: isError, status: AlertStatusType.error, message: errorMessage }
 
     if(isSuccess || isError) {
         // const { message, firstName, lastName, email, accountId, token } = data?.data;
 
         // *************************************** TO REMOVE *************************************** //
-        const message: string = "Bienvenue Croquy";
         const firstName: string = "Croquy";
         const lastName: string = "Corquignolex";
         const email: string = "crouy@exemple.com";
@@ -31,14 +33,14 @@ const useLoginPageHook = (): any => {
 
         setLocaleStorageItem('user', { firstName, lastName, email, accountId, 'access-token': token });
 
-        setGlobalState({type: UPDATE_USER_DATA, payload: { isAuthorized: true, firstName, lastName, email, accountId }});
+        setGlobalState({ type: UPDATE_USER_DATA, payload: { isAuthorized: true, firstName, lastName, email, accountId } });
 
-        navigate(routes.home.path, {state: { loginMessage: message }});
+        navigate(routes.home.path, { state: { welcomeAlert: true } });
     }
 
     const handleLogin = ({ email, password }: LoginFormType): void => mutate({ email, password });
 
-    return { handleLogin, isLoading, isError, errorMessage };
+    return { handleLogin, isLoading, errorAlertData };
 };
 
 export default useLoginPageHook;

@@ -9,17 +9,16 @@ import { initialValues, registerSchema } from "./registerPageData";
 import useRegisterPageHook from "./useRegisterPageHook";
 import DisplayAlert from "../../components/DisplayAlert";
 import { RegisterFormType } from "../../types/authTypes";
-import { AlertStatusType } from "../../types/enumsTypes";
 import { routes } from "../../constants/routeConstants";
 
 const RegisterPage = (): ReactElement => {
-    const { handleRegister, isLoading, isError, errorMessage } = useRegisterPageHook();
+    const { handleRegister, isLoading, errorAlertData } = useRegisterPageHook();
 
     return (
         <>
             <Stack spacing={4} w={'full'} maxW={'md'}>
                 <Heading fontSize={'2xl'}>Créer votre compte</Heading>
-                {isError && <DisplayAlert status={AlertStatusType.error} message={errorMessage}/>}
+                <DisplayAlert data={errorAlertData} />
                 <Formik initialValues={initialValues} validationSchema={registerSchema} onSubmit={handleRegister}>
                     {(props: FormikProps<RegisterFormType>) => (
                         <Form>
@@ -30,7 +29,7 @@ const RegisterPage = (): ReactElement => {
                                 errorMessage={props.errors.firstName}
                             />
                             <TextField
-                                label="lastName"
+                                label="Nom"
                                 name="lastName"
                                 isInvalid={!!props.errors.lastName && !!props.touched.lastName}
                                 errorMessage={props.errors.lastName}

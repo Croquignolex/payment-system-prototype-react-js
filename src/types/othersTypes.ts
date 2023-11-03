@@ -1,6 +1,14 @@
+import {AlertStatusType} from "./enumsTypes";
+
 export interface ReducerActionType {
     type: string;
     payload: any;
+}
+
+export interface ErrorAlertType {
+    show: boolean,
+    status: AlertStatusType,
+    message: string
 }
 
 export interface RequestResponseType {

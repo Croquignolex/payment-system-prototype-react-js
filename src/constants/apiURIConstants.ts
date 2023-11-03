@@ -1,5 +1,6 @@
 export const authApiURI = {
     login: '/login',
+    logout: '/logout',
     register: '/account/register/email',
 };
 

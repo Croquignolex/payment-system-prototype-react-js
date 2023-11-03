@@ -1,22 +1,25 @@
-import React, { ReactElement, FC } from "react";
+import React, { FC } from "react";
 import { AlertIcon, Alert, Stack } from "@chakra-ui/react";
 
-import { AlertStatusType } from "../types/enumsTypes";
+import {ErrorAlertType} from "../types/othersTypes";
 
-const DisplayAlert: FC<DisplayAlertProps> = ({ status, message }): ReactElement => {
+const DisplayAlert: FC<DisplayAlertProps> = ({ data }): React.ReactElement | null => {
+    if(data === null || !data?.show) {
+        return null;
+    }
+
     return (
         <Stack spacing={3}>
-            <Alert status={status}>
+            <Alert status={data.status}>
                 <AlertIcon />
-                {message}
+                {data.message}
             </Alert>
         </Stack>
     );
 };
 
 interface DisplayAlertProps {
-    status: AlertStatusType,
-    message: string,
+    data?: ErrorAlertType,
 }
 
 export default DisplayAlert;

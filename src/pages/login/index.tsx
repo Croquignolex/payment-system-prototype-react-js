@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Form, Formik, FormikProps } from "formik";
 import { Button, Checkbox, Heading, Stack, Text } from "@chakra-ui/react";
 
@@ -8,20 +8,17 @@ import PasswordField from "../../components/form/PasswordField";
 import { initialValues, loginSchema } from "./loginPageData";
 import useLoginPageHook from "./useLoginPageHook";
 import DisplayAlert from "../../components/DisplayAlert";
-import { AlertStatusType } from "../../types/enumsTypes";
 import { LoginFormType } from "../../types/authTypes";
 import { routes } from "../../constants/routeConstants";
 
 const LoginPage = (): ReactElement => {
-    const { handleLogin, isLoading, isError, errorMessage } = useLoginPageHook();
-    const { state: routeState } = useLocation();
+    const { handleLogin, isLoading, errorAlertData } = useLoginPageHook();
 
     return (
         <>
             <Stack spacing={4} w={'full'} maxW={'md'}>
                 <Heading fontSize={'2xl'}>Connectez-vous à votre compte</Heading>
-                {isError && <DisplayAlert status={AlertStatusType.error} message={errorMessage} />}
-                {(routeState?.registerMessage) && <DisplayAlert status={AlertStatusType.success} message={routeState?.registerMessage || ""} />}
+                <DisplayAlert data={errorAlertData} />
                 <Formik initialValues={initialValues} validationSchema={loginSchema} onSubmit={handleLogin}>
                     {(props: FormikProps<LoginFormType>) => (
                         <Form>
