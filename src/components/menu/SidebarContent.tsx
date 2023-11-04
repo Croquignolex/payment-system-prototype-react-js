@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useMemo } from 'react';
-import { Box, Flex, Text, CloseButton, BoxProps } from "@chakra-ui/react";
+import {Box, Flex, Text, CloseButton, BoxProps, Button, Stack} from "@chakra-ui/react";
 
 import NavItem from "./NavItem";
 import { routes } from "../../constants/routeConstants";
@@ -26,6 +26,11 @@ const SidebarContent: FC<SidebarContentProps> = ({ onClose, ...rest }): ReactEle
                 </Text>
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
+            <Stack direction={'column'} align={'center'} alignSelf={'center'} position={'relative'} pt={6}>
+                <Button colorScheme={'blue'} rounded={'full'}>
+                    Envoyer de l'argent
+                </Button>
+            </Stack>
             {manuItems.map((route: any): ReactElement|null => {
                 if(route?.onSidebar) {
                     return (

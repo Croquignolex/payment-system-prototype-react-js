@@ -12,12 +12,15 @@ const NavItem: FC<NavItemProps> = ({ icon, isActive, children, ...rest }): React
                 borderRadius="lg"
                 role="group"
                 cursor="pointer"
-                _hover={{ bg: 'blue.500', color: 'white' }}
-                background={isActive ? 'blue.500' : 'white'}
-                color={isActive ? 'white' : 'black'}
+                // _hover={{ bg: 'blue.500', color: 'white' }}
+                // background={isActive ? 'blue.500' : 'white'}
+                // color={isActive ? 'white' : 'black'}
+                _hover={{ fontSize: '1.1rem', color: 'black' }}
+                color={isActive ? 'black' : 'gray'}
+                fontSize={isActive ? '1.1rem' : '1rem'}
                 {...rest}
             >
-                { icon && (<Icon mr="4" as={icon} />) }
+                { icon && (<Icon mr="4" as={icon} fontSize='1.3rem' />) }
                 {children}
             </Flex>
         </Box>
