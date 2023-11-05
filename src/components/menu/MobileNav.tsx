@@ -1,5 +1,5 @@
-import React, { FC, ReactElement, useContext, useMemo } from "react";
-import { Link, NavigateFunction, useLocation, useNavigate } from "react-router-dom";
+import React, { FC, ReactElement, useContext } from "react";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { FiLogOut, FiChevronDown, FiMenu, FiSettings, FiHelpCircle, FiUser } from "react-icons/fi";
 import {
     Box, Flex, FlexProps, useColorModeValue, IconButton, Text, HStack,
@@ -8,18 +8,15 @@ import {
 
 import { CLEAR_USER_DATA, UserContext } from "../UserContext";
 import { routes } from "../../constants/routeConstants";
-import { RequestResponseType } from "../../types/othersTypes";
+import {HeaderMenuItemType, RequestResponseType} from "../../types/othersTypes";
 import { useMutation } from "@tanstack/react-query";
 import { logoutRequest } from "../../helpers/apiRequestsHelpers";
 import { removeLocaleStorageItem } from "../../helpers/localStorageHelpers";
 
-const MobileNav: FC<MobileNavProps> = ({ onOpen, ...rest }) => {
+const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
     const { mutate }: RequestResponseType = useMutation(logoutRequest);
     const { globalState, setGlobalState } = useContext(UserContext);
-    const { pathname: currentPath } = useLocation();
     const navigate: NavigateFunction = useNavigate();
-
-    const manuItems: any[] = useMemo((): any[] => Object.values(routes), []);
 
     const handleLogout = (): void => {
         removeLocaleStorageItem('user');
@@ -38,8 +35,8 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, ...rest }) => {
             height="20"
             alignItems="center"
             bg={'white'}
-            borderBottomWidth="1px"
-            borderBottomColor={'gray.200'}
+            // borderBottomWidth="1px"
+            // borderBottomColor={'gray.200'}
             justifyContent={{ base: 'space-between', md: 'flex-end' }}
             {...rest}
         >
@@ -74,24 +71,19 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, ...rest }) => {
                             bg={useColorModeValue('white', 'gray.900')}
                             borderColor={useColorModeValue('gray.200', 'gray.700')}
                         >
-                            {manuItems.map((route: any): ReactElement|null => {
-                                if(route?.onHeader) {
-                                    return (
-                                        <Link to={route?.path} key={route?.name}>
-                                            <MenuItem
-                                                key={route?.name}
-                                                background={(currentPath === route?.path) ? 'blue.500' : 'white'}
-                                                color={(currentPath === route?.path) ? 'white' : 'black'}
-                                                _hover={{ bg: 'gray.100', color: 'black' }}
-                                            >
-                                                <Icon mr="2" as={route?.icon} />
-                                                {route?.title}
-                                            </MenuItem>
-                                        </Link>
-                                    );
-                                }
-                                return null;
-                            })}
+                            {menuItems.map((route: HeaderMenuItemType): ReactElement => (
+                                <MenuItem
+                                    as={Link}
+                                    to={route.path}
+                                    key={route.name}
+                                    background={route.background}
+                                    color={route.color}
+                                    _hover={{ bg: 'gray.100', color: 'black' }}
+                                >
+                                    <Icon mr="2" as={route.icon} />
+                                    {route.title}
+                                </MenuItem>
+                            ))}
                             <MenuItem icon={<FiSettings />}>
                                 Paramètres
                             </MenuItem>
@@ -110,7 +102,8 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, ...rest }) => {
 };
 
 interface MobileNavProps extends FlexProps {
-    onOpen: () => void
+    onOpen: () => void,
+    menuItems: HeaderMenuItemType[],
 }
 
 export default MobileNav;

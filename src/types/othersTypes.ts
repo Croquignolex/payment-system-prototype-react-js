@@ -1,4 +1,9 @@
+import {IconType} from "react-icons";
+
 import {AlertStatusType} from "./enumsTypes";
+import NavItem from "../components/menu/NavItem";
+import {Link} from "react-router-dom";
+import React from "react";
 
 export interface ReducerActionType {
     type: string;
@@ -11,6 +16,31 @@ export interface ErrorAlertType {
     message: string
 }
 
+export interface HeaderMenuItemType {
+    path: string,
+    name: string,
+    key: string,
+    icon: IconType,
+    title: string,
+    background: string,
+    color: string,
+}
+
+export interface SidebarMenuItemType {
+    path: string,
+    name: string,
+    key: string,
+    icon: IconType,
+    title: string,
+    isActive: boolean,
+}
+
+export interface BreadcrumbItemsType {
+    path: string,
+    key: string,
+    label: string,
+}
+
 export interface RequestResponseType {
     isLoading: boolean;
     isError: boolean;
@@ -21,9 +51,20 @@ export interface RequestResponseType {
     variables?: any;
 }
 
-export interface FormFieldProps {
-    label: string;
+export interface FormDisabledFieldProps {
+    label?: string;
     name: string;
+    noLabel?: boolean;
+}
+
+export interface FormFieldProps extends FormDisabledFieldProps {
     isInvalid: boolean;
     errorMessage?: string;
+}
+
+export interface FormCustomDisabledPhoneFieldProps {
+    label?: string;
+    code: string,
+    number: string,
+    noLabel?: boolean;
 }

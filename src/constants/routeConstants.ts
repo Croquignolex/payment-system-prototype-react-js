@@ -38,6 +38,7 @@ export const routes = {
         icon: FiHome,
         onSidebar: true,
         onHeader: false,
+        breadcrumb: []
     },
     profile: {
         name: 'profile',
@@ -47,6 +48,7 @@ export const routes = {
         icon: FiUser,
         onSidebar: false,
         onHeader: true,
+        breadcrumb: [{path: '/home', label: 'Accueil'}]
     },
     notFound: {
         name: 'notFound',

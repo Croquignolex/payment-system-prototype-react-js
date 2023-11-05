@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { Form, Formik, FormikProps } from "formik";
-import { Button, Heading, Stack, Text } from "@chakra-ui/react";
+import {Heading, Stack, Text, HStack} from "@chakra-ui/react";
 
 import TextField from "../../components/form/TextField";
 import PasswordField from "../../components/form/PasswordField";
@@ -10,6 +10,7 @@ import useRegisterPageHook from "./useRegisterPageHook";
 import DisplayAlert from "../../components/DisplayAlert";
 import { RegisterFormType } from "../../types/authTypes";
 import { routes } from "../../constants/routeConstants";
+import SubmitButton from "../../components/form/SumitButton";
 
 const RegisterPage = (): ReactElement => {
     const { handleRegister, isLoading, errorAlertData } = useRegisterPageHook();
@@ -22,18 +23,20 @@ const RegisterPage = (): ReactElement => {
                 <Formik initialValues={initialValues} validationSchema={registerSchema} onSubmit={handleRegister}>
                     {(props: FormikProps<RegisterFormType>) => (
                         <Form>
-                            <TextField
-                                label="Prénom"
-                                name="firstName"
-                                isInvalid={!!props.errors.firstName && !!props.touched.firstName}
-                                errorMessage={props.errors.firstName}
-                            />
-                            <TextField
-                                label="Nom"
-                                name="lastName"
-                                isInvalid={!!props.errors.lastName && !!props.touched.lastName}
-                                errorMessage={props.errors.lastName}
-                            />
+                            <HStack spacing={4}>
+                                <TextField
+                                    label="Prénom"
+                                    name="firstName"
+                                    isInvalid={!!props.errors.firstName && !!props.touched.firstName}
+                                    errorMessage={props.errors.firstName}
+                                />
+                                <TextField
+                                    label="Nom"
+                                    name="lastName"
+                                    isInvalid={!!props.errors.lastName && !!props.touched.lastName}
+                                    errorMessage={props.errors.lastName}
+                                />
+                            </HStack>
                             <TextField
                                 label="Email"
                                 name="email"
@@ -47,16 +50,12 @@ const RegisterPage = (): ReactElement => {
                                 errorMessage={props.errors.password}
                             />
                             <PasswordField
-                                label="Cofirmation du mot de passe"
+                                label="Confirmation du mot de passe"
                                 name="confirmPassword"
                                 isInvalid={!!props.errors.confirmPassword && !!props.touched.confirmPassword}
                                 errorMessage={props.errors.confirmPassword}
                             />
-                            <Stack mt={6}>
-                                <Button colorScheme={'blue'} variant={'solid'} isLoading={isLoading} type='submit'>
-                                    Enrégistrer
-                                </Button>
-                            </Stack>
+                            <SubmitButton isLoading={isLoading}></SubmitButton>
                         </Form>
                     )}
                 </Formik>

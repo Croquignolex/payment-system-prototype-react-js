@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { Form, Formik, FormikProps } from "formik";
-import { Button, Checkbox, Heading, Stack, Text } from "@chakra-ui/react";
+import {Button, Checkbox, Heading, HStack, Stack, Text} from "@chakra-ui/react";
 
 import TextField from "../../components/form/TextField";
 import PasswordField from "../../components/form/PasswordField";
@@ -10,6 +10,7 @@ import useLoginPageHook from "./useLoginPageHook";
 import DisplayAlert from "../../components/DisplayAlert";
 import { LoginFormType } from "../../types/authTypes";
 import { routes } from "../../constants/routeConstants";
+import SubmitButton from "../../components/form/SumitButton";
 
 const LoginPage = (): ReactElement => {
     const { handleLogin, isLoading, errorAlertData } = useLoginPageHook();
@@ -34,20 +35,11 @@ const LoginPage = (): ReactElement => {
                                 isInvalid={!!props.errors.password && !!props.touched.password}
                                 errorMessage={props.errors.password}
                             />
-                            <Stack spacing={6}>
-                                <Stack
-                                    direction={{ base: 'column', sm: 'row' }}
-                                    align={'start'}
-                                    justify={'space-between'}
-                                    mt={4}
-                                >
-                                    <Checkbox defaultChecked>Se souvenir de moi</Checkbox>
-                                    <Text color={'blue.500'}>Mot de passe oublié?</Text>
-                                </Stack>
-                                <Button colorScheme={'blue'} variant={'solid'} isLoading={isLoading} type='submit'>
-                                    Connexion
-                                </Button>
-                            </Stack>
+                            <HStack justify={'space-between'} mt={4}>
+                                <Checkbox defaultChecked>Se souvenir de moi</Checkbox>
+                                <Text color={'blue.500'}>Mot de passe oublié?</Text>
+                            </HStack>
+                            <SubmitButton isLoading={isLoading} label="Connexion"></SubmitButton>
                         </Form>
                     )}
                 </Formik>

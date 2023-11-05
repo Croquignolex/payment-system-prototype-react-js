@@ -1,19 +1,11 @@
 import React, {ReactElement} from "react";
-import { Box } from '@chakra-ui/react'
-import {
-        Heading,
-        Container,
-        Text,
-        Button,
-        Stack,
-        Icon,
-        useColorModeValue,
-        createIcon,
-} from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react';
+import {Heading, Container, Text, Button, Stack} from '@chakra-ui/react';
+
 import DisplayAlert from "../../components/DisplayAlert";
 import useHomePageHook from "./useHomePageHook";
 
-const Home = (): ReactElement => {
+const HomePage = (): ReactElement => {
     const { welcomeAlertData } = useHomePageHook();
 
     return (
@@ -44,7 +36,7 @@ const Home = (): ReactElement => {
                 </Stack>
             </Container>
         </>
-    )
-}
+    );
+};
 
-export default Home;
+export default HomePage;

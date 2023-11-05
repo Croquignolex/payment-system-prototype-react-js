@@ -1,20 +1,17 @@
-import React, { FC, ReactElement, useMemo } from 'react';
+import React, {FC, Fragment, ReactElement} from 'react';
 import {Box, Flex, Text, CloseButton, BoxProps, Button, Stack} from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 import NavItem from "./NavItem";
-import { routes } from "../../constants/routeConstants";
-import { Link, useLocation } from "react-router-dom";
+import {SidebarMenuItemType} from "../../types/othersTypes";
 
-const SidebarContent: FC<SidebarContentProps> = ({ onClose, ...rest }): ReactElement => {
-    const { pathname: currentPath } = useLocation();
-    const manuItems: any[] = useMemo((): any[] => Object.values(routes), []);
-
+const SidebarContent: FC<SidebarContentProps> = ({ onClose, menuItems, ...rest }): ReactElement => {
     return (
         <Box
             transition="3s ease"
             bg={'white'}
-            borderRight="1px"
-            borderRightColor={'gray.200'}
+            // borderRight="1px"
+            // borderRightColor={'gray.200'}
             w={{ base: 'full', md: 60 }}
             pos="fixed"
             h="full"
@@ -31,24 +28,18 @@ const SidebarContent: FC<SidebarContentProps> = ({ onClose, ...rest }): ReactEle
                     Envoyer de l'argent
                 </Button>
             </Stack>
-            {manuItems.map((route: any): ReactElement|null => {
-                if(route?.onSidebar) {
-                    return (
-                        <Link to={route?.path} key={route?.name}>
-                            <NavItem key={route?.name} icon={route?.icon} isActive={currentPath === route?.path}>
-                                {route?.title}
-                            </NavItem>
-                        </Link>
-                    );
-                }
-                return null;
-            })}
+            {menuItems.map((route: SidebarMenuItemType): ReactElement => (
+                <NavItem key={route.name} path={route.path} icon={route.icon} isActive={route.isActive}>
+                    {route.title}
+                </NavItem>
+            ))}
         </Box>
     );
 };
 
 interface SidebarContentProps extends BoxProps {
-    onClose: () => void
+    onClose: () => void,
+    menuItems: SidebarMenuItemType[],
 }
 
 export default SidebarContent;

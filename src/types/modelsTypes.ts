@@ -6,3 +6,5 @@ export interface UserModelType {
     email: string;
     accountId: string;
 }
+
+

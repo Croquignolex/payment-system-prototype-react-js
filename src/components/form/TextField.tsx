@@ -4,12 +4,12 @@ import { Field } from "formik";
 
 import { FormFieldProps } from "../../types/othersTypes";
 
-const TextField: FC<FormFieldProps> = ({ label, name, isInvalid, errorMessage }): ReactElement => {
+const TextField: FC<FormFieldProps> = ({ label = '', name, noLabel = false, isInvalid, errorMessage }): ReactElement => {
     return (
         <FormControl isInvalid={isInvalid} mt={4}>
-            <FormLabel>{label}</FormLabel>
+            {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}
 
-            <Field as={Input} name={name} type="text" />
+            <Field as={Input} name={name} type="text" placeholder={label} size='lg' />
 
             <FormErrorMessage>{errorMessage}</FormErrorMessage>
         </FormControl>

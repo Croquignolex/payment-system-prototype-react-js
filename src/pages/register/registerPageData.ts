@@ -5,12 +5,8 @@ import { RegisterFormType } from "../../types/authTypes";
 export const initialValues: RegisterFormType = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
 export const registerSchema: Yup.ObjectSchema<RegisterFormType> = Yup.object().shape({
-    firstName: Yup.string()
-        .required("Le prénom est réquis")
-        .min(2, 'Le prénom doit avoir au moins 2 caratères'),
-    lastName: Yup.string()
-        .required("Le nom est réquis")
-        .min(2, 'Le nom doit avoir au moins 2 caratères'),
+    firstName: Yup.string().required("Le prénom est réquis"),
+    lastName: Yup.string().required("Le nom est réquis"),
     email: Yup.string()
         .required("L'addresse email est réquise")
         .email("L'addresse email invalide"),

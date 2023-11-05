@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { Heading, Text } from "@chakra-ui/react";
 
-const NotFound = (): ReactElement => {
+const NotFoundPage = (): ReactElement => {
     return (
         <>
             <Heading
@@ -23,4 +23,4 @@ const NotFound = (): ReactElement => {
     )
 }
 
-export default NotFound;
+export default NotFoundPage;
