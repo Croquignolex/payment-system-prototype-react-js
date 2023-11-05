@@ -9,12 +9,10 @@ const DisplayAlert: FC<DisplayAlertProps> = ({ data }): React.ReactElement | nul
     }
 
     return (
-        <Stack spacing={3}>
-            <Alert status={data.status}>
-                <AlertIcon />
-                {data.message}
-            </Alert>
-        </Stack>
+        <Alert status={data.status} rounded='lg' mx={1}>
+            <AlertIcon />
+            {data.message}
+        </Alert>
     );
 };
 

@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { Form, Formik, FormikProps } from "formik";
-import {Box, Button, Checkbox, Heading, HStack, Stack, Text} from "@chakra-ui/react";
+import {Box, Button, Heading, HStack, Stack, Text} from "@chakra-ui/react";
 
 import TextField from "../../components/form/TextField";
 import PasswordField from "../../components/form/PasswordField";
