@@ -9,7 +9,7 @@ const TextDisabledField: FC<FormDisabledFieldProps> = ({ label, name, noLabel = 
         <FormControl mt={4}>
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}
 
-            <Field as={Input} name={name} type="text" placeholder={label} size='lg' disabled />
+            <Field as={Input} name={name} type="text" placeholder={label} size='lg' borderColor="black" disabled />
         </FormControl>
     );
 };

@@ -48,7 +48,7 @@ const LoginPage = (): ReactElement => {
                     )}
                 </Formik>
                 <Stack pt={6}>
-                    <Text as='u'>
+                    <Text as='u' fontWeight='bold'>
                         Vous avez des difficultés à vous connecter?
                     </Text>
 
