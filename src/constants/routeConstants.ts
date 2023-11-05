@@ -4,12 +4,14 @@ import AnonymousLayout from "../layouts/AnonymousLayout";
 import MainLayout from "../layouts/MainLayout";
 import { FiHome, FiUser } from "react-icons/fi";
 import ErrorLayout from "../layouts/ErrorLayout";
+import AnonymousStepsLayout from "../layouts/AnonymousStepsLayout";
 
 const LazyLoginPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/login'));
 const LazyRegisterPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register'));
 const LazyHomePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/home'));
 const LazyProfilePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/profile'));
 const LazyNotFoundPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/notFound'));
+const LazyRegisterStepOnePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/step_one'));
 
 export const routes = {
     login: {
@@ -26,6 +28,15 @@ export const routes = {
         title: 'Inscription',
         component: LazyRegisterPage,
         path: '/register',
+        icon: null,
+        onSidebar: false,
+        onHeader: false,
+    },
+    registerSTepOne: {
+        name: 'registerSTepOne',
+        title: 'Inscription',
+        component: LazyRegisterStepOnePage,
+        path: '/register-steps',
         icon: null,
         onSidebar: false,
         onHeader: false,
@@ -66,6 +77,11 @@ export const routesDefinition = [
         layout: AnonymousLayout,
         isPublic: true,
         routes: [routes.login, routes.register]
+    },
+    {
+        layout: AnonymousStepsLayout,
+        isPublic: true,
+        routes: [routes.registerSTepOne]
     },
     {
         layout: MainLayout,

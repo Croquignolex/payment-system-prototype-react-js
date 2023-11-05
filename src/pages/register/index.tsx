@@ -1,68 +1,80 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { Form, Formik, FormikProps } from "formik";
-import {Heading, Stack, Text, HStack} from "@chakra-ui/react";
+import {Heading, Stack, Text, HStack, Box, Button} from "@chakra-ui/react";
 
 import TextField from "../../components/form/TextField";
-import PasswordField from "../../components/form/PasswordField";
-import { initialValues, registerSchema } from "./registerPageData";
+import {checkEmailSchema, initialValues} from "./registerPageData";
 import useRegisterPageHook from "./useRegisterPageHook";
 import DisplayAlert from "../../components/DisplayAlert";
-import { RegisterFormType } from "../../types/authTypes";
+import {CheckEmailFormType} from "../../types/authTypes";
 import { routes } from "../../constants/routeConstants";
 import SubmitButton from "../../components/form/SumitButton";
+import {FaApple, FaFacebook, FaGoogle} from "react-icons/fa";
 
 const RegisterPage = (): ReactElement => {
-    const { handleRegister, isLoading, errorAlertData } = useRegisterPageHook();
+    const { handleCheckEmail, isLoading, errorAlertData } = useRegisterPageHook();
 
     return (
         <>
-            <Stack spacing={4} w={'full'} maxW={'md'}>
-                <Heading fontSize={'2xl'}>Créer votre compte</Heading>
+            <Stack w={'full'}>
+                <Heading fontSize={'2xl'} alignSelf='center'>Créez votre compte</Heading>
+                <Box alignSelf='center' mt={2}>
+                    Vous avez déjà un compte?
+                    <Text as='u' fontWeight='bold' ml={1}>
+                        <Link to={routes.login.path}>Connectez-vous</Link>
+                    </Text>
+                </Box>
                 <DisplayAlert data={errorAlertData} />
-                <Formik initialValues={initialValues} validationSchema={registerSchema} onSubmit={handleRegister}>
-                    {(props: FormikProps<RegisterFormType>) => (
+                <Formik initialValues={initialValues} validationSchema={checkEmailSchema} onSubmit={handleCheckEmail}>
+                    {(props: FormikProps<CheckEmailFormType>) => (
                         <Form>
-                            <HStack spacing={4}>
-                                <TextField
-                                    label="Prénom"
-                                    name="firstName"
-                                    isInvalid={!!props.errors.firstName && !!props.touched.firstName}
-                                    errorMessage={props.errors.firstName}
-                                />
-                                <TextField
-                                    label="Nom"
-                                    name="lastName"
-                                    isInvalid={!!props.errors.lastName && !!props.touched.lastName}
-                                    errorMessage={props.errors.lastName}
-                                />
-                            </HStack>
                             <TextField
-                                label="Email"
+                                label="Tout d'abord, entrez votre addresse email"
                                 name="email"
                                 isInvalid={!!props.errors.email && !!props.touched.email}
                                 errorMessage={props.errors.email}
                             />
-                            <PasswordField
-                                label="Mot de passe"
-                                name="password"
-                                isInvalid={!!props.errors.password && !!props.touched.password}
-                                errorMessage={props.errors.password}
-                            />
-                            <PasswordField
-                                label="Confirmation du mot de passe"
-                                name="confirmPassword"
-                                isInvalid={!!props.errors.confirmPassword && !!props.touched.confirmPassword}
-                                errorMessage={props.errors.confirmPassword}
-                            />
-                            <SubmitButton isLoading={isLoading}></SubmitButton>
+                            <SubmitButton isLoading={isLoading} label="Suivant"></SubmitButton>
                         </Form>
                     )}
                 </Formik>
                 <Stack pt={6}>
-                    <Text align={'center'}>
-                        Vous avez déjà un compte? <Link to={routes.login.path} style={{ color: '#3182CE' }}>Cliquez ici</Link>
+                    <Text mt={2}>
+                        Ou inscrivez-vous avec
                     </Text>
+
+                    <HStack mt={2}>
+                        <Stack w={'full'}>
+                            <Button backgroundColor='white' color="red" borderWidth={1} rounded='full' leftIcon={<FaGoogle />}>
+                                Google
+                            </Button>
+                        </Stack>
+                        <Stack w={'full'}>
+                            <Button backgroundColor='white' color="blue" borderWidth={1} rounded='full' leftIcon={<FaFacebook />}>
+                                Facebook
+                            </Button>
+                        </Stack>
+                        <Stack w={'full'}>
+                            <Button backgroundColor='white' color="black" borderWidth={1} rounded='full' leftIcon={<FaApple />}>
+                                Apple
+                            </Button>
+                        </Stack>
+                    </HStack>
+
+                    <Box alignSelf='center' mt={2}>
+                        En vous inscrivant, vous acceptez nos
+                    </Box>
+
+                    <Box alignSelf='center'>
+                        <Text as='u' fontWeight='bold' mr={1}>
+                            <Link to="#">Conditions d'utilisations</Link>
+                        </Text>
+                        et
+                        <Text as='u' fontWeight='bold' ml={1}>
+                            <Link to="#">Politiques de confidentialité</Link>
+                        </Text>
+                    </Box>
                 </Stack>
             </Stack>
         </>

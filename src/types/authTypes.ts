@@ -1,17 +1,17 @@
-export interface LoginRequestType {
+export interface CheckEmailRequestType {
     email: string,
-    password: string
 }
 
-export interface RegisterRequestType extends LoginRequestType {
-    lastName: string,
-    firstName: string,
+export interface RegisterRequestType extends CheckEmailRequestType {
+}
+
+export interface LoginRequestType extends CheckEmailRequestType {
+    password: string
 }
 
 export interface LoginFormType extends LoginRequestType {
 }
 
 
-export interface RegisterFormType extends RegisterRequestType {
-    confirmPassword: string;
+export interface CheckEmailFormType extends CheckEmailRequestType {
 }

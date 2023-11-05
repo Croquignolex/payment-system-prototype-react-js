@@ -1,7 +1,7 @@
 import { postRequest } from "./axiosHelpers";
 import { authApiURI } from "../constants/apiURIConstants";
 import { apiBaseURL } from "../constants/envConstants";
-import { LoginRequestType, RegisterRequestType } from "../types/authTypes";
+import {CheckEmailFormType, LoginRequestType, RegisterRequestType} from "../types/authTypes";
 
 // const API_V1_URL: string = `${apiBaseURL}/api/v1`;
 const API_V1_URL: string = `${apiBaseURL}`;
@@ -16,10 +16,15 @@ export const logoutRequest = (): Promise<any> => {
     return postRequest(url);
 };
 
-export const registerRequest = ({ firstName, lastName, email, password }: RegisterRequestType): Promise<any> => {
+export const checkEmailRequest = ({ email }: CheckEmailFormType): Promise<any> => {
+    const url: string = joinBaseUrlWithParams(authApiURI.check);
+    return postRequest(url, { email });
+};
+
+/*export const registerRequest = ({ firstName, lastName, email, password }: RegisterRequestType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(authApiURI.register);
     return postRequest(url, { firstName, lastName, email, password });
-};
+};*/
 
 // Build complete url
 const joinBaseUrlWithParams = (to: string, params?: URLParamType[], queries?: URLParamType[]): string => {
