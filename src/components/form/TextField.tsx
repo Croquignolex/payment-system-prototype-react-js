@@ -1,8 +1,9 @@
 import React, { ReactElement, FC } from "react";
-import { Input, FormLabel, FormErrorMessage, FormControl } from "@chakra-ui/react";
+import {Input, FormLabel, FormErrorMessage, FormControl, Icon} from "@chakra-ui/react";
 import { Field } from "formik";
 
 import { FormFieldProps } from "../../types/othersTypes";
+import {FiAlertCircle} from "react-icons/fi";
 
 const TextField: FC<FormFieldProps> = ({ label = '', name, noLabel = false, isInvalid, errorMessage }): ReactElement => {
     return (
@@ -11,7 +12,7 @@ const TextField: FC<FormFieldProps> = ({ label = '', name, noLabel = false, isIn
 
             <Field as={Input} name={name} type="text" placeholder={label} size='lg' />
 
-            <FormErrorMessage>{errorMessage}</FormErrorMessage>
+            <FormErrorMessage><Icon mr="2" as={FiAlertCircle} /> {errorMessage}</FormErrorMessage>
         </FormControl>
     );
 };

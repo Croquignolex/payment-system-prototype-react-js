@@ -1,6 +1,7 @@
 import React, { ReactElement, FC } from "react";
-import {Input, FormLabel, FormErrorMessage, FormControl, HStack, Select} from "@chakra-ui/react";
+import {Input, FormLabel, FormErrorMessage, FormControl, HStack, Select, Icon} from "@chakra-ui/react";
 import { Field } from "formik";
+import {FiAlertCircle} from "react-icons/fi";
 
 const CustomDateField: FC<FormCustomDateFieldProps> = ({ label = '', day, month, year, noLabel = false, isInvalid, errorMessage }): ReactElement => {
     return (
@@ -19,7 +20,7 @@ const CustomDateField: FC<FormCustomDateFieldProps> = ({ label = '', day, month,
                 <Field as={Input} name={year} type="text" placeholder="YYYY" size='lg' w="30%" />
             </HStack>
 
-            <FormErrorMessage>{errorMessage}</FormErrorMessage>
+            <FormErrorMessage><Icon mr="2" as={FiAlertCircle} />{errorMessage}</FormErrorMessage>
         </FormControl>
     );
 };

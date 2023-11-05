@@ -1,19 +1,29 @@
 import React, { FC, ReactElement } from "react";
 import { Outlet } from "react-router-dom";
-import { Flex, Stack, Image } from "@chakra-ui/react";
+import {Flex, Box, Container} from "@chakra-ui/react";
 
-import authBg from "../assets/img/auth-bg.png";
+import AnonymousLayoutHeader from "../components/menu/AnonymousLayoutHeader";
 
 const AnonymousLayout: FC = (): ReactElement => {
     return (
-        <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
-            <Flex p={8} flex={1} align={'center'} justify={'center'}>
-                <Outlet />
-            </Flex>
-            <Flex flex={1}>
-                <Image alt={'auth bg'} objectFit={'cover'} src={authBg} />
-            </Flex>
-        </Stack>
+        <>
+            {/*<Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
+                <Flex p={8} flex={1} align={'center'} justify={'center'}>
+                    <Outlet />
+                </Flex>
+                <Flex flex={1}>
+                    <Image alt={'auth bg'} objectFit={'cover'} src={authBg} />
+                </Flex>
+            </Stack>*/}
+            <Box minH="100vh">
+                <AnonymousLayoutHeader />
+                <Container maxW={'xl'} mt={10}>
+                    <Flex align={'center'} justify={'center'}>
+                        <Outlet />
+                    </Flex>
+                </Container>
+            </Box>
+        </>
     );
 };
 

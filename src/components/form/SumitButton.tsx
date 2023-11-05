@@ -3,7 +3,7 @@ import {Button, Stack} from "@chakra-ui/react";
 
 const SubmitButton: FC<FormSubmitButtonProps> = ({ label = 'Confirmer', colorScheme = 'blue', variant = 'solid', isLoading }): ReactElement => {
     return (
-        <Stack mt={6}>
+        <Stack mt={10}>
             <Button colorScheme={colorScheme} variant={variant} isLoading={isLoading} type='submit' size='lg' rounded='full'>
                 {label}
             </Button>

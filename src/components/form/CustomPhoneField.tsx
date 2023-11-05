@@ -1,6 +1,7 @@
 import React, { ReactElement, FC } from "react";
-import {Input, FormLabel, FormErrorMessage, FormControl, HStack} from "@chakra-ui/react";
+import {Input, FormLabel, FormErrorMessage, FormControl, HStack, Icon} from "@chakra-ui/react";
 import { Field } from "formik";
+import {FiAlertCircle} from "react-icons/fi";
 
 import {FormCustomDisabledPhoneFieldProps} from "../../types/othersTypes";
 
@@ -15,7 +16,7 @@ const CustomPhoneField: FC<FormCustomPhoneFieldProps> = ({ label = '', code, num
                 <Field as={Input} name={number} type="text" placeholder="Numéro" size='lg' w="70%" />
             </HStack>
 
-            <FormErrorMessage>{errorMessage}</FormErrorMessage>
+            <FormErrorMessage><Icon mr="2" as={FiAlertCircle} /> {errorMessage}</FormErrorMessage>
         </FormControl>
     );
 };
