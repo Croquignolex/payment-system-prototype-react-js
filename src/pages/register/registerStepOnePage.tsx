@@ -1,10 +1,10 @@
-import React, {ReactElement, useEffect, useMemo} from "react";
+import React, {ReactElement, useEffect, useMemo, useState} from "react";
 import {Box, Center, Heading, Stack, Text} from "@chakra-ui/react";
 import {Link, NavigateFunction, useLocation, useNavigate} from "react-router-dom";
 import {FiArrowLeft} from "react-icons/fi";
 import {Form, Formik, FormikProps} from "formik";
 
-import {chooseCountryInitialValues, chooseCountrySchema} from "./registerPageData";
+import {chooseCountrySchema} from "./registerPageData";
 import {ChooseCountryFormType} from "../../types/authTypes";
 import SubmitButton from "../../components/form/SumitButton";
 import {routes} from "../../constants/routeConstants";
@@ -12,13 +12,19 @@ import SelectField from "../../components/form/SelectField";
 import countriesJSON from '../../assets/countries.json';
 import {FormSelectOptionType} from "../../types/othersTypes";
 
-const StepOnePage = (): ReactElement => {
+const RegisterStepOnePage = (): ReactElement => {
     const navigate: NavigateFunction = useNavigate();
     const { state: locationState } = useLocation();
+
+    const [chooseCountryInitialValues, setChooseCountryInitialValues] = useState<ChooseCountryFormType>({country: ''} );
 
     useEffect((): void => {
         if(!locationState?.trustedData) {
             navigate(routes.register.path);
+        }
+
+        if(locationState?.trustedData) {
+            setChooseCountryInitialValues({country: locationState?.country});
         }
     }, []);
 
@@ -33,6 +39,8 @@ const StepOnePage = (): ReactElement => {
         navigate(routes.registerStepTwo.path, {state: { trustedData: true, email: locationState?.email, country }});
     };
 
+    const backState: any = {trustedData: true, email: locationState?.email};
+
     return (
         <>
             <Stack w={'full'}>
@@ -40,7 +48,7 @@ const StepOnePage = (): ReactElement => {
                 <Box alignSelf='center' mt={2}>
                     Il nous sera possible de vous demander de prouver votre addresse
                 </Box>
-                <Formik initialValues={chooseCountryInitialValues} validationSchema={chooseCountrySchema} onSubmit={handleChooseCountry}>
+                <Formik initialValues={chooseCountryInitialValues} validationSchema={chooseCountrySchema} onSubmit={handleChooseCountry} enableReinitialize>
                     {(props: FormikProps<ChooseCountryFormType>) => (
                         <Form>
                             <SelectField
@@ -50,14 +58,14 @@ const StepOnePage = (): ReactElement => {
                                 isInvalid={!!props.errors.country && !!props.touched.country}
                                 errorMessage={props.errors.country}
                             />
-                            <SubmitButton label="Suivant"></SubmitButton>
+                            <SubmitButton label="Continuer"></SubmitButton>
                         </Form>
                     )}
                 </Formik>
                 <Center mt={50}>
                     <FiArrowLeft />
                     <Text as='u' fontWeight='bold'>
-                        <Link to={routes.register.path}>
+                        <Link to={routes.register.path} state={backState}>
                             Retour
                         </Link>
                     </Text>
@@ -67,4 +75,4 @@ const StepOnePage = (): ReactElement => {
     );
 };
 
-export default StepOnePage;
+export default RegisterStepOnePage;

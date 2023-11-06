@@ -1,5 +1,6 @@
+import {useEffect, useState} from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate, NavigateFunction } from "react-router-dom";
+import {useNavigate, NavigateFunction, useLocation} from "react-router-dom";
 
 import { routes } from "../../constants/routeConstants";
 import {checkEmailRequest} from "../../helpers/apiRequestsHelpers";
@@ -9,8 +10,18 @@ import {AlertStatusType} from "../../types/enumsTypes";
 
 const useRegisterPageHook = (): any => {
     const navigate: NavigateFunction = useNavigate();
+    const { state: locationState } = useLocation();
 
-    const { isLoading, isError, isSuccess, data, error, variables, mutate }: RequestResponseType = useMutation(checkEmailRequest);
+    const [checkEmailInitialValues, setCheckEmailInitialValues] = useState<CheckEmailFormType>({email: ''} );
+
+    useEffect((): void => {
+        if(locationState?.trustedData) {
+            setCheckEmailInitialValues({email: locationState?.email});
+        }
+    }, []);
+
+    // const { isLoading, isError, isSuccess, data, error, variables, mutate }: RequestResponseType = useMutation(checkEmailRequest);
+    const { isLoading, isError, isSuccess, error, variables, mutate }: RequestResponseType = useMutation(checkEmailRequest);
 
     const errorMessage: string = error?.response?.data?.message || error?.message;
     const errorAlertData: ErrorAlertType = { show: isError, status: AlertStatusType.error, message: errorMessage };
@@ -29,7 +40,7 @@ const useRegisterPageHook = (): any => {
 
     const handleCheckEmail = ({ email }: CheckEmailFormType): void => mutate({ email });
 
-    return { handleCheckEmail, isLoading, errorAlertData };
+    return { handleCheckEmail, checkEmailInitialValues, isLoading, errorAlertData };
 };
 
 export default useRegisterPageHook;

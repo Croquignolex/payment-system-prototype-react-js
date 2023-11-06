@@ -17,6 +17,14 @@ export interface CheckEmailFormType extends CheckEmailRequestType {
 }
 
 export interface ChooseCountryFormType {
-    country?: string,
+    country: string,
 }
 
+export interface VerifyPhoneFormType {
+    phoneNumber: string,
+    phoneCode: string,
+}
+
+export interface VerifyCodeFormType {
+    code: string,
+}

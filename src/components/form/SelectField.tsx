@@ -11,6 +11,7 @@ const SelectField: FC<SelectFormFieldProps> = ({ label = '', name, values = [], 
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}
 
             <Field as={Select} name={name} size='lg' borderColor="black">
+                <option value=''>Choisir</option>
                 {values.map((item: FormSelectOptionType) => (
                     <option value={item.key}>{item.label}</option>
                 ))}
