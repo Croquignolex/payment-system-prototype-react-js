@@ -1,23 +1,23 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect} from "react";
 import {useLocation} from "react-router-dom";
+import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 
 import { UserContext } from "../../components/UserContext";
-import {AlertStatusType} from "../../types/enumsTypes";
-import {ErrorAlertType} from "../../types/othersTypes";
 
 const useHomePageHook = (): any => {
-    const { state: welcomeAlert } = useLocation();
-    const [welcomeAlertData, setWelcomeAlertData] = useState<ErrorAlertType | null>(null);
+    const { state: locationState } = useLocation();
+    const toast: CreateToastFnReturn = useToast();
     const { globalState } = useContext(UserContext);
 
+    const toastID: string = 'welcome-toast';
+
     useEffect((): void => {
-        if(welcomeAlert) {
-            const message: string = `Bienvenue ${globalState.firstName}`;
-            setWelcomeAlertData({ show: true, status: AlertStatusType.info, message });
+        if(locationState?.welcomeAlert) {
+            if (!toast.isActive(toastID)) {
+                toast({id: toastID, title: `Bienvenue ${globalState.firstName}`});
+            }
         }
     }, []);
-
-    return { welcomeAlertData };
 };
 
 export default useHomePageHook;

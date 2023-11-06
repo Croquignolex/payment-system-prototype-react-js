@@ -18,7 +18,7 @@ const theme = extendTheme({
 
 root.render(
     <React.StrictMode>
-        <ChakraProvider theme={theme}>
+        <ChakraProvider theme={theme} toastOptions={{ defaultOptions: { position: 'top' } }}>
             <QueryClientProvider client={queryClient}>
                 <App />
             </QueryClientProvider>

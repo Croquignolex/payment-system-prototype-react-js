@@ -1,7 +1,7 @@
 import { postRequest } from "./axiosHelpers";
 import { authApiURI } from "../constants/apiURIConstants";
 import { apiBaseURL } from "../constants/envConstants";
-import {CheckEmailFormType, LoginRequestType, RegisterRequestType} from "../types/authTypes";
+import {CheckEmailFormType, ChooseCountryFormType, LoginRequestType, RegisterRequestType} from "../types/authTypes";
 
 // const API_V1_URL: string = `${apiBaseURL}/api/v1`;
 const API_V1_URL: string = `${apiBaseURL}`;

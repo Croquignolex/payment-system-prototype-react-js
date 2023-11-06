@@ -51,6 +51,11 @@ export interface RequestResponseType {
     variables?: any;
 }
 
+export interface FormSelectOptionType {
+    label: string;
+    key: string,
+}
+
 export interface FormDisabledFieldProps {
     label?: string;
     name: string;
@@ -67,4 +72,8 @@ export interface FormCustomDisabledPhoneFieldProps {
     code: string,
     number: string,
     noLabel?: boolean;
+}
+
+export interface SelectFormFieldProps extends FormFieldProps {
+    values: FormSelectOptionType[];
 }

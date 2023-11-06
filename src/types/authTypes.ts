@@ -15,3 +15,8 @@ export interface LoginFormType extends LoginRequestType {
 
 export interface CheckEmailFormType extends CheckEmailRequestType {
 }
+
+export interface ChooseCountryFormType {
+    country?: string,
+}
+

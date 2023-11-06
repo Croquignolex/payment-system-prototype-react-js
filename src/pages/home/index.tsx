@@ -1,16 +1,13 @@
 import React, {ReactElement} from "react";
-import { Box } from '@chakra-ui/react';
-import {Heading, Container, Text, Button, Stack} from '@chakra-ui/react';
+import {Heading, Container, Text, Button, Stack, Box} from '@chakra-ui/react';
 
-import DisplayAlert from "../../components/DisplayAlert";
 import useHomePageHook from "./useHomePageHook";
 
 const HomePage = (): ReactElement => {
-    const { welcomeAlertData } = useHomePageHook();
+    useHomePageHook();
 
     return (
         <>
-            <DisplayAlert data={welcomeAlertData} />
             <Container maxW={'3xl'}>
                 <Stack as={Box} textAlign={'center'} spacing={{ base: 8, md: 14 }} py={{ base: 10, md: 20 }}>
                     <Heading fontWeight={600} fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }} lineHeight={'110%'}>

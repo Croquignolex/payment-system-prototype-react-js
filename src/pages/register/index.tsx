@@ -4,7 +4,7 @@ import { Form, Formik, FormikProps } from "formik";
 import {Heading, Stack, Text, HStack, Box, Button} from "@chakra-ui/react";
 
 import TextField from "../../components/form/TextField";
-import {checkEmailSchema, initialValues} from "./registerPageData";
+import {checkEmailSchema, checkEmailInitialValues} from "./registerPageData";
 import useRegisterPageHook from "./useRegisterPageHook";
 import DisplayAlert from "../../components/DisplayAlert";
 import {CheckEmailFormType} from "../../types/authTypes";
@@ -26,7 +26,7 @@ const RegisterPage = (): ReactElement => {
                     </Text>
                 </Box>
                 <DisplayAlert data={errorAlertData} />
-                <Formik initialValues={initialValues} validationSchema={checkEmailSchema} onSubmit={handleCheckEmail}>
+                <Formik initialValues={checkEmailInitialValues} validationSchema={checkEmailSchema} onSubmit={handleCheckEmail}>
                     {(props: FormikProps<CheckEmailFormType>) => (
                         <Form>
                             <TextField

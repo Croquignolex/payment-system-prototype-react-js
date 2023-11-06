@@ -23,8 +23,8 @@ const useRegisterPageHook = (): any => {
 
         // setLocaleStorageItem('user', { lastName, firstName, email, accountId });
         // setGlobalState({type: UPDATE_USER_DATA, payload: { isAuthorized: true, lastName, firstName, email, accountId }});
-console.log(routes.registerSTepOne.path, email)
-        navigate(routes.registerSTepOne.path, {state: { trustedEmail: true, email }});
+
+        navigate(routes.registerStepOne.path, {state: { trustedData: true, email }});
     }
 
     const handleCheckEmail = ({ email }: CheckEmailFormType): void => mutate({ email });
