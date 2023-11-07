@@ -59,9 +59,11 @@ const RegisterVerificationPage = (): ReactElement => {
                                 errorMessage={props.errors.code}
                             />
                             <Center mt={10}>
-                                <Text as='u' fontWeight='bold'>
-                                    Je n'ai pas reçus de code
-                                </Text>
+                                <Link to="#" state={backState}>
+                                    <Text as='u' fontWeight='bold'>
+                                        Je n'ai pas reçus de code
+                                    </Text>
+                                </Link>
                             </Center>
                             <SubmitButton />
                         </Form>

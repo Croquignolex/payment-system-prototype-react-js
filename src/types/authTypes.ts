@@ -3,6 +3,9 @@ export interface CheckEmailRequestType {
 }
 
 export interface RegisterRequestType extends CheckEmailRequestType {
+    firstName: string,
+    lastName: string,
+    password: string,
 }
 
 export interface LoginRequestType extends CheckEmailRequestType {
@@ -27,4 +30,9 @@ export interface VerifyPhoneFormType {
 
 export interface VerifyCodeFormType {
     code: string,
+}
+
+export interface PasswordFormType {
+    password: string,
+    confirmPassword: string,
 }

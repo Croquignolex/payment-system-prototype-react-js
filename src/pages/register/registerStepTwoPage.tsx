@@ -45,10 +45,12 @@ const RegisterStepTwoPage = (): ReactElement => {
                 <Heading fontSize={'2xl'} alignSelf='center'>Vérifiez votre numéro de téléphone avec un code</Heading>
                 <Box alignSelf='center' mt={2}>
                     Ceci permet de garder votre compte sécurisé.
-                    <Text as='u' fontWeight='bold' mx={1}>
-                        En savoir plus
-                    </Text>
-                    <Icon as={FiExternalLink}></Icon>
+                    <Link to="#">
+                        <Text as='u' fontWeight='bold' mx={1}>
+                            En savoir plus
+                        </Text>
+                        <Icon as={FiExternalLink}></Icon>
+                    </Link>
                 </Box>
                 <Formik initialValues={verifyPhoneInitialValues} validationSchema={verifyPhoneSchema} onSubmit={handleVerifyPhone} enableReinitialize>
                     {(props: FormikProps<VerifyPhoneFormType>) => (

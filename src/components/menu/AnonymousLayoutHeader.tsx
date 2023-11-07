@@ -20,7 +20,8 @@ const AnonymousLayoutHeader: FC = (): ReactElement => {
                 case routes.registerStepOne.path:
                     setActiveStep(1);
                     break;
-                case routes.registerStepTwo.path, routes.registerVerification.path:
+                case routes.registerStepTwo.path:
+                case routes.registerVerification.path:
                     setActiveStep(2);
                     break;
                 case routes.registerStepTree.path:

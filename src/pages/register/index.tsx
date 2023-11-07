@@ -6,14 +6,13 @@ import {Heading, Stack, Text, HStack, Box, Button} from "@chakra-ui/react";
 import TextField from "../../components/form/TextField";
 import {checkEmailSchema} from "./registerPageData";
 import useRegisterPageHook from "./useRegisterPageHook";
-import DisplayAlert from "../../components/DisplayAlert";
 import {CheckEmailFormType} from "../../types/authTypes";
 import { routes } from "../../constants/routeConstants";
 import SubmitButton from "../../components/form/SumitButton";
 import {FaApple, FaFacebook, FaGoogle} from "react-icons/fa";
 
 const RegisterPage = (): ReactElement => {
-    const { handleCheckEmail, checkEmailInitialValues, isLoading, errorAlertData } = useRegisterPageHook();
+    const { handleCheckEmail, checkEmailInitialValues } = useRegisterPageHook();
 
     return (
         <>
@@ -25,7 +24,7 @@ const RegisterPage = (): ReactElement => {
                         <Link to={routes.login.path}>Connectez-vous</Link>
                     </Text>
                 </Box>
-                <DisplayAlert data={errorAlertData} />
+                {/*<DisplayAlert data={errorAlertData} />*/}
                 <Formik initialValues={checkEmailInitialValues} validationSchema={checkEmailSchema} onSubmit={handleCheckEmail} enableReinitialize>
                     {(props: FormikProps<CheckEmailFormType>) => (
                         <Form>
@@ -35,7 +34,7 @@ const RegisterPage = (): ReactElement => {
                                 isInvalid={!!props.errors.email && !!props.touched.email}
                                 errorMessage={props.errors.email}
                             />
-                            <SubmitButton isLoading={isLoading} label="Suivant"></SubmitButton>
+                            <SubmitButton label="Suivant"></SubmitButton>
                         </Form>
                     )}
                 </Formik>
