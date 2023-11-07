@@ -1,9 +1,8 @@
 import { lazy, LazyExoticComponent, ReactElement } from 'react';
+import { FiHome, FiUser } from "react-icons/fi";
 
 import AnonymousLayout from "../layouts/AnonymousLayout";
 import MainLayout from "../layouts/MainLayout";
-import { FiHome, FiUser } from "react-icons/fi";
-import ErrorLayout from "../layouts/ErrorLayout";
 
 const LazyLoginPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/login'));
 const LazyRegisterPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register'));
@@ -112,7 +111,7 @@ export const routesDefinition = [
         routes: [routes.home, routes.profile]
     },
     {
-        layout: ErrorLayout,
+        layout: AnonymousLayout,
         isError: true,
         routes: [routes.notFound]
     },

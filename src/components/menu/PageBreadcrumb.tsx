@@ -7,7 +7,7 @@ import {BreadcrumbItemsType} from "../../types/othersTypes";
 
 const PageBreadcrumb: FC<PageBreadcrumbProps> = ({ pageTitle, items }) => {
     return (
-        <Breadcrumb spacing='8px' separator={<FiChevronRight color='gray.500' />}>
+        <Breadcrumb spacing='8px' separator={<FiChevronRight />} mb={5}>
             {items.map((item: BreadcrumbItemsType): ReactElement => (
                 <BreadcrumbItem key={item.key}>
                     <BreadcrumbLink as={Link} to={item.path}>{item.label}</BreadcrumbLink>

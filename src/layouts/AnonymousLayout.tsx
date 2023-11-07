@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import {Flex, Box, Container} from "@chakra-ui/react";
 
 import AnonymousLayoutHeader from "../components/menu/AnonymousLayoutHeader";
+import Footer from "../components/Footer";
 
 const AnonymousLayout: FC = (): ReactElement => {
     return (
@@ -22,6 +23,7 @@ const AnonymousLayout: FC = (): ReactElement => {
                         <Outlet />
                     </Flex>
                 </Container>
+                <Footer />
             </Box>
         </>
     );

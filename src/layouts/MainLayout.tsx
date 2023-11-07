@@ -1,12 +1,13 @@
 import React, {FC, ReactElement, useMemo} from "react";
 import {Outlet, useLocation} from "react-router-dom";
-import {Box, Drawer, DrawerContent, useDisclosure} from "@chakra-ui/react";
+import {Box, Container, Drawer, DrawerContent, useDisclosure} from "@chakra-ui/react";
 
 import SidebarContent from "../components/menu/SidebarContent";
 import MobileNav from "../components/menu/MobileNav";
 import {routes} from "../constants/routeConstants";
 import {BreadcrumbItemsType, HeaderMenuItemType, SidebarMenuItemType} from "../types/othersTypes";
 import PageBreadcrumb from "../components/menu/PageBreadcrumb";
+import Footer from "../components/Footer";
 
 const MainLayout: FC = (): ReactElement => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -62,11 +63,16 @@ const MainLayout: FC = (): ReactElement => {
                     <SidebarContent onClose={onClose} menuItems={sidebarMenuItems} />
                 </DrawerContent>
             </Drawer>
-            <MobileNav onOpen={onOpen} menuItems={headerMenuItems} />
-            <Box ml={{ base: 0, md: 60 }} p="4">
-                <PageBreadcrumb pageTitle={pageTitle} items={breadcrumbItems} />
-                <Outlet />
+            <Container maxW='7xl' mt={8}>
+                <MobileNav onOpen={onOpen} menuItems={headerMenuItems} />
+            </Container>
+            <Box ml={{ base: 0, md: 60 }} p={10}>
+                <Container maxW='5xl'>
+                    <PageBreadcrumb pageTitle={pageTitle} items={breadcrumbItems} />
+                    <Outlet />
+                </Container>
             </Box>
+            <Footer />
         </Box>
     );
 };

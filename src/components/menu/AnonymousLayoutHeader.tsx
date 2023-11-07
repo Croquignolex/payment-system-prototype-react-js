@@ -1,8 +1,8 @@
 import React, {FC, ReactElement, useEffect} from "react";
 import {useLocation} from "react-router-dom";
 import {
-    Box, Container, Flex, Spacer, Step, StepDescription, StepIcon, StepIndicator, StepNumber, Stepper, StepSeparator,
-    StepStatus, Text, useSteps
+    Box, Container, Flex, Spacer, Step, StepDescription, StepIcon, StepIndicator,
+    StepNumber, Stepper, StepSeparator, StepStatus, Text, useSteps
 } from "@chakra-ui/react";
 
 import {appInfo} from "../../constants/envConstants";
@@ -12,7 +12,12 @@ const AnonymousLayoutHeader: FC = (): ReactElement => {
     const { pathname: currentPath } = useLocation();
     const { activeStep, setActiveStep } = useSteps({count: stepsLabels.length});
 
-    const showStepIndicator: boolean = !(currentPath === routes.login.path || currentPath === routes.register.path);
+    const showStepIndicator: boolean = (
+        currentPath === routes.registerStepOne.path ||
+        currentPath === routes.registerStepTwo.path ||
+        currentPath === routes.registerStepTree.path ||
+        currentPath === routes.registerVerification.path
+    );
 
     useEffect((): void => {
         if(showStepIndicator) {

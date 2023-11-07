@@ -30,11 +30,11 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
 
     return (
         <Flex
-            ml={{ base: 0, md: 60 }}
-            px={{ base: 4, md: 4 }}
+            // ml={{ base: 0, md: 60 }}
+            // px={{ base: 4, md: 4 }}
             height="20"
             alignItems="center"
-            bg={'white'}
+            // bg={'white'}
             // borderBottomWidth="1px"
             // borderBottomColor={'gray.200'}
             justifyContent={{ base: 'space-between', md: 'flex-end' }}
@@ -58,7 +58,7 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
                             _expanded={{ color: 'blue.500' }}
                         >
                             <HStack>
-                                <Avatar bg='blue.500' icon={<FiUser fontSize='1.5rem' />} />
+                                <Avatar bg='gray.200' icon={<FiUser fontSize='1.5rem' color='black'/>} />
                                 <VStack display={{ base: 'none', md: 'flex' }} alignItems="flex-start">
                                     <Text fontSize="sm">{globalState?.firstName}</Text>
                                 </VStack>
