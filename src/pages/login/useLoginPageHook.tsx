@@ -5,14 +5,14 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import { routes } from "../../constants/routeConstants";
 import {registerRequest} from "../../helpers/apiRequestsHelpers";
 import { setLocaleStorageItem } from "../../helpers/localStorageHelpers";
-import { UPDATE_USER_DATA, UserContext } from "../../components/UserContext";
+import {TRUST_AUTHORIZED_USER, UPDATE_USER_DATA, UserContext} from "../../contexts/UserContext";
 import {ErrorAlertType, RequestResponseType} from "../../types/othersTypes";
-import { LoginFormType } from "../../types/authTypes";
+import { LoginFormType } from "../../types/pages/authTypes";
 import {AlertStatusType} from "../../types/enumsTypes";
 
 const useLoginPageHook = (): any => {
     const navigate: NavigateFunction = useNavigate();
-    const { setGlobalState } = useContext(UserContext);
+    const { setGlobalUserState } = useContext(UserContext);
 
     // const { isLoading, isError, isSuccess, data, error, mutate }: RequestResponseType = useMutation(loginRequest);
     const { isLoading, isError, isSuccess, data, error, variables, mutate }: RequestResponseType = useMutation(registerRequest);
@@ -26,7 +26,8 @@ const useLoginPageHook = (): any => {
 
         setLocaleStorageItem('user', { lastName, firstName, email, accountId });
 
-        setGlobalState({type: UPDATE_USER_DATA, payload: { isAuthorized: true, lastName, firstName, email, accountId }});
+        setGlobalUserState({type: TRUST_AUTHORIZED_USER});
+        setGlobalUserState({type: UPDATE_USER_DATA, payload: { lastName, firstName, email, accountId }});
 
         navigate(routes.home.path, {state: { welcomeAlert: true }});
     }

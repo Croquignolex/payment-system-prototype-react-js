@@ -5,7 +5,7 @@ export const authApiURI = {
     register: '/account/register/email',
 };
 
-export const userApiURI = {
-    item: '/users',
-    items: '/users/{user}',
+export const accountApiURI = {
+    fetch: '/account/{accountId}',
+    update: '/account/update/{user}',
 };

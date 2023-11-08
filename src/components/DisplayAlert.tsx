@@ -1,9 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, ReactElement } from "react";
 import { AlertIcon, Alert, Stack } from "@chakra-ui/react";
 
 import {ErrorAlertType} from "../types/othersTypes";
 
-const DisplayAlert: FC<DisplayAlertProps> = ({ data }): React.ReactElement | null => {
+const DisplayAlert: FC<DisplayAlertProps> = ({ data }): ReactElement | null => {
     if(data === null || !data?.show) {
         return null;
     }

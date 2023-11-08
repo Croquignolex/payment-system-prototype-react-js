@@ -1,13 +1,9 @@
 import * as Yup from "yup";
 
-import {
-    CheckEmailFormType,
-    ChooseCountryFormType,
-    PasswordFormType,
-    VerifyCodeFormType,
-    VerifyPhoneFormType
-} from "../../types/authTypes";
 import {formValidationMessage} from "../../constants/generalConstants";
+import {CheckEmailFormType, ChooseCountryFormType, PasswordFormType,
+    VerifyCodeFormType, VerifyPhoneFormType
+} from "../../types/pages/authTypes";
 
 // export const checkEmailInitialValues: CheckEmailFormType = { email: '' };
 

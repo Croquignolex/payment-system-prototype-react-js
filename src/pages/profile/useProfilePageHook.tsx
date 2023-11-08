@@ -1,46 +1,48 @@
-import { useContext } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import {useContext, useState} from "react";
+import { useQuery } from "@tanstack/react-query";
 
-import { routes } from "../../constants/routeConstants";
-import { loginRequest } from "../../helpers/apiRequestsHelpers";
-import { setLocaleStorageItem } from "../../helpers/localStorageHelpers";
-import { UPDATE_USER_DATA, UserContext } from "../../components/UserContext";
+import {accountDetailsRequest} from "../../helpers/apiRequestsHelpers";
+import {UPDATE_USER_DATA, UserContext} from "../../contexts/UserContext";
 import {ErrorAlertType, RequestResponseType} from "../../types/othersTypes";
-import { LoginFormType } from "../../types/authTypes";
 import {AlertStatusType} from "../../types/enumsTypes";
+import {setLocaleStorageItem} from "../../helpers/localStorageHelpers";
+import {AddressContext, UPDATE_ADDRESS_DATA} from "../../contexts/AddressContext";
 
 const useProfilePageHook = (): any => {
-    const navigate: NavigateFunction = useNavigate();
-    const { setGlobalState } = useContext(UserContext);
+    const { globalUserState, setGlobalUserState } = useContext(UserContext);
+    const { globalAddressState, setGlobalAddressState } = useContext(AddressContext);
 
-    // const { isLoading, isError, isSuccess, data, error, mutate }: RequestResponseType = useMutation(loginRequest);
-    const { isLoading, isError, isSuccess, error, mutate }: RequestResponseType = useMutation(loginRequest);
+    const [queryEnabled, setQueryEnabled] = useState<boolean>(true);
+
+    const { isLoading, isError, isSuccess, data, error }: RequestResponseType = useQuery({
+        queryKey: ["account-details"],
+        queryFn: () => accountDetailsRequest({accountId: globalUserState.accountId}),
+        enabled: queryEnabled
+    });
 
     const errorMessage: string = error?.response?.data?.message || error?.message;
-    const errorAlertData: ErrorAlertType = { show: isError, status: AlertStatusType.error, message: errorMessage }
+    const errorAlertData: ErrorAlertType = { show: isError, status: AlertStatusType.error, message: errorMessage };
 
-    if(isSuccess || isError) {
-        // const { message, firstName, lastName, email, accountId, token } = data?.data;
+    if(queryEnabled && isSuccess) {
+        setQueryEnabled(false);
 
-        // *************************************** TO REMOVE *************************************** //
-        const firstName: string = "Croquy";
-        const lastName: string = "Corquignolex";
-        const email: string = "crouy@exemple.com";
-        const accountId: string = "73d5e89c-a221-4876-9ac9-09b7bcf2ec29";
-        const token: string = "secrete-access-token";
-        // *************************************** TO REMOVE *************************************** //
+        const accountId: string = data?.data?.accountId;
+        const firstName: string = data?.data?.firstName;
+        const lastName: string = data?.data?.lastName;
+        const email: string = data?.data?.email;
+        const phoneNumber: string = data?.data?.phoneNumber;
+        const street: string = data?.data?.address?.street;
+        const city: string = data?.data?.address?.city;
+        const zipCode: string = data?.data?.address?.zipCode;
+        const country: string = data?.data?.address?.country;
 
-        setLocaleStorageItem('user', { firstName, lastName, email, accountId, 'access-token': token });
+        setLocaleStorageItem('user', { firstName, lastName, email, phoneNumber, accountId });
 
-        setGlobalState({ type: UPDATE_USER_DATA, payload: { isAuthorized: true, firstName, lastName, email, accountId } });
-
-        navigate(routes.home.path, { state: { welcomeAlert: true } });
+        setGlobalUserState({ type: UPDATE_USER_DATA, payload: { firstName, lastName, email, phoneNumber, accountId } });
+        setGlobalAddressState({ type: UPDATE_ADDRESS_DATA, payload: { street, city, zipCode, country } });
     }
 
-    const handleInfo = ({ email, password }: LoginFormType): void => mutate({ email, password });
-
-    return { handleInfo, isLoading, errorAlertData };
+    return { isLoading, globalUserState, globalAddressState, errorAlertData };
 };
 
 export default useProfilePageHook;

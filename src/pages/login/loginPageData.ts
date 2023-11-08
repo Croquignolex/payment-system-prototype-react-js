@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { LoginFormType } from "../../types/authTypes";
+import { LoginFormType } from "../../types/pages/authTypes";
 import {formValidationMessage} from "../../constants/generalConstants";
 
 export const initialValues: LoginFormType = { email: '', password: '' };

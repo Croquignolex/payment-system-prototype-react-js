@@ -8,7 +8,7 @@ import PasswordField from "../../components/form/PasswordField";
 import { initialValues, loginSchema } from "./loginPageData";
 import useLoginPageHook from "./useLoginPageHook";
 import DisplayAlert from "../../components/DisplayAlert";
-import { LoginFormType } from "../../types/authTypes";
+import { LoginFormType } from "../../types/pages/authTypes";
 import { routes } from "../../constants/routeConstants";
 import SubmitButton from "../../components/form/SumitButton";
 import {appInfo} from "../../constants/envConstants";

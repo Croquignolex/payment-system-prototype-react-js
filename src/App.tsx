@@ -2,7 +2,19 @@ import React, { FC, ReactElement, Suspense, useContext, useReducer, useEffect } 
 import { BrowserRouter } from "react-router-dom";
 import { AbsoluteCenter, Box, Spinner } from "@chakra-ui/react";
 
-import { initialGlobalState, reducer, TRUST_UNAUTHORIZED_USER, UPDATE_USER_DATA, UserContext } from "./components/UserContext";
+import {
+    initialGlobalUserState,
+    userReducer,
+    TRUST_UNAUTHORIZED_USER,
+    UPDATE_USER_DATA,
+    UserContext,
+    TRUST_AUTHORIZED_USER
+} from "./contexts/UserContext";
+import {
+    addressReducer,
+    AddressContext,
+    initialGlobalAddressState
+} from "./contexts/AddressContext";
 import { Routes } from "./routes";
 import { getLocaleStorageItem } from "./helpers/localStorageHelpers";
 
@@ -17,39 +29,43 @@ const SuspenseLoader: FC = (): ReactElement => {
 };
 
 const GlobalState: FC = (): ReactElement => {
-    const { globalState, setGlobalState } = useContext(UserContext);
+    const { globalUserState, setGlobalUserState } = useContext(UserContext);
 
     useEffect((): void => {
         const userPersistedData = getLocaleStorageItem('user');
 
         if(userPersistedData) {
-            const { lastName, firstName, email, accountId } = userPersistedData;
+            const { lastName, firstName, email, phoneNumber, birthData, accountId } = userPersistedData;
 
-            setGlobalState({ type: UPDATE_USER_DATA, payload: { isAuthorized: true, lastName, firstName, email, accountId } });
+            setGlobalUserState({ type: TRUST_AUTHORIZED_USER });
+            setGlobalUserState({ type: UPDATE_USER_DATA, payload: { lastName, firstName, email, birthData, phoneNumber, accountId } });
         } else {
-            setGlobalState({ type: TRUST_UNAUTHORIZED_USER });
+            setGlobalUserState({ type: TRUST_UNAUTHORIZED_USER });
         }
     }, []);
 
-    if(!globalState.isTrustedData) {
+    if(!globalUserState.isTrustedData) {
         return <SuspenseLoader />;
     }
 
     return (
-        <Routes isAuthorized={globalState.isAuthorized} />
+        <Routes isAuthorized={globalUserState.isAuthorized} />
     );
 };
 
 const App: FC = (): ReactElement => {
-    const [globalState, setGlobalState] = useReducer(reducer, initialGlobalState);
+    const [globalUserState, setGlobalUserState] = useReducer(userReducer, initialGlobalUserState);
+    const [globalAddressState, setGlobalAddressState] = useReducer(addressReducer, initialGlobalAddressState);
 
     return (
-        <UserContext.Provider value={{ globalState, setGlobalState }}>
-            <Suspense fallback={<SuspenseLoader />}>
-                <BrowserRouter>
-                    <GlobalState />
-                </BrowserRouter>
-            </Suspense>
+        <UserContext.Provider value={{ globalUserState, setGlobalUserState }}>
+            <AddressContext.Provider value={{ globalAddressState, setGlobalAddressState }}>
+                <Suspense fallback={<SuspenseLoader />}>
+                    <BrowserRouter>
+                        <GlobalState />
+                    </BrowserRouter>
+                </Suspense>
+            </AddressContext.Provider>
         </UserContext.Provider>
     );
 };

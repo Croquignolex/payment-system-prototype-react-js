@@ -1,45 +1,18 @@
-import React, {ReactElement, useEffect, useMemo, useState} from "react";
+import React, {ReactElement} from "react";
 import {Box, Center, Heading, Stack, Text} from "@chakra-ui/react";
-import {Link, NavigateFunction, useLocation, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {FiArrowLeft} from "react-icons/fi";
 import {Form, Formik, FormikProps} from "formik";
 
-import {chooseCountrySchema} from "./registerPageData";
-import {ChooseCountryFormType} from "../../types/authTypes";
+import {chooseCountrySchema} from "./registerPagesData";
+import {ChooseCountryFormType} from "../../types/pages/authTypes";
 import SubmitButton from "../../components/form/SumitButton";
 import {routes} from "../../constants/routeConstants";
 import SelectField from "../../components/form/SelectField";
-import countriesJSON from '../../assets/countries.json';
-import {FormSelectOptionType} from "../../types/othersTypes";
+import useRegisterStepOnePageHook from "./useRegisterStepOnePageHook";
 
 const RegisterStepOnePage = (): ReactElement => {
-    const navigate: NavigateFunction = useNavigate();
-    const { state: locationState } = useLocation();
-
-    const [chooseCountryInitialValues, setChooseCountryInitialValues] = useState<ChooseCountryFormType>({country: ''} );
-
-    useEffect((): void => {
-        if(!locationState?.trustedData) {
-            navigate(routes.register.path);
-        }
-
-        if(locationState?.trustedData) {
-            setChooseCountryInitialValues({country: locationState?.country});
-        }
-    }, []);
-
-    const countriesData: FormSelectOptionType[] = useMemo((): FormSelectOptionType[] => (
-        countriesJSON.map((country: { name: string, code: string }): FormSelectOptionType => ({
-            label: country.name,
-            key: country.code
-        }))
-    ), []);
-
-    const handleChooseCountry = ({ country }: ChooseCountryFormType): void => {
-        navigate(routes.registerStepTwo.path, {state: { trustedData: true, email: locationState?.email, country }});
-    };
-
-    const backState: any = {trustedData: true, email: locationState?.email};
+    const { handleChooseCountry, chooseCountryInitialValues, countriesData, backState } = useRegisterStepOnePageHook();
 
     return (
         <>

@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import {LoginFormType, LoginRequestType} from "../../types/authTypes";
+import {LoginFormType, LoginRequestType} from "../../types/pages/authTypes";
 
 export const infoInitialValues: InfoFormType = {
     firstName: 'alex', lastName: 'croquy', email: 'gpetitalex10@gmail.com',

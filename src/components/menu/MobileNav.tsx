@@ -6,26 +6,22 @@ import {
     Menu, MenuButton, Avatar, VStack, MenuList, MenuItem, Icon,
 } from "@chakra-ui/react";
 
-import { CLEAR_USER_DATA, UserContext } from "../UserContext";
+import { CLEAR_USER_DATA, UserContext } from "../../contexts/UserContext";
 import { routes } from "../../constants/routeConstants";
 import {HeaderMenuItemType, RequestResponseType} from "../../types/othersTypes";
 import { useMutation } from "@tanstack/react-query";
-import { logoutRequest } from "../../helpers/apiRequestsHelpers";
 import { removeLocaleStorageItem } from "../../helpers/localStorageHelpers";
 
 const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
-    const { mutate }: RequestResponseType = useMutation(logoutRequest);
-    const { globalState, setGlobalState } = useContext(UserContext);
+    const { globalUserState, setGlobalUserState } = useContext(UserContext);
     const navigate: NavigateFunction = useNavigate();
 
     const handleLogout = (): void => {
         removeLocaleStorageItem('user');
 
-        setGlobalState({ type: CLEAR_USER_DATA });
+        setGlobalUserState({ type: CLEAR_USER_DATA });
 
         navigate(routes.login.path);
-
-        mutate();
     };
 
     return (
@@ -60,17 +56,14 @@ const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
                             <HStack>
                                 <Avatar bg='gray.200' icon={<FiUser fontSize='1.5rem' color='black'/>} />
                                 <VStack display={{ base: 'none', md: 'flex' }} alignItems="flex-start">
-                                    <Text fontSize="sm">{globalState?.firstName}</Text>
+                                    <Text fontSize="sm">{globalUserState.firstName}</Text>
                                 </VStack>
                                 <Box display={{ base: 'none', md: 'flex' }}>
                                     <FiChevronDown />
                                 </Box>
                             </HStack>
                         </MenuButton>
-                        <MenuList
-                            bg={useColorModeValue('white', 'gray.900')}
-                            borderColor={useColorModeValue('gray.200', 'gray.700')}
-                        >
+                        <MenuList>
                             {menuItems.map((route: HeaderMenuItemType): ReactElement => (
                                 <MenuItem
                                     as={Link}

@@ -1,36 +1,17 @@
-import React, {ReactElement, useEffect} from "react";
+import React, {ReactElement} from "react";
 import {Box, Center, Heading, Stack, Text} from "@chakra-ui/react";
-import {Link, NavigateFunction, useLocation, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {Form, Formik, FormikProps} from "formik";
 
-import {verifyCodeInitialValues, verifyCodeSchema} from "./registerPageData";
-import {VerifyCodeFormType} from "../../types/authTypes";
+import {verifyCodeInitialValues, verifyCodeSchema} from "./registerPagesData";
+import {VerifyCodeFormType} from "../../types/pages/authTypes";
 import SubmitButton from "../../components/form/SumitButton";
 import {routes} from "../../constants/routeConstants";
 import TextField from "../../components/form/TextField";
+import useRegisterVerificationPageHook from "./useRegisterVerificationPageHook";
 
 const RegisterVerificationPage = (): ReactElement => {
-    const navigate: NavigateFunction = useNavigate();
-    const { state: locationState } = useLocation();
-
-    useEffect((): void => {
-        if(!locationState?.trustedData) {
-            navigate(routes.register.path);
-        }
-    }, []);
-
-    const handleCodePhone = ({ code }: VerifyCodeFormType): void => {
-        const state: any = {
-            trustedData: true,
-            email: locationState?.email,
-            country: locationState?.country,
-            phoneNumber: locationState?.phoneNumber,
-            phoneCode: locationState?.phoneCode,
-        };
-        navigate(routes.registerStepTree.path, {state});
-    };
-
-    const backState: any = {trustedData: true, email: locationState?.email, country: locationState?.country, phoneCode: locationState?.phoneCode, phoneNumber: locationState?.phoneNumber};
+    const { handleCodePhone, phone, backState } = useRegisterVerificationPageHook();
 
     return (
         <>
@@ -39,7 +20,7 @@ const RegisterVerificationPage = (): ReactElement => {
                 <Box alignSelf='center' mt={2}>
                     Nous l'avons envoyé au
                     <Text as="span" fontWeight='bold' ml={1}>
-                        {locationState?.phoneCode}{locationState?.phoneNumber}.
+                        {phone}.
                     </Text>
                     <Center>
                         <Text as='u' fontWeight='bold'>

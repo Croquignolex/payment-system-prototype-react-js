@@ -1,15 +1,15 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { Form, Formik, FormikProps } from "formik";
+import {FaApple, FaFacebook, FaGoogle} from "react-icons/fa";
 import {Heading, Stack, Text, HStack, Box, Button} from "@chakra-ui/react";
 
 import TextField from "../../components/form/TextField";
-import {checkEmailSchema} from "./registerPageData";
+import {checkEmailSchema} from "./registerPagesData";
 import useRegisterPageHook from "./useRegisterPageHook";
-import {CheckEmailFormType} from "../../types/authTypes";
+import {CheckEmailFormType} from "../../types/pages/authTypes";
 import { routes } from "../../constants/routeConstants";
 import SubmitButton from "../../components/form/SumitButton";
-import {FaApple, FaFacebook, FaGoogle} from "react-icons/fa";
 
 const RegisterPage = (): ReactElement => {
     const { handleCheckEmail, checkEmailInitialValues } = useRegisterPageHook();

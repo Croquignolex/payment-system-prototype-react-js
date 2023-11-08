@@ -1,43 +1,18 @@
-import React, {ReactElement, useEffect, useState} from "react";
+import React, {ReactElement} from "react";
 import {Box, Center, Heading, Icon, Stack, Text} from "@chakra-ui/react";
-import {Link, NavigateFunction, useLocation, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {FiArrowLeft, FiExternalLink} from "react-icons/fi";
 import {Form, Formik, FormikProps} from "formik";
 
-import {verifyPhoneSchema} from "./registerPageData";
-import {VerifyPhoneFormType} from "../../types/authTypes";
+import {verifyPhoneSchema} from "./registerPagesData";
+import {VerifyPhoneFormType} from "../../types/pages/authTypes";
 import SubmitButton from "../../components/form/SumitButton";
 import {routes} from "../../constants/routeConstants";
 import CustomPhoneField from "../../components/form/CustomPhoneField";
+import useRegisterStepTwoPageHook from "./useRegisterStepTwoPageHook";
 
 const RegisterStepTwoPage = (): ReactElement => {
-    const navigate: NavigateFunction = useNavigate();
-    const { state: locationState } = useLocation();
-
-    const [verifyPhoneInitialValues, setVerifyPhoneInitialValues] = useState<VerifyPhoneFormType>({phoneNumber: '', phoneCode: ''} );
-
-    useEffect((): void => {
-        if(!locationState?.trustedData) {
-            navigate(routes.register.path);
-        }
-
-        if(locationState?.trustedData) {
-            setVerifyPhoneInitialValues({phoneNumber: locationState?.phoneNumber, phoneCode: locationState?.phoneCode});
-        }
-    }, []);
-
-    const handleVerifyPhone = ({ phoneCode, phoneNumber }: VerifyPhoneFormType): void => {
-        const state: any = {
-            trustedData: true,
-            email: locationState?.email,
-            country: locationState?.country,
-            phoneCode,
-            phoneNumber
-        };
-        navigate(routes.registerVerification.path, {state});
-    };
-
-    const backState: any = {trustedData: true, email: locationState?.email, country: locationState?.country};
+    const { handleVerifyPhone, verifyPhoneInitialValues, backState } = useRegisterStepTwoPageHook();
 
     return (
         <>

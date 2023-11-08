@@ -1,9 +1,6 @@
 import {IconType} from "react-icons";
 
 import {AlertStatusType} from "./enumsTypes";
-import NavItem from "../components/menu/NavItem";
-import {Link} from "react-router-dom";
-import React from "react";
 
 export interface ReducerActionType {
     type: string;
@@ -47,7 +44,7 @@ export interface RequestResponseType {
     isSuccess: boolean;
     data?: any;
     error?: any;
-    mutate: any;
+    mutate?: any;
     variables?: any;
 }
 

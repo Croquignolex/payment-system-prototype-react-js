@@ -1,6 +1,6 @@
 import React, {FC, ReactElement, useMemo} from "react";
 import {Outlet, useLocation} from "react-router-dom";
-import {Box, Container, Drawer, DrawerContent, useDisclosure} from "@chakra-ui/react";
+import {Box, Container, Drawer, DrawerContent, Heading, useDisclosure} from "@chakra-ui/react";
 
 import SidebarContent from "../components/menu/SidebarContent";
 import MobileNav from "../components/menu/MobileNav";
@@ -63,15 +63,17 @@ const MainLayout: FC = (): ReactElement => {
                     <SidebarContent onClose={onClose} menuItems={sidebarMenuItems} />
                 </DrawerContent>
             </Drawer>
-            <Container maxW='7xl' mt={8}>
+            <Container maxW='7xl' mt={6}>
                 <MobileNav onOpen={onOpen} menuItems={headerMenuItems} />
             </Container>
-            <Box ml={{ base: 0, md: 60 }} p={10}>
+            <Box ml={{ base: 0, md: 60 }}>
                 <Container maxW='5xl'>
                     <PageBreadcrumb pageTitle={pageTitle} items={breadcrumbItems} />
+                    <Heading as='h1' pt={2} pb={4}>{pageTitle}</Heading>
                     <Outlet />
                 </Container>
             </Box>
+            <Box h={100} />
             <Footer />
         </Box>
     );

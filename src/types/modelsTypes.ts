@@ -4,7 +4,14 @@ export interface UserModelType {
     lastName: string;
     firstName: string;
     email: string;
+    birthData: string;
+    phoneNumber: string;
     accountId: string;
 }
 
-
+export interface AddressModelType {
+    street: string;
+    city: string;
+    zipCode: string;
+    country: string;
+}

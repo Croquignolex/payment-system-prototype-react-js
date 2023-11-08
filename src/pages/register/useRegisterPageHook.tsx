@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useNavigate, NavigateFunction, useLocation} from "react-router-dom";
 
 import { routes } from "../../constants/routeConstants";
-import {CheckEmailFormType} from "../../types/authTypes";
+import {CheckEmailFormType} from "../../types/pages/authTypes";
 
 const useRegisterPageHook = (): any => {
     const navigate: NavigateFunction = useNavigate();

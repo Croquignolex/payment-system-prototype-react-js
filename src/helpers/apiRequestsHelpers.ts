@@ -1,7 +1,8 @@
-import { postRequest } from "./axiosHelpers";
-import { authApiURI } from "../constants/apiURIConstants";
+import {getRequest, postRequest} from "./axiosHelpers";
+import {accountApiURI, authApiURI} from "../constants/apiURIConstants";
 import { apiBaseURL } from "../constants/envConstants";
-import {LoginRequestType, RegisterRequestType} from "../types/authTypes";
+import {LoginRequestType, RegisterRequestType} from "../types/pages/authTypes";
+import {AccountDetailsRequestType} from "../types/pages/accountTypes";
 
 // const API_V1_URL: string = `${apiBaseURL}/api/v1`;
 const API_V1_URL: string = `${apiBaseURL}`;
@@ -11,14 +12,19 @@ export const loginRequest = ({ email, password }: LoginRequestType): Promise<any
     return postRequest(url, { email, password });
 };
 
-export const logoutRequest = (): Promise<any> => {
+/*export const logoutRequest = (): Promise<any> => {
     const url: string = joinBaseUrlWithParams(authApiURI.logout);
     return postRequest(url);
-};
+};*/
 
 export const registerRequest = ({ firstName, lastName, email, password }: RegisterRequestType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(authApiURI.register);
     return postRequest(url, { firstName, lastName, email, password });
+};
+
+export const accountDetailsRequest = ({ accountId }: AccountDetailsRequestType) => {
+    const url: string = joinBaseUrlWithParams(accountApiURI.fetch, [{param: 'accountId', value: accountId}]);
+    return getRequest(url);
 };
 
 // Build complete url

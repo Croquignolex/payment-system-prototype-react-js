@@ -8,6 +8,7 @@ const LazyLoginPage: LazyExoticComponent<() => ReactElement> = lazy(() => import
 const LazyRegisterPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register'));
 const LazyHomePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/home'));
 const LazyProfilePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/profile'));
+const LazyProfileEditPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/profile/profileEditPage'));
 const LazyNotFoundPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/notFound'));
 const LazyRegisterStepOnePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerStepOnePage'));
 const LazyRegisterStepTwoPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerStepTwoPage'));
@@ -81,13 +82,23 @@ export const routes = {
     },
     profile: {
         name: 'profile',
-        title: 'Profil',
+        title: 'Mes détails',
         component: LazyProfilePage,
         path: '/profile',
         icon: FiUser,
         onSidebar: false,
         onHeader: true,
         breadcrumb: [{path: '/home', label: 'Accueil'}]
+    },
+    profileEdit: {
+        name: 'profileEdit',
+        title: 'Editer mes détails',
+        component: LazyProfileEditPage,
+        path: '/profile/edit',
+        icon: null,
+        onSidebar: false,
+        onHeader: false,
+        breadcrumb: [{path: '/home', label: 'Accueil'}, {path: '/profile', label: 'Mes détails'}]
     },
     notFound: {
         name: 'notFound',
