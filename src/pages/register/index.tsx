@@ -24,21 +24,22 @@ const RegisterPage = (): ReactElement => {
                         <Link to={routes.login.path}>Connectez-vous</Link>
                     </Text>
                 </Box>
-                {/*<DisplayAlert data={errorAlertData} />*/}
-                <Formik initialValues={checkEmailInitialValues} validationSchema={checkEmailSchema} onSubmit={handleCheckEmail} enableReinitialize>
-                    {(props: FormikProps<CheckEmailFormType>) => (
-                        <Form>
-                            <TextField
-                                label="Tout d'abord, entrez votre addresse email"
-                                name="email"
-                                isInvalid={!!props.errors.email && !!props.touched.email}
-                                errorMessage={props.errors.email}
-                            />
-                            <SubmitButton label="Suivant"></SubmitButton>
-                        </Form>
-                    )}
-                </Formik>
-                <Stack pt={6}>
+                <Stack my={6}>
+                    <Formik initialValues={checkEmailInitialValues} validationSchema={checkEmailSchema} onSubmit={handleCheckEmail} enableReinitialize>
+                        {(props: FormikProps<CheckEmailFormType>) => (
+                            <Form>
+                                <TextField
+                                    label="Tout d'abord, entrez votre addresse email"
+                                    name="email"
+                                    isInvalid={!!props.errors.email && !!props.touched.email}
+                                    errorMessage={props.errors.email}
+                                />
+                                <SubmitButton label="Suivant"></SubmitButton>
+                            </Form>
+                        )}
+                    </Formik>
+                </Stack>
+                <Stack>
                     <Text mt={2}>
                         Ou inscrivez-vous avec
                     </Text>

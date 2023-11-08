@@ -9,6 +9,8 @@ import {setLocaleStorageItem} from "../../helpers/localStorageHelpers";
 import {AddressContext, UPDATE_ADDRESS_DATA} from "../../contexts/AddressContext";
 
 const useProfilePageHook = (): any => {
+    let alertData: ErrorAlertType | null = null;
+
     const { globalUserState, setGlobalUserState } = useContext(UserContext);
     const { globalAddressState, setGlobalAddressState } = useContext(AddressContext);
 
@@ -20,8 +22,9 @@ const useProfilePageHook = (): any => {
         enabled: queryEnabled
     });
 
-    const errorMessage: string = error?.response?.data?.message || error?.message;
-    const errorAlertData: ErrorAlertType = { show: isError, status: AlertStatusType.error, message: errorMessage };
+    if(isError) {
+        alertData = { show: isError, status: AlertStatusType.error, message: error?.message };
+    }
 
     if(queryEnabled && isSuccess) {
         setQueryEnabled(false);
@@ -29,7 +32,7 @@ const useProfilePageHook = (): any => {
         const accountId: string = data?.data?.accountId;
         const firstName: string = data?.data?.firstName;
         const lastName: string = data?.data?.lastName;
-        const email: string = data?.data?.email;
+        const email: string = data?.data?.emailAddress;
         const phoneNumber: string = data?.data?.phoneNumber;
         const street: string = data?.data?.address?.street;
         const city: string = data?.data?.address?.city;
@@ -42,7 +45,7 @@ const useProfilePageHook = (): any => {
         setGlobalAddressState({ type: UPDATE_ADDRESS_DATA, payload: { street, city, zipCode, country } });
     }
 
-    return { isLoading, globalUserState, globalAddressState, errorAlertData };
+    return { isLoading, globalUserState, globalAddressState, alertData };
 };
 
 export default useProfilePageHook;

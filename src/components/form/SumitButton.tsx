@@ -4,7 +4,15 @@ import {Button, Stack} from "@chakra-ui/react";
 const SubmitButton: FC<FormSubmitButtonProps> = ({ label = 'Confirmer', colorScheme = 'blue', variant = 'solid', isLoading = false }): ReactElement => {
     return (
         <Stack mt={10}>
-            <Button colorScheme={colorScheme} variant={variant} isLoading={isLoading} type='submit' size='lg' rounded='full'>
+            <Button
+                colorScheme={colorScheme}
+                variant={variant}
+                isLoading={isLoading}
+                type='submit'
+                size='lg'
+                rounded='full'
+                // onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+            >
                 {label}
             </Button>
         </Stack>

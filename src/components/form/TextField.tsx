@@ -7,7 +7,7 @@ import {FiAlertCircle} from "react-icons/fi";
 
 const TextField: FC<FormFieldProps> = ({ label = '', name, noLabel = false, isInvalid, errorMessage }): ReactElement => {
     return (
-        <FormControl isInvalid={isInvalid} mt={4}>
+        <FormControl isInvalid={isInvalid} mb={4}>
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}
 
             <Field as={Input} name={name} type="text" size='lg' borderColor="black" />

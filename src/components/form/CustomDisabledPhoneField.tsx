@@ -6,7 +6,7 @@ import {FormCustomDisabledPhoneFieldProps} from "../../types/othersTypes";
 
 const CustomDisabledPhoneField: FC<FormCustomDisabledPhoneFieldProps> = ({ label = '', code, number, noLabel = false }): ReactElement => {
     return (
-        <FormControl mt={4}>
+        <FormControl mb={4}>
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}
 
             <HStack spacing={2}>

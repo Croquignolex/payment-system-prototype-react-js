@@ -15,7 +15,6 @@ export const initialGlobalUserState: UserModelType = {
     lastName: '',
     firstName: '',
     accountId: '',
-    birthData: '',
     phoneNumber: '',
 };
 
@@ -37,7 +36,6 @@ export const userReducer = (state: UserModelType = initialGlobalUserState, actio
                 firstName: action.payload?.firstName,
                 lastName: action.payload?.lastName,
                 email: action.payload?.email,
-                birthData: action.payload?.birthData,
                 phoneNumber: action.payload?.phoneNumber,
                 accountId: action.payload?.accountId,
             };

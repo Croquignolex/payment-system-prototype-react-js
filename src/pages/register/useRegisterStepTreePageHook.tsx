@@ -11,6 +11,8 @@ import {AlertStatusType} from "../../types/enumsTypes";
 import {setLocaleStorageItem} from "../../helpers/localStorageHelpers";
 
 const useRegisterStepTreePageHook = (): any => {
+    let alertData: ErrorAlertType | null = null;
+
     const navigate: NavigateFunction = useNavigate();
     const { state: locationState } = useLocation();
     const { setGlobalUserState } = useContext(UserContext);
@@ -25,8 +27,9 @@ const useRegisterStepTreePageHook = (): any => {
 
     const { isLoading, isError, isSuccess, data, error, variables, mutate }: RequestResponseType = useMutation(registerRequest);
 
-    const errorMessage: string = error?.response?.data?.message || error?.message;
-    const errorAlertData: ErrorAlertType = { show: isError, status: AlertStatusType.error, message: errorMessage };
+    if(isError) {
+        alertData = { show: isError, status: AlertStatusType.error, message: error?.message };
+    }
 
     if(isSuccess) {
         const accountId: string = data?.data?.accountId;
@@ -49,7 +52,7 @@ const useRegisterStepTreePageHook = (): any => {
         mutate({ email, firstName, lastName, phoneNumber, password });
     };
 
-    return { handleRegister, isLoading, errorAlertData, backState };
+    return { handleRegister, isLoading, alertData, backState };
 };
 
 export default useRegisterStepTreePageHook;

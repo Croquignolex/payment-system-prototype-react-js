@@ -30,26 +30,28 @@ const RegisterVerificationPage = (): ReactElement => {
                         </Text>
                     </Center>
                 </Box>
-                <Formik initialValues={verifyCodeInitialValues} validationSchema={verifyCodeSchema} onSubmit={handleCodePhone}>
-                    {(props: FormikProps<VerifyCodeFormType>) => (
-                        <Form>
-                            <TextField
-                                label="Votre code à 6 chiffres"
-                                name="code"
-                                isInvalid={!!props.errors.code && !!props.touched.code}
-                                errorMessage={props.errors.code}
-                            />
-                            <Center mt={10}>
-                                <Link to="#" state={backState}>
-                                    <Text as='u' fontWeight='bold'>
-                                        Je n'ai pas reçus de code
-                                    </Text>
-                                </Link>
-                            </Center>
-                            <SubmitButton />
-                        </Form>
-                    )}
-                </Formik>
+                <Stack my={6}>
+                    <Formik initialValues={verifyCodeInitialValues} validationSchema={verifyCodeSchema} onSubmit={handleCodePhone}>
+                        {(props: FormikProps<VerifyCodeFormType>) => (
+                            <Form>
+                                <TextField
+                                    label="Votre code à 6 chiffres"
+                                    name="code"
+                                    isInvalid={!!props.errors.code && !!props.touched.code}
+                                    errorMessage={props.errors.code}
+                                />
+                                <Center mt={10}>
+                                    <Link to="#" state={backState}>
+                                        <Text as='u' fontWeight='bold'>
+                                            Je n'ai pas reçus de code
+                                        </Text>
+                                    </Link>
+                                </Center>
+                                <SubmitButton />
+                            </Form>
+                        )}
+                    </Formik>
+                </Stack>
             </Stack>
         </>
     );

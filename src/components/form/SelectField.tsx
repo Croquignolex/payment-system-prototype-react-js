@@ -7,7 +7,7 @@ import {FormSelectOptionType, SelectFormFieldProps} from "../../types/othersType
 
 const SelectField: FC<SelectFormFieldProps> = ({ label = '', name, values = [], noLabel = false, isInvalid, errorMessage }): ReactElement => {
     return (
-        <FormControl isInvalid={isInvalid} mt={4}>
+        <FormControl isInvalid={isInvalid} mb={4}>
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}
 
             <Field as={Select} name={name} size='lg' borderColor="black">

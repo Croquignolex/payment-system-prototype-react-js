@@ -1,8 +1,8 @@
-import {getRequest, postRequest} from "./axiosHelpers";
+import {getRequest, postRequest, putRequest} from "./axiosHelpers";
 import {accountApiURI, authApiURI} from "../constants/apiURIConstants";
 import { apiBaseURL } from "../constants/envConstants";
 import {LoginRequestType, RegisterRequestType} from "../types/pages/authTypes";
-import {AccountDetailsRequestType} from "../types/pages/accountTypes";
+import {AccountAddressUpdateRequestType, AccountDetailsRequestType} from "../types/pages/accountTypes";
 
 // const API_V1_URL: string = `${apiBaseURL}/api/v1`;
 const API_V1_URL: string = `${apiBaseURL}`;
@@ -25,6 +25,11 @@ export const registerRequest = ({ firstName, lastName, email, password }: Regist
 export const accountDetailsRequest = ({ accountId }: AccountDetailsRequestType) => {
     const url: string = joinBaseUrlWithParams(accountApiURI.fetch, [{param: 'accountId', value: accountId}]);
     return getRequest(url);
+};
+
+export const accountAddressUpdateRequest = ({ country, zipCode, street, city, accountId }: AccountAddressUpdateRequestType) => {
+    const url: string = joinBaseUrlWithParams(accountApiURI.updateAddress, [{param: 'accountId', value: accountId}]);
+    return putRequest(url, { country, zipCode, street, city });
 };
 
 // Build complete url

@@ -18,7 +18,7 @@ const PasswordField: FC<FormFieldProps> = ({ label, name, noLabel = false, isInv
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     return (
-        <FormControl isInvalid={isInvalid} mt={6}>
+        <FormControl isInvalid={isInvalid} mb={6}>
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}
 
             <InputGroup>

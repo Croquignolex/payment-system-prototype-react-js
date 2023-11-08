@@ -27,26 +27,28 @@ const RegisterStepTwoPage = (): ReactElement => {
                         <Icon as={FiExternalLink}></Icon>
                     </Link>
                 </Box>
-                <Formik initialValues={verifyPhoneInitialValues} validationSchema={verifyPhoneSchema} onSubmit={handleVerifyPhone} enableReinitialize>
-                    {(props: FormikProps<VerifyPhoneFormType>) => (
-                        <Form>
-                            <CustomPhoneField
-                                label="Numéro de téléphone"
-                                code="phoneCode"
-                                number="phoneNumber"
-                                isInvalid={
-                                    (!!props.errors.phoneCode && !!props.touched.phoneCode) ||
-                                    (!!props.errors.phoneNumber && !!props.touched.phoneNumber)
-                                }
-                                errorMessage={
-                                    props.errors.phoneCode ||
-                                    props.errors.phoneNumber
-                                }
-                            />
-                            <SubmitButton label="Envoyer le code de vérification"></SubmitButton>
-                        </Form>
-                    )}
-                </Formik>
+                <Stack my={6}>
+                    <Formik initialValues={verifyPhoneInitialValues} validationSchema={verifyPhoneSchema} onSubmit={handleVerifyPhone} enableReinitialize>
+                        {(props: FormikProps<VerifyPhoneFormType>) => (
+                            <Form>
+                                <CustomPhoneField
+                                    label="Numéro de téléphone"
+                                    code="phoneCode"
+                                    number="phoneNumber"
+                                    isInvalid={
+                                        (!!props.errors.phoneCode && !!props.touched.phoneCode) ||
+                                        (!!props.errors.phoneNumber && !!props.touched.phoneNumber)
+                                    }
+                                    errorMessage={
+                                        props.errors.phoneCode ||
+                                        props.errors.phoneNumber
+                                    }
+                                />
+                                <SubmitButton label="Envoyer le code de vérification"></SubmitButton>
+                            </Form>
+                        )}
+                    </Formik>
+                </Stack>
                 <Center mt={50}>
                     <FiArrowLeft />
                     <Text as='u' fontWeight='bold'>

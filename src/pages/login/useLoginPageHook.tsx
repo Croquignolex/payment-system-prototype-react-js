@@ -11,14 +11,16 @@ import { LoginFormType } from "../../types/pages/authTypes";
 import {AlertStatusType} from "../../types/enumsTypes";
 
 const useLoginPageHook = (): any => {
+    let alertData: ErrorAlertType | null = null;
+
     const navigate: NavigateFunction = useNavigate();
     const { setGlobalUserState } = useContext(UserContext);
 
-    // const { isLoading, isError, isSuccess, data, error, mutate }: RequestResponseType = useMutation(loginRequest);
     const { isLoading, isError, isSuccess, data, error, variables, mutate }: RequestResponseType = useMutation(registerRequest);
 
-    const errorMessage: string = error?.response?.data?.message || error?.message;
-    const errorAlertData: ErrorAlertType = { show: isError, status: AlertStatusType.error, message: errorMessage }
+    if(isError) {
+        alertData = { show: isError, status: AlertStatusType.error, message: error?.message };
+    }
 
     if(isSuccess) {
         const accountId: string = data?.data?.accountId;
@@ -34,7 +36,7 @@ const useLoginPageHook = (): any => {
 
     const handleLogin = ({ email, password }: LoginFormType): void => mutate({ email, password, firstName: 'Fake user', lastName: '' });
 
-    return { handleLogin, isLoading, errorAlertData };
+    return { handleLogin, isLoading, alertData };
 };
 
 export default useLoginPageHook;

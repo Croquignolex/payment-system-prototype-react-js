@@ -21,20 +21,22 @@ const RegisterStepOnePage = (): ReactElement => {
                 <Box alignSelf='center' mt={2}>
                     Il nous sera possible de vous demander de prouver votre addresse
                 </Box>
-                <Formik initialValues={chooseCountryInitialValues} validationSchema={chooseCountrySchema} onSubmit={handleChooseCountry} enableReinitialize>
-                    {(props: FormikProps<ChooseCountryFormType>) => (
-                        <Form>
-                            <SelectField
-                                noLabel
-                                name="country"
-                                values={countriesData}
-                                isInvalid={!!props.errors.country && !!props.touched.country}
-                                errorMessage={props.errors.country}
-                            />
-                            <SubmitButton label="Continuer"></SubmitButton>
-                        </Form>
-                    )}
-                </Formik>
+                <Stack my={6}>
+                    <Formik initialValues={chooseCountryInitialValues} validationSchema={chooseCountrySchema} onSubmit={handleChooseCountry} enableReinitialize>
+                        {(props: FormikProps<ChooseCountryFormType>) => (
+                            <Form>
+                                <SelectField
+                                    noLabel
+                                    name="country"
+                                    values={countriesData}
+                                    isInvalid={!!props.errors.country && !!props.touched.country}
+                                    errorMessage={props.errors.country}
+                                />
+                                <SubmitButton label="Continuer"></SubmitButton>
+                            </Form>
+                        )}
+                    </Formik>
+                </Stack>
                 <Center mt={50}>
                     <FiArrowLeft />
                     <Text as='u' fontWeight='bold'>

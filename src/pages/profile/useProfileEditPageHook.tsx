@@ -1,46 +1,98 @@
-import { useContext } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import {useMutation, useQuery} from "@tanstack/react-query";
 
-import { routes } from "../../constants/routeConstants";
-import { loginRequest } from "../../helpers/apiRequestsHelpers";
-import { setLocaleStorageItem } from "../../helpers/localStorageHelpers";
-import { UPDATE_USER_DATA, UserContext } from "../../contexts/UserContext";
+import {accountAddressUpdateRequest, accountDetailsRequest} from "../../helpers/apiRequestsHelpers";
+import {UPDATE_USER_DATA, UserContext} from "../../contexts/UserContext";
 import {ErrorAlertType, RequestResponseType} from "../../types/othersTypes";
-import { LoginFormType } from "../../types/pages/authTypes";
 import {AlertStatusType} from "../../types/enumsTypes";
+import {ProfileFormType} from "./profilePagesData";
+import {AddressContext, UPDATE_ADDRESS_DATA} from "../../contexts/AddressContext";
+import {setLocaleStorageItem} from "../../helpers/localStorageHelpers";
 
-const useProfilePageHook = (): any => {
-    const navigate: NavigateFunction = useNavigate();
-    const { setGlobalUserState } = useContext(UserContext);
+const useProfileEditPageHook = (): any => {
+    let alertData: ErrorAlertType | null = null;
+    const { globalUserState, setGlobalUserState } = useContext(UserContext);
+    const { globalAddressState, setGlobalAddressState } = useContext(AddressContext);
 
-    // const { isLoading, isError, isSuccess, data, error, mutate }: RequestResponseType = useMutation(loginRequest);
-    const { isLoading, isError, isSuccess, error, mutate }: RequestResponseType = useMutation(loginRequest);
+    const [mutationEnabled, setMutationEnabled] = useState<boolean>(false);
+    const [queryEnabled, setQueryEnabled] = useState<boolean>(true);
+    const [profileInitialValues, setProfileInitialValues] = useState<ProfileFormType>({
+        firstName: '', lastName: '', phoneNumber: '', email: '',
+        street: '', zipCode: '', city: '', country: ''
+    });
 
-    const errorMessage: string = error?.response?.data?.message || error?.message;
-    const errorAlertData: ErrorAlertType = { show: isError, status: AlertStatusType.error, message: errorMessage }
+    useEffect((): void => {
+        setProfileInitialValues({
+            firstName: globalUserState.firstName,
+            lastName: globalUserState.lastName,
+            phoneNumber: globalUserState.phoneNumber,
+            email: globalUserState.email,
+            street: globalAddressState.street,
+            zipCode: globalAddressState.zipCode,
+            city: globalAddressState.city,
+            country: globalAddressState.country,
+        });
+    }, []);
 
-    if(isSuccess || isError) {
-        // const { message, firstName, lastName, email, accountId, token } = data?.data;
+    const {
+        isLoading: isQueryLoading, isError: isQueryError,
+        isSuccess: isQuerySuccess, data: queryData, error: queryError
+    }: RequestResponseType = useQuery({
+        queryKey: ["account-details-2"],
+        queryFn: () => accountDetailsRequest({accountId: globalUserState.accountId}),
+        enabled: queryEnabled
+    });
 
-        // *************************************** TO REMOVE *************************************** //
-        const firstName: string = "Croquy";
-        const lastName: string = "Corquignolex";
-        const email: string = "crouy@exemple.com";
-        const accountId: string = "73d5e89c-a221-4876-9ac9-09b7bcf2ec29";
-        const token: string = "secrete-access-token";
-        // *************************************** TO REMOVE *************************************** //
+    const {
+        isLoading: isMutationLoading, isError: isMutationError, isSuccess: isMutationSuccess,
+        error: mutationError, variables: mutationVariables, mutate
+    }: RequestResponseType = useMutation(accountAddressUpdateRequest);
 
-        setLocaleStorageItem('user', { firstName, lastName, email, accountId, 'access-token': token });
-
-        setGlobalUserState({ type: UPDATE_USER_DATA, payload: { isAuthorized: true, firstName, lastName, email, accountId } });
-
-        navigate(routes.home.path, { state: { welcomeAlert: true } });
+    if(isMutationError || isQueryError) {
+        const show: boolean = isMutationError || isQueryError;
+        const message: string = mutationError?.message || queryError?.message;
+        alertData = { show, status: AlertStatusType.error, message };
     }
 
-    const handleInfo = ({ email, password }: LoginFormType): void => mutate({ email, password });
+    if(queryEnabled && isQuerySuccess) {
+        setQueryEnabled(false);
 
-    return { handleInfo, isLoading, errorAlertData };
+        setProfileInitialValues({
+            firstName: queryData?.data?.firstName,
+            lastName: queryData?.data?.lastName,
+            phoneNumber: queryData?.data?.phoneNumber,
+            email: queryData?.data?.emailAddress,
+            street: queryData?.data?.address?.street,
+            zipCode: queryData?.data?.address?.zipCode,
+            city: queryData?.data?.address?.city,
+            country: queryData?.data?.address?.country,
+        });
+    }
+
+    if(isMutationSuccess) {
+        const message: string = "Profil mis à jour avec succès";
+        alertData = { show: isMutationSuccess, status: AlertStatusType.success, message };
+    }
+
+    if(mutationEnabled && isMutationSuccess) {
+        setMutationEnabled(false);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+
+        const accountId = globalUserState.accountId;
+        const { lastName, firstName, email, phoneNumber, street, zipCode, city, country } = mutationVariables;
+
+        setLocaleStorageItem('user', { lastName, firstName, email, phoneNumber, accountId });
+
+        setGlobalUserState({ type: UPDATE_USER_DATA, payload: { firstName, lastName, email, phoneNumber, accountId } });
+        setGlobalAddressState({ type: UPDATE_ADDRESS_DATA, payload: { street, city, zipCode, country } });
+    }
+
+    const handleProfileUpdate = ({street, zipCode, city, country}: ProfileFormType): void => {
+        setMutationEnabled(true);
+        mutate({ street, zipCode, city, country, accountId: globalUserState.accountId });
+    };
+
+    return { profileInitialValues, handleProfileUpdate, isQueryLoading, isMutationLoading, alertData };
 };
 
-export default useProfilePageHook;
+export default useProfileEditPageHook;

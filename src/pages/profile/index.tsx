@@ -9,12 +9,12 @@ import DisplayAlert from "../../components/DisplayAlert";
 import Loader from "../../components/Loader";
 
 const ProfilePage = (): ReactElement => {
-    const { isLoading, globalUserState, globalAddressState, errorAlertData } = useProfilePageHook();
+    const { isLoading, globalUserState, globalAddressState, alertData } = useProfilePageHook();
 
     return (
         <Stack>
             <Loader isLoading={isLoading} />
-            <DisplayAlert data={errorAlertData} />
+            <DisplayAlert data={alertData} />
             <HStack>
                 <Avatar bg='gray.200' icon={<FiUser fontSize='2rem' color='black'/>} size='lg' />
                 <Text as='u' fontWeight='bold' ml={1}>
@@ -37,8 +37,8 @@ const ProfilePage = (): ReactElement => {
                                 <strong>{globalUserState.firstName}</strong>
                             </Box>
                             <Box>
-                                Date de naissance <br/>
-                                <strong>{globalUserState.birthData}</strong>
+                                Email <br/>
+                                <strong>{globalUserState.email}</strong>
                             </Box>
                         </Box>
                         <Box flex='1'>
@@ -55,7 +55,7 @@ const ProfilePage = (): ReactElement => {
                 </Stack>
             </Stack>
             <Stack mt={4}>
-                <Text fontSize='1.5rem' fontWeight='bold'>Informations personnelle</Text>
+                <Text fontSize='1.5rem' fontWeight='bold'>Addresse personnelle</Text>
                 <Stack as={Box} spacing={4} p={4} borderWidth='1px' borderRadius='3xl'>
                     <Flex>
                         <Box flex='1'>

@@ -115,11 +115,14 @@ export const routesDefinition = [
     {
         layout: AnonymousLayout,
         isPublic: true,
-        routes: [routes.login, routes.register, routes.registerStepOne, routes.registerStepTwo, routes.registerStepTree, routes.registerVerification]
+        routes: [
+            routes.login, routes.register, routes.registerStepOne,
+            routes.registerStepTwo, routes.registerStepTree, routes.registerVerification
+        ]
     },
     {
         layout: MainLayout,
-        routes: [routes.home, routes.profile]
+        routes: [routes.home, routes.profile, routes.profileEdit]
     },
     {
         layout: AnonymousLayout,
