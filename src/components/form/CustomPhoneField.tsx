@@ -11,9 +11,9 @@ const CustomPhoneField: FC<FormCustomPhoneFieldProps> = ({ label = '', code, num
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}
 
             <HStack spacing={2}>
-                <Field as={Input} name={code} type="text" placeholder="Indice" size='lg' borderColor="black" w="30%" />
+                <Field as={Input} name={code} type="text" placeholder="Indice" size='lg' rounded='lg' borderColor="black" w="30%" />
 
-                <Field as={Input} name={number} type="text" placeholder="Numéro" size='lg' borderColor="black" w="70%" />
+                <Field as={Input} name={number} type="text" placeholder="Numéro" size='lg' rounded='lg' borderColor="black" w="70%" />
             </HStack>
 
             <FormErrorMessage><Icon mr="2" as={FiAlertCircle} /> {errorMessage}</FormErrorMessage>

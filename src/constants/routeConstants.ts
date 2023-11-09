@@ -1,5 +1,5 @@
 import { lazy, LazyExoticComponent, ReactElement } from 'react';
-import { FiHome, FiUser } from "react-icons/fi";
+import { FiHome, FiUser, FiUsers } from "react-icons/fi";
 
 import AnonymousLayout from "../layouts/AnonymousLayout";
 import MainLayout from "../layouts/MainLayout";
@@ -14,6 +14,8 @@ const LazyRegisterStepOnePage: LazyExoticComponent<() => ReactElement> = lazy(()
 const LazyRegisterStepTwoPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerStepTwoPage'));
 const LazyRegisterStepTreePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerStepTreePage'));
 const LazyRegisterVerificationPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerVerificationPage'));
+const LazyContactsPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/contacts'));
+const LazyContactAddPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/contacts/contactAddPage'));
 
 export const routes = {
     login: {
@@ -100,6 +102,26 @@ export const routes = {
         onHeader: false,
         breadcrumb: [{path: '/home', label: 'Accueil'}, {path: '/profile', label: 'Mes détails'}]
     },
+    contacts: {
+        name: 'contacts',
+        title: 'Contacts',
+        component: LazyContactsPage,
+        path: '/contacts',
+        icon: FiUsers,
+        onSidebar: true,
+        onHeader: false,
+        breadcrumb: []
+    },
+    addContact: {
+        name: 'addContact',
+        title: 'Ajouter un contact',
+        component: LazyContactAddPage,
+        path: '/contacts/add',
+        icon: null,
+        onSidebar: false,
+        onHeader: false,
+        breadcrumb: [{path: '/contacts', label: 'Contacts'}]
+    },
     notFound: {
         name: 'notFound',
         title: 'Page introuvable',
@@ -122,7 +144,10 @@ export const routesDefinition = [
     },
     {
         layout: MainLayout,
-        routes: [routes.home, routes.profile, routes.profileEdit]
+        routes: [
+            routes.home, routes.profile, routes.profileEdit,
+            routes.contacts, routes.addContact
+        ]
     },
     {
         layout: AnonymousLayout,

@@ -1,4 +1,5 @@
 import {useContext, useEffect, useState} from "react";
+import {NavigateFunction, useNavigate} from "react-router-dom";
 import {useMutation, useQuery} from "@tanstack/react-query";
 
 import {accountAddressUpdateRequest, accountDetailsRequest} from "../../helpers/apiRequestsHelpers";
@@ -8,9 +9,15 @@ import {AlertStatusType} from "../../types/enumsTypes";
 import {ProfileFormType} from "./profilePagesData";
 import {AddressContext, UPDATE_ADDRESS_DATA} from "../../contexts/AddressContext";
 import {setLocaleStorageItem} from "../../helpers/localStorageHelpers";
+import {toastAlert} from "../../helpers/generalHelpers";
+import {routes} from "../../constants/routeConstants";
+import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 
 const useProfileEditPageHook = (): any => {
     let alertData: ErrorAlertType | null = null;
+
+    const toast: CreateToastFnReturn = useToast();
+    const navigate: NavigateFunction = useNavigate();
     const { globalUserState, setGlobalUserState } = useContext(UserContext);
     const { globalAddressState, setGlobalAddressState } = useContext(AddressContext);
 
@@ -49,8 +56,11 @@ const useProfileEditPageHook = (): any => {
     }: RequestResponseType = useMutation(accountAddressUpdateRequest);
 
     if(isMutationError || isQueryError) {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+
         const show: boolean = isMutationError || isQueryError;
         const message: string = mutationError?.message || queryError?.message;
+
         alertData = { show, status: AlertStatusType.error, message };
     }
 
@@ -70,8 +80,9 @@ const useProfileEditPageHook = (): any => {
     }
 
     if(isMutationSuccess) {
-        const message: string = "Profil mis à jour avec succès";
-        alertData = { show: isMutationSuccess, status: AlertStatusType.success, message };
+        toastAlert(toast, "Profil mis à jour avec succès");
+
+        navigate(routes.profile.path);
     }
 
     if(mutationEnabled && isMutationSuccess) {

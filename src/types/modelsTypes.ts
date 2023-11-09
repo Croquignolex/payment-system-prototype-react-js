@@ -14,3 +14,13 @@ export interface AddressModelType {
     zipCode: string;
     country: string;
 }
+
+export interface ContactModelType {
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+    phoneNumber: string;
+    recipientType: string;
+    currencyCode: string;
+    countryCode: string;
+}

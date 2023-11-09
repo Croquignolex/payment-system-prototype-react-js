@@ -1,11 +1,7 @@
 import React, {ReactElement} from "react";
 import {Heading, Container, Text, Button, Stack, Box} from '@chakra-ui/react';
 
-import useHomePageHook from "./useHomePageHook";
-
 const HomePage = (): ReactElement => {
-    useHomePageHook();
-
     return (
         <>
             <Container maxW={'3xl'}>

@@ -9,7 +9,7 @@ const DisplayAlert: FC<DisplayAlertProps> = ({ data }): ReactElement | null => {
     }
 
     return (
-        <Alert status={data.status} rounded='lg' mx={1}>
+        <Alert status={data.status} rounded='xl' mx={1}>
             <AlertIcon />
             {data.message}
         </Alert>

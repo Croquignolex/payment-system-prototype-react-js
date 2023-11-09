@@ -1,4 +1,6 @@
 import flattenDeep from "lodash/flattenDeep";
+import {CreateToastFnReturn} from "@chakra-ui/react";
+import {AlertStatusType} from "../types/enumsTypes";
 
 // Custom log
 export const log = (message: string, data: any|null = null, highPriority: boolean = false): void => {
@@ -37,4 +39,11 @@ export const formatString = (text: string, maxCharacters: number): string => {
 export const generateFlattenRoutes = (routes: any[]): any[] => {
     if (!routes) return [];
     return flattenDeep(routes.map(({ routes: subRoutes, ...rest }) => [rest, generateFlattenRoutes(subRoutes)]));
+};
+
+// Toast alert
+export const toastAlert = (toast: CreateToastFnReturn, title: string, status: AlertStatusType = AlertStatusType.success): void => {
+    toast.closeAll();
+
+    toast({title, status});
 };

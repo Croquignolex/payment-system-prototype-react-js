@@ -1,0 +1,6 @@
+[ 
+  {"name": "FCFA Afrique Centrale", "code": "XAF"},
+  {"name": "FCFA Afrique de l'Ouest", "code": "XOF"},
+  {"name": "Euro", "code": "EUR"},
+  {"name": "Dollar Américain", "code": "USD"}
+]

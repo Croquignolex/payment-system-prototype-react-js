@@ -2,21 +2,13 @@ import React, { FC, ReactElement, Suspense, useContext, useReducer, useEffect } 
 import { BrowserRouter } from "react-router-dom";
 import { AbsoluteCenter, Box, Spinner } from "@chakra-ui/react";
 
-import {
-    initialGlobalUserState,
-    userReducer,
-    TRUST_UNAUTHORIZED_USER,
-    UPDATE_USER_DATA,
-    UserContext,
-    TRUST_AUTHORIZED_USER
-} from "./contexts/UserContext";
-import {
-    addressReducer,
-    AddressContext,
-    initialGlobalAddressState
-} from "./contexts/AddressContext";
 import { Routes } from "./routes";
 import { getLocaleStorageItem } from "./helpers/localStorageHelpers";
+import {addressReducer, AddressContext, initialGlobalAddressState} from "./contexts/AddressContext";
+import {
+    initialGlobalUserState, TRUST_UNAUTHORIZED_USER, UPDATE_USER_DATA,
+    UserContext, TRUST_AUTHORIZED_USER, userReducer
+} from "./contexts/UserContext";
 
 const SuspenseLoader: FC = (): ReactElement => {
     return (

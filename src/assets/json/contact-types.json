@@ -1,0 +1,6 @@
+[
+  {"name": "Orange Money", "code": "CM_ORANGE"},
+  {"name": "MTN Mobile Money", "code": "CM_MTN"},
+  {"name": "Paypal", "code": "PAYPAL"},
+  {"name": "Stripe", "code": "STRIPE"}
+]

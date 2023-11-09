@@ -1,8 +1,9 @@
 import {getRequest, postRequest, putRequest} from "./axiosHelpers";
-import {accountApiURI, authApiURI} from "../constants/apiURIConstants";
+import {accountApiURI, authApiURI, contactsApiURI} from "../constants/apiURIConstants";
 import { apiBaseURL } from "../constants/envConstants";
 import {LoginRequestType, RegisterRequestType} from "../types/pages/authTypes";
 import {AccountAddressUpdateRequestType, AccountDetailsRequestType} from "../types/pages/accountTypes";
+import {ContactAddRequestType} from "../types/pages/contactsTypes";
 
 // const API_V1_URL: string = `${apiBaseURL}/api/v1`;
 const API_V1_URL: string = `${apiBaseURL}`;
@@ -30,6 +31,16 @@ export const accountDetailsRequest = ({ accountId }: AccountDetailsRequestType) 
 export const accountAddressUpdateRequest = ({ country, zipCode, street, city, accountId }: AccountAddressUpdateRequestType) => {
     const url: string = joinBaseUrlWithParams(accountApiURI.updateAddress, [{param: 'accountId', value: accountId}]);
     return putRequest(url, { country, zipCode, street, city });
+};
+
+export const contactsRequest = ({ accountId }: AccountDetailsRequestType) => {
+    const url: string = joinBaseUrlWithParams(contactsApiURI.fetch, [{param: 'accountId', value: accountId}]);
+    return getRequest(url);
+};
+
+export const contactAddRequest = ({ recipientType, currencyCode, firstName, lastName, emailAddress, countryCode, phoneNumber, accountId }: ContactAddRequestType) => {
+    const url: string = joinBaseUrlWithParams(contactsApiURI.add, [{param: 'accountId', value: accountId}]);
+    return putRequest(url, { recipientType, currencyCode, firstName, lastName, emailAddress, countryCode, phoneNumber });
 };
 
 // Build complete url

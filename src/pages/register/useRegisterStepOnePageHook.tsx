@@ -5,7 +5,7 @@ import { routes } from "../../constants/routeConstants";
 import {ChooseCountryFormType} from "../../types/pages/authTypes";
 import {FormSelectOptionType} from "../../types/othersTypes";
 
-import countriesJSON from "../../assets/countries.json";
+import countriesJSON from "../../assets/json/countries.json";
 
 const useRegisterStepOnePageHook = (): any => {
     const navigate: NavigateFunction = useNavigate();

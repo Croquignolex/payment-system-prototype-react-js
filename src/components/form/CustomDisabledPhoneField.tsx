@@ -10,9 +10,9 @@ const CustomDisabledPhoneField: FC<FormCustomDisabledPhoneFieldProps> = ({ label
             {!noLabel && <FormLabel fontSize='md' fontWeight='normal'>{label}</FormLabel>}
 
             <HStack spacing={2}>
-                <Field as={Input} name={code} type="text" placeholder="Indice" size='lg' w="30%" borderColor="black" disabled />
+                <Field as={Input} name={code} type="text" placeholder="Indice" size='lg' rounded='lg' w="30%" borderColor="black" disabled />
 
-                <Field as={Input} name={number} type="text" placeholder="Numéro" size='lg' w="70%" borderColor="black" disabled />
+                <Field as={Input} name={number} type="text" placeholder="Numéro" size='lg' rounded='lg' w="70%" borderColor="black" disabled />
             </HStack>
         </FormControl>
     );
