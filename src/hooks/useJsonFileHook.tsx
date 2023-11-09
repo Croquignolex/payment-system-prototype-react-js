@@ -3,6 +3,7 @@ import {useMemo} from "react";
 import countriesJSON from "../assets/json/countries.json";
 import currenciesJSON from "../assets/json/currencies.json";
 import contactTypesJSON from "../assets/json/contact-types.json";
+import accountTypesJSON from "../assets/json/account-types.json";
 import {FormSelectOptionType} from "../types/othersTypes";
 
 const useJsonFileHook = (): any => {
@@ -20,6 +21,13 @@ const useJsonFileHook = (): any => {
         }))
     ), []);
 
+    const accountTypesData: FormSelectOptionType[] = useMemo((): FormSelectOptionType[] => (
+        accountTypesJSON.map((accountType: { name: string, code: string }): FormSelectOptionType => ({
+            label: accountType.name,
+            key: accountType.code
+        }))
+    ), []);
+
     const currenciesData: FormSelectOptionType[] = useMemo((): FormSelectOptionType[] => (
         currenciesJSON.map((currency: { name: string, code: string }): FormSelectOptionType => ({
             label: currency.name,
@@ -27,7 +35,7 @@ const useJsonFileHook = (): any => {
         }))
     ), []);
 
-    return { countriesData, contactTypesData, currenciesData };
+    return { countriesData, contactTypesData, accountTypesData, currenciesData };
 };
 
 export default useJsonFileHook;

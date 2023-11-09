@@ -1,5 +1,5 @@
 import { lazy, LazyExoticComponent, ReactElement } from 'react';
-import { FiHome, FiUser, FiUsers } from "react-icons/fi";
+import { FiHome, FiUser, FiUsers, FiCreditCard } from "react-icons/fi";
 
 import AnonymousLayout from "../layouts/AnonymousLayout";
 import MainLayout from "../layouts/MainLayout";
@@ -16,6 +16,8 @@ const LazyRegisterStepTreePage: LazyExoticComponent<() => ReactElement> = lazy((
 const LazyRegisterVerificationPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerVerificationPage'));
 const LazyContactsPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/contacts'));
 const LazyContactAddPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/contacts/contactAddPage'));
+const LazyAccountsPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/accounts'));
+const LazyAccountAddPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/accounts/accountAddPage'));
 
 export const routes = {
     login: {
@@ -122,6 +124,26 @@ export const routes = {
         onHeader: false,
         breadcrumb: [{path: '/contacts', label: 'Contacts'}]
     },
+    accounts: {
+        name: 'accounts',
+        title: 'Comptes',
+        component: LazyAccountsPage,
+        path: '/accounts',
+        icon: FiCreditCard,
+        onSidebar: true,
+        onHeader: false,
+        breadcrumb: []
+    },
+    addAccount: {
+        name: 'addContact',
+        title: 'Ajouter un compte',
+        component: LazyAccountAddPage,
+        path: '/accounts/add',
+        icon: null,
+        onSidebar: false,
+        onHeader: false,
+        breadcrumb: [{path: '/accounts', label: 'Comptes'}]
+    },
     notFound: {
         name: 'notFound',
         title: 'Page introuvable',
@@ -146,7 +168,8 @@ export const routesDefinition = [
         layout: MainLayout,
         routes: [
             routes.home, routes.profile, routes.profileEdit,
-            routes.contacts, routes.addContact
+            routes.contacts, routes.addContact,
+            routes.accounts, routes.addAccount,
         ]
     },
     {

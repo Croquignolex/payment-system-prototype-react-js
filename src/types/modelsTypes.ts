@@ -24,3 +24,13 @@ export interface ContactModelType {
     currencyCode: string;
     countryCode: string;
 }
+
+export interface AccountModelType {
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+    phoneNumber: string;
+    payerType: string;
+    currencyCode: string;
+    countryCode: string;
+}
