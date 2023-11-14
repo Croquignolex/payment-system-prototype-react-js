@@ -1,17 +1,22 @@
 import React, {ReactElement} from "react";
-import {Box, Stack, Flex, Button} from "@chakra-ui/react";
+import {Box, Stack, Flex, Button, SimpleGrid} from "@chakra-ui/react";
 import {Link} from "react-router-dom";
 
 import {routes} from "../../constants/routeConstants";
 import SearchField from "../../components/form/SearchField";
+import {AccountModelType} from "../../types/modelsTypes";
+import Loader from "../../components/Loader";
+import DisplayAlert from "../../components/DisplayAlert";
+import useAccountsPageHook from "./useAccountsPageHook";
+import AccountCard from "./accountCard";
 
 const AccountsPage = (): ReactElement => {
-    // const { isLoading, contacts, alertData } = useContactsPageHook();
+    const { isLoading, accounts, alertData } = useAccountsPageHook();
 
     return (
         <Stack>
-            {/*<Loader isLoading={isLoading} />*/}
-            {/*<DisplayAlert data={alertData} />*/}
+            <Loader isLoading={isLoading} />
+            <DisplayAlert data={alertData} />
              <Stack>
                  <Flex>
                      <Box flex={4}>
@@ -25,6 +30,10 @@ const AccountsPage = (): ReactElement => {
                      </Box>
                  </Flex>
              </Stack>
+
+            <SimpleGrid columns={{ lg: 2, sm: 2}} spacing={4} mt={4}>
+                {accounts.map((account: AccountModelType): ReactElement => <AccountCard account={account} />)}
+            </SimpleGrid>
         </Stack>
     );
 };
