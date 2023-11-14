@@ -9,11 +9,11 @@ export const accountApiURI = {
 };
 
 export const contactsApiURI = {
-    fetch: '/account/{accountId}/transferrecipients',
+    fetch: '/account/{accountId}/transferrecipient',
     add: '/account/{accountId}/transferrecipient',
 };
 
 export const accountsApiURI = {
-    fetch: '/account/{accountId}/transferpayers',
+    fetch: '/account/{accountId}/transferpayer',
     add: '/account/{accountId}/transferpayer',
 };

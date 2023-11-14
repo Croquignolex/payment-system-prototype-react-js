@@ -14,11 +14,11 @@ const AccountsPage = (): ReactElement => {
             {/*<DisplayAlert data={alertData} />*/}
              <Stack>
                  <Flex>
-                     <Box flex={4}>
+                     <Box w='75%'>
                          <SearchField name="seach" />
                      </Box>
                      <Box mx={1} />
-                     <Box flex={1}>
+                     <Box w='25%'>
                          <Button colorScheme='blue' variant='outline' as={Link} to={routes.addAccount.path} rounded='full' size='lg'>
                              Ajouter un compte
                          </Button>

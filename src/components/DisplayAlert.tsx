@@ -4,7 +4,7 @@ import { AlertIcon, Alert, Stack } from "@chakra-ui/react";
 import {ErrorAlertType} from "../types/othersTypes";
 
 const DisplayAlert: FC<DisplayAlertProps> = ({ data }): ReactElement | null => {
-    if(data === null || !data?.show) {
+    if(data === null || data === undefined || !data?.show) {
         return null;
     }
 

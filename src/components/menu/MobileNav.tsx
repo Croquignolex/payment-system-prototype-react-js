@@ -2,14 +2,13 @@ import React, { FC, ReactElement, useContext } from "react";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { FiLogOut, FiChevronDown, FiMenu, FiSettings, FiHelpCircle, FiUser } from "react-icons/fi";
 import {
-    Box, Flex, FlexProps, useColorModeValue, IconButton, Text, HStack,
+    Box, Flex, FlexProps, IconButton, Text, HStack,
     Menu, MenuButton, Avatar, VStack, MenuList, MenuItem, Icon,
 } from "@chakra-ui/react";
 
 import { CLEAR_USER_DATA, UserContext } from "../../contexts/UserContext";
 import { routes } from "../../constants/routeConstants";
-import {HeaderMenuItemType, RequestResponseType} from "../../types/othersTypes";
-import { useMutation } from "@tanstack/react-query";
+import {HeaderMenuItemType} from "../../types/othersTypes";
 import { removeLocaleStorageItem } from "../../helpers/localStorageHelpers";
 
 const MobileNav: FC<MobileNavProps> = ({ onOpen, menuItems, ...rest }) => {
