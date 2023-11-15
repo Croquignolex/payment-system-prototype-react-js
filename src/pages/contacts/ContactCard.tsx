@@ -6,7 +6,7 @@ import {BsThreeDotsVertical} from "react-icons/bs";
 import {ContactModelType} from "../../types/modelsTypes";
 import {getCountryFromCode, paymentTypeIcon} from "../../helpers/generalHelpers";
 
-const ContactCard: FC<ContactCardProps> = ({ contact }): ReactElement | null => {
+const ContactCard: FC<ContactCardProps> = ({ actionable = true, contact }): ReactElement | null => {
     if(contact === null || contact === undefined) {
         return null;
     }
@@ -28,12 +28,14 @@ const ContactCard: FC<ContactCardProps> = ({ contact }): ReactElement | null => 
                             <Text>{contact.currencyCode} | {getCountryFromCode(contact.countryCode)}</Text>
                         </Box>
                     </Flex>
-                    <IconButton
-                        variant='ghost'
-                        colorScheme='gray'
-                        aria-label='See menu'
-                        icon={<BsThreeDotsVertical />}
-                    />
+                    {(actionable) && (
+                        <IconButton
+                            variant='ghost'
+                            colorScheme='gray'
+                            aria-label='See menu'
+                            icon={<BsThreeDotsVertical />}
+                        />
+                    )}
                 </Flex>
             </CardHeader>
         </Card>
@@ -41,6 +43,7 @@ const ContactCard: FC<ContactCardProps> = ({ contact }): ReactElement | null => 
 };
 
 interface ContactCardProps {
+    actionable?: boolean,
     contact?: ContactModelType,
 }
 

@@ -9,7 +9,7 @@ import RadioCard from "../../components/RadioCard";
 import useTransferAddStepOnePageHook from "./useTransferAddStepOneHook";
 
 const TransferAddStepOne: FC<TransferAddStepOneProps> = ({moveStep, selectedAccount, updateAccount}): ReactElement => {
-    const { isLoading, nextEnabled, alertData, accounts, group, getRadioProps } = useTransferAddStepOnePageHook(selectedAccount, updateAccount);
+    const { isLoading, alertData, accounts, group, getRadioProps } = useTransferAddStepOnePageHook(selectedAccount, updateAccount);
 
     return (
         <>
@@ -27,7 +27,7 @@ const TransferAddStepOne: FC<TransferAddStepOneProps> = ({moveStep, selectedAcco
                 })}
             </SimpleGrid>
             <Center mt={10}>
-                <Button colorScheme='blue' isDisabled={!nextEnabled} size='lg' rounded='full' onClick={moveStep} w={{sm: '50%', base: '100%'}}>
+                <Button colorScheme='blue' isDisabled={selectedAccount?.emailAddress === undefined} size='lg' rounded='full' onClick={moveStep} w={{sm: '50%', base: '100%'}}>
                     Suivant
                 </Button>
             </Center>

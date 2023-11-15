@@ -3,6 +3,7 @@ import React, {ReactElement, useState} from "react";
 
 import TransferAddStepOne from "./transferAddStepOne";
 import {AccountModelType, ContactModelType} from "../../types/modelsTypes";
+import TransferAddStepTwoProps from "./transferAddStepTwo";
 
 const useTransferAddPageHook = (): any => {
     const { activeStep, setActiveStep } = useSteps();
@@ -29,7 +30,7 @@ const useTransferAddPageHook = (): any => {
     const StepComponent = (): ReactElement | null => {
         switch (activeStep) {
             case 0: return <TransferAddStepOne moveStep={moveStep} updateAccount={updateAccount} selectedAccount={data.account} />;
-            // case 1: return <TransferAddStepOne moveStep={moveStep} />;
+            case 1: return <TransferAddStepTwoProps moveStep={moveStep} updateContact={updateContact} selectedContact={data.contact} />;
             // case 2: return <TransferAddStepOne moveStep={moveStep} />;
             // case 3: return <TransferAddStepOne moveStep={moveStep} />;
             default: return null;
