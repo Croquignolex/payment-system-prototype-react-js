@@ -1,12 +1,11 @@
 import React, {FC, ReactElement} from "react";
-import {FaWallet} from "react-icons/fa";
-import {Box, Flex, Card, CardHeader, Avatar, Heading, IconButton, Text, AvatarGroup} from "@chakra-ui/react";
+import {Box, Flex, Card, CardHeader, Avatar, Heading, IconButton, Text} from "@chakra-ui/react";
 import {BsThreeDotsVertical} from "react-icons/bs";
 
 import {AccountModelType} from "../../types/modelsTypes";
 import {getCountryFromCode, paymentTypeIcon} from "../../helpers/generalHelpers";
 
-const AccountCard: FC<AccountCardProps> = ({ account }): ReactElement | null => {
+const AccountCard: FC<AccountCardProps> = ({ actionable = true, account }): ReactElement | null => {
     if(account === null || account === undefined) {
         return null;
     }
@@ -25,12 +24,14 @@ const AccountCard: FC<AccountCardProps> = ({ account }): ReactElement | null => 
                             <Text>{account.currencyCode} | {getCountryFromCode(account.countryCode)}</Text>
                         </Box>
                     </Flex>
-                    <IconButton
-                        variant='ghost'
-                        colorScheme='gray'
-                        aria-label='See menu'
-                        icon={<BsThreeDotsVertical />}
-                    />
+                    {(actionable) && (
+                        <IconButton
+                            variant='ghost'
+                            colorScheme='gray'
+                            aria-label='See menu'
+                            icon={<BsThreeDotsVertical />}
+                        />
+                    )}
                 </Flex>
             </CardHeader>
         </Card>
@@ -38,6 +39,7 @@ const AccountCard: FC<AccountCardProps> = ({ account }): ReactElement | null => 
 };
 
 interface AccountCardProps {
+    actionable?: boolean,
     account?: AccountModelType,
 }
 

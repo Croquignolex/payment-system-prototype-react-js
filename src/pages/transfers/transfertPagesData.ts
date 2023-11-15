@@ -1,0 +1,1 @@
+export const transferStepsLabels: string[] = ['Compte', 'Montant', 'Destinataire', 'Envoi'];

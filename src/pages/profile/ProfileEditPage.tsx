@@ -47,7 +47,7 @@ const ProfileEditPage = (): ReactElement => {
                                     />
                                 </Flex>
                                 <Flex>
-                                    <Box w='50%'>
+                                    <Box w={{base: '50%'}}>
                                         <TextDisabledField label="Email" name="email" />
                                         Cliquez
                                         <Text as='u' fontWeight='bold' mx={1}>
@@ -56,7 +56,7 @@ const ProfileEditPage = (): ReactElement => {
                                         Pour changer votre email
                                     </Box>
                                     <Box mx={3} />
-                                    <Box w='50%'>
+                                    <Box w={{base: '50%'}}>
                                         <TextDisabledField label="Numéro de téléphone" name="phoneNumber"/>
                                         Cliquez
                                         <Text as='u' fontWeight='bold' mx={1}>

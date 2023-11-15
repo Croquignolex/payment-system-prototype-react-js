@@ -7,7 +7,7 @@ import SearchField from "../../components/form/SearchField";
 import useContactsPageHook from "./useContactsPageHook";
 import Loader from "../../components/Loader";
 import DisplayAlert from "../../components/DisplayAlert";
-import ContactCard from "./contactCard";
+import ContactCard from "./ContactCard";
 import {ContactModelType} from "../../types/modelsTypes";
 
 const ContactsPage = (): ReactElement => {

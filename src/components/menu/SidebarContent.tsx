@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import NavItem from "./NavItem";
 import {SidebarMenuItemType} from "../../types/othersTypes";
 import {appInfo} from "../../constants/envConstants";
+import {routes} from "../../constants/routeConstants";
 
 const SidebarContent: FC<SidebarContentProps> = ({ onClose, menuItems, ...rest }): ReactElement => {
     return (
@@ -25,7 +26,7 @@ const SidebarContent: FC<SidebarContentProps> = ({ onClose, menuItems, ...rest }
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             <Stack direction={'column'} align={'center'} alignSelf={'center'} position={'relative'} my={4}>
-                <Button colorScheme={'blue'} rounded={'full'}>
+                <Button colorScheme='blue' as={Link} to={routes.transferAdd.path} rounded='full'>
                     Envoyer de l'argent
                 </Button>
             </Stack>

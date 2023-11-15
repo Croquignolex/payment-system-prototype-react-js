@@ -10,7 +10,7 @@ import {routes} from "../../constants/routeConstants";
 
 const AnonymousLayoutHeader: FC = (): ReactElement => {
     const { pathname: currentPath } = useLocation();
-    const { activeStep, setActiveStep } = useSteps({count: stepsLabels.length});
+    const { activeStep, setActiveStep } = useSteps();
 
     const showStepIndicator: boolean = (
         currentPath === routes.registerStepOne.path ||
@@ -50,7 +50,7 @@ const AnonymousLayoutHeader: FC = (): ReactElement => {
                     {showStepIndicator && (
                         <>
                             <Spacer />
-                            <Box w='60%' mt={4}>
+                            <Box w={{sm: '60%', base: '100%'}} mt={4}>
                                 <Stepper size='sm' index={activeStep}>
                                     {stepsLabels.map((label: string, index: number): ReactElement => (
                                         <Step key={index}>

@@ -4,20 +4,21 @@ import { FiHome, FiUser, FiUsers, FiCreditCard } from "react-icons/fi";
 import AnonymousLayout from "../layouts/AnonymousLayout";
 import MainLayout from "../layouts/MainLayout";
 
-const LazyLoginPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/login'));
+const LazyLoginPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/login/LoginPage'));
 const LazyRegisterPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register'));
-const LazyHomePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/home'));
-const LazyProfilePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/profile'));
-const LazyProfileEditPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/profile/profileEditPage'));
-const LazyNotFoundPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/notFound'));
+const LazyHomePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/HomePage'));
+const LazyProfilePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/profile/ProfilePage'));
+const LazyProfileEditPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/profile/ProfileEditPage'));
+const LazyNotFoundPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/NotFoundPage'));
 const LazyRegisterStepOnePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerStepOnePage'));
 const LazyRegisterStepTwoPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerStepTwoPage'));
 const LazyRegisterStepTreePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerStepTreePage'));
 const LazyRegisterVerificationPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerVerificationPage'));
-const LazyContactsPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/contacts'));
-const LazyContactAddPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/contacts/contactAddPage'));
-const LazyAccountsPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/accounts'));
-const LazyAccountAddPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/accounts/accountAddPage'));
+const LazyContactsPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/contacts/ContactsPage'));
+const LazyContactAddPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/contacts/ContactAddPage'));
+const LazyAccountsPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/accounts/AccountsPage'));
+const LazyAccountAddPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/accounts/AccountAddPage'));
+const LazyTransferAddPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/transfers/TransferAddPage'));
 
 export const routes = {
     login: {
@@ -144,6 +145,16 @@ export const routes = {
         onHeader: false,
         breadcrumb: [{path: '/accounts', label: 'Comptes'}]
     },
+    transferAdd: {
+        name: 'addTransfer',
+        title: "Envoyer de l'argent",
+        component: LazyTransferAddPage,
+        path: '/transfer/add',
+        icon: null,
+        onSidebar: false,
+        onHeader: false,
+        breadcrumb: []
+    },
     notFound: {
         name: 'notFound',
         title: 'Page introuvable',
@@ -170,6 +181,7 @@ export const routesDefinition = [
             routes.home, routes.profile, routes.profileEdit,
             routes.contacts, routes.addContact,
             routes.accounts, routes.addAccount,
+            routes.transferAdd,
         ]
     },
     {

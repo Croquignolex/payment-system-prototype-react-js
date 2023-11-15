@@ -1,5 +1,8 @@
 import React, {ReactElement} from "react";
 import {Heading, Container, Text, Button, Stack, Box} from '@chakra-ui/react';
+import {Link} from "react-router-dom";
+
+import {routes} from "../constants/routeConstants";
 
 const HomePage = (): ReactElement => {
     return (
@@ -22,8 +25,8 @@ const HomePage = (): ReactElement => {
                         officia deserunt mollit anim id est laborum.
                     </Text>
                     <Stack direction={'column'} spacing={3} align={'center'} alignSelf={'center'} position={'relative'}>
-                        <Button colorScheme={'blue'} rounded={'full'} px={6}>
-                           Envoyer de l'argent
+                        <Button colorScheme='blue' as={Link} to={routes.transferAdd.path} rounded='full' size='lg'>
+                            Envoyer de l'argent
                         </Button>
                     </Stack>
                 </Stack>
