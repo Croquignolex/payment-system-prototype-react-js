@@ -7,10 +7,10 @@ import Loader from "../../components/Loader";
 import DisplayAlert from "../../components/DisplayAlert";
 import RadioCard from "../../components/RadioCard";
 import ContactCard from "../contacts/ContactCard";
-import useTransferAddStepTwoPageHook from "./useTransferAddStepTwoHook";
+import useTransferAddStepTwoHook from "./useTransferAddStepTwoHook";
 
-const TransferAddStepTwoProps: FC<TransferAddStepTwoProps> = ({moveStep, selectedContact, updateContact}): ReactElement => {
-    const { isLoading, alertData, contacts, group, getRadioProps } = useTransferAddStepTwoPageHook(selectedContact, updateContact);
+const TransferAddStepTwo: FC<TransferAddStepTwoProps> = ({moveStep, selectedContact, updateContact}): ReactElement => {
+    const { isLoading, alertData, contacts, group, selectedContactID, nextAndSAve, getRadioProps } = useTransferAddStepTwoHook(moveStep, selectedContact, updateContact);
 
     return (
         <>
@@ -30,11 +30,11 @@ const TransferAddStepTwoProps: FC<TransferAddStepTwoProps> = ({moveStep, selecte
             <Center mt={10}>
                 <Button
                     colorScheme='blue'
-                    isDisabled={selectedContact?.emailAddress === undefined}
+                    isDisabled={selectedContactID === undefined}
                     size='lg'
                     rounded='full'
                     w={{sm: '50%', base: '100%'}}
-                    onClick={() => moveStep(true)}
+                    onClick={nextAndSAve}
                 >
                     Suivant
                 </Button>
@@ -50,9 +50,9 @@ const TransferAddStepTwoProps: FC<TransferAddStepTwoProps> = ({moveStep, selecte
 };
 
 interface TransferAddStepTwoProps {
-    updateContact: (a: string, b: ContactModelType[]) => void,
+    updateContact: (b?: ContactModelType) => void,
     moveStep: (a: boolean) => void,
     selectedContact?: ContactModelType,
 }
 
-export default TransferAddStepTwoProps;
+export default TransferAddStepTwo;

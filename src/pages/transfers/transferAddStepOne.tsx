@@ -6,10 +6,10 @@ import AccountCard from "../accounts/AccountCard";
 import Loader from "../../components/Loader";
 import DisplayAlert from "../../components/DisplayAlert";
 import RadioCard from "../../components/RadioCard";
-import useTransferAddStepOnePageHook from "./useTransferAddStepOneHook";
+import useTransferAddStepOneHook from "./useTransferAddStepOneHook";
 
 const TransferAddStepOne: FC<TransferAddStepOneProps> = ({moveStep, selectedAccount, updateAccount}): ReactElement => {
-    const { isLoading, alertData, accounts, group, getRadioProps } = useTransferAddStepOnePageHook(selectedAccount, updateAccount);
+    const { isLoading, alertData, accounts, group, selectedAccountID, nextAndSAve, getRadioProps } = useTransferAddStepOneHook(moveStep, selectedAccount, updateAccount);
 
     return (
         <>
@@ -27,7 +27,14 @@ const TransferAddStepOne: FC<TransferAddStepOneProps> = ({moveStep, selectedAcco
                 })}
             </SimpleGrid>
             <Center mt={10}>
-                <Button colorScheme='blue' isDisabled={selectedAccount?.emailAddress === undefined} size='lg' rounded='full' onClick={moveStep} w={{sm: '50%', base: '100%'}}>
+                <Button
+                    colorScheme='blue'
+                    isDisabled={selectedAccountID === undefined}
+                    size='lg'
+                    rounded='full'
+                    w={{sm: '50%', base: '100%'}}
+                    onClick={nextAndSAve}
+                >
                     Suivant
                 </Button>
             </Center>
@@ -36,7 +43,7 @@ const TransferAddStepOne: FC<TransferAddStepOneProps> = ({moveStep, selectedAcco
 };
 
 interface TransferAddStepOneProps {
-    updateAccount: (a: string, b: AccountModelType[]) => void,
+    updateAccount: (b?: AccountModelType) => void,
     moveStep: () => void,
     selectedAccount?: AccountModelType,
 }
