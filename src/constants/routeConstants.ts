@@ -1,5 +1,5 @@
 import { lazy, LazyExoticComponent, ReactElement } from 'react';
-import { FiHome, FiUser, FiUsers, FiCreditCard } from "react-icons/fi";
+import { FiHome, FiUser, FiUsers, FiCreditCard, FiTrendingUp } from "react-icons/fi";
 
 import AnonymousLayout from "../layouts/AnonymousLayout";
 import MainLayout from "../layouts/MainLayout";
@@ -19,6 +19,7 @@ const LazyContactAddPage: LazyExoticComponent<() => ReactElement> = lazy(() => i
 const LazyAccountsPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/accounts/AccountsPage'));
 const LazyAccountAddPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/accounts/AccountAddPage'));
 const LazyTransferAddPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/transfers/TransferAddPage'));
+const LazyTransfersPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/transfers/TransfersPage'));
 
 export const routes = {
     login: {
@@ -145,7 +146,17 @@ export const routes = {
         onHeader: false,
         breadcrumb: [{path: '/accounts', label: 'Comptes'}]
     },
-    transferAdd: {
+    transfers: {
+        name: 'transfers',
+        title: "Tranferts",
+        component: LazyTransfersPage,
+        path: '/transfers',
+        icon: FiTrendingUp,
+        onSidebar: true,
+        onHeader: false,
+        breadcrumb: []
+    },
+    addTransfer: {
         name: 'addTransfer',
         title: "Envoyer de l'argent",
         component: LazyTransferAddPage,
@@ -181,7 +192,7 @@ export const routesDefinition = [
             routes.home, routes.profile, routes.profileEdit,
             routes.contacts, routes.addContact,
             routes.accounts, routes.addAccount,
-            routes.transferAdd,
+            routes.transfers, routes.addTransfer,
         ]
     },
     {

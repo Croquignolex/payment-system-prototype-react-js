@@ -26,7 +26,7 @@ const SidebarContent: FC<SidebarContentProps> = ({ onClose, menuItems, ...rest }
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             <Stack direction={'column'} align={'center'} alignSelf={'center'} position={'relative'} my={4}>
-                <Button colorScheme='blue' as={Link} to={routes.transferAdd.path} rounded='full'>
+                <Button colorScheme='blue' as={Link} to={routes.addTransfer.path} rounded='full' variant='outline'>
                     Envoyer de l'argent
                 </Button>
             </Stack>

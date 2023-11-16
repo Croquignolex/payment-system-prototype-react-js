@@ -25,7 +25,7 @@ const HomePage = (): ReactElement => {
                         officia deserunt mollit anim id est laborum.
                     </Text>
                     <Stack direction={'column'} spacing={3} align={'center'} alignSelf={'center'} position={'relative'}>
-                        <Button colorScheme='blue' as={Link} to={routes.transferAdd.path} rounded='full' size='lg'>
+                        <Button colorScheme='blue' as={Link} to={routes.addTransfer.path} rounded='full' size='lg' variant='outline'>
                             Envoyer de l'argent
                         </Button>
                     </Stack>

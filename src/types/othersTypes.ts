@@ -1,6 +1,7 @@
 import {IconType} from "react-icons";
 
 import {AlertStatusType} from "./enumsTypes";
+import {AccountModelType, ContactModelType} from "./modelsTypes";
 
 export interface ReducerActionType {
     type: string;
@@ -73,4 +74,11 @@ export interface FormCustomDisabledPhoneFieldProps {
 
 export interface SelectFormFieldProps extends FormFieldProps {
     values: FormSelectOptionType[];
+}
+
+export interface transferDataType {
+    account?: AccountModelType,
+    contact?: ContactModelType,
+    amount: number,
+    currency: string
 }
