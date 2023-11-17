@@ -30,7 +30,7 @@ const useRegisterStepOnePageHook = (): any => {
         if(locationState?.trustedData) {
             setChooseCountryInitialValues({country: locationState?.country});
         }
-        // @ts-ignore
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleChooseCountry = ({ country }: ChooseCountryFormType): void => {

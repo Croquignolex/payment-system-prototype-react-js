@@ -39,7 +39,7 @@ const useProfileEditPageHook = (): any => {
             city: globalAddressState.city,
             country: globalAddressState.country,
         });
-        // @ts-ignore
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const {

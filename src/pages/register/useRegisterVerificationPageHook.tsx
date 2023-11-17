@@ -16,7 +16,7 @@ const useRegisterVerificationPageHook = (): any => {
         if(!locationState?.trustedData) {
             navigate(routes.register.path);
         }
-        // @ts-ignore
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleCodePhone = ({ code }: VerifyCodeFormType): void => {

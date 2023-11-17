@@ -36,7 +36,7 @@ const AnonymousLayoutHeader: FC = (): ReactElement => {
                     setActiveStep(0);
             }
         }
-        // @ts-ignore
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPath]);
 
     return (

@@ -14,7 +14,7 @@ const useRegisterPageHook = (): any => {
         if(locationState?.trustedData) {
             setCheckEmailInitialValues({email: locationState?.email});
         }
-        // @ts-ignore
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleCheckEmail = ({ email }: CheckEmailFormType): void => {

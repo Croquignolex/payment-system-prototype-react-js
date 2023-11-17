@@ -26,7 +26,7 @@ const useRegisterStepTreePageHook = (): any => {
         if(!locationState?.trustedData) {
             navigate(routes.register.path);
         }
-        // @ts-ignore
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const { isLoading, isError, isSuccess, data, error, variables, mutate }: RequestResponseType = useMutation(registerRequest);

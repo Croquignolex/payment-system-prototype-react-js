@@ -18,7 +18,7 @@ const useRegisterStepTwoPageHook = (): any => {
         if(locationState?.trustedData) {
             setVerifyPhoneInitialValues({phoneNumber: locationState?.phoneNumber, phoneCode: locationState?.phoneCode});
         }
-        // @ts-ignore
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleVerifyPhone = ({ phoneCode, phoneNumber }: VerifyPhoneFormType): void => {
