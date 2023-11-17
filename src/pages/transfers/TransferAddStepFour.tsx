@@ -1,7 +1,6 @@
 import React, {FC, ReactElement} from "react";
 import {FiArrowLeft, FiChevronsRight, FiUser} from "react-icons/fi";
-import {Link} from "react-router-dom";
-import {Container, Avatar, Box, Button, Center, Divider, Flex, HStack, SimpleGrid, Text} from "@chakra-ui/react";
+import {Container, Avatar, Box, Button, Center, Divider, Flex, HStack, Text} from "@chakra-ui/react";
 
 import useTransferAddStepFourHook from "./useTransferAddStepFourHook";
 import {transferDataType} from "../../types/othersTypes";

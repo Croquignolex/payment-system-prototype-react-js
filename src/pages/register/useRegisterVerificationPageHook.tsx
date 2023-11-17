@@ -16,7 +16,7 @@ const useRegisterVerificationPageHook = (): any => {
         if(!locationState?.trustedData) {
             navigate(routes.register.path);
         }
-    }, []);
+    });
 
     const handleCodePhone = ({ code }: VerifyCodeFormType): void => {
         const state: any = {

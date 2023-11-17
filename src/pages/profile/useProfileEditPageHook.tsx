@@ -1,6 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import {useMutation, useQuery} from "@tanstack/react-query";
+import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 
 import {accountAddressUpdateRequest, accountDetailsRequest} from "../../helpers/apiRequestsHelpers";
 import {UPDATE_USER_DATA, UserContext} from "../../contexts/UserContext";
@@ -11,7 +12,6 @@ import {AddressContext, UPDATE_ADDRESS_DATA} from "../../contexts/AddressContext
 import {setLocaleStorageItem} from "../../helpers/localStorageHelpers";
 import {toastAlert} from "../../helpers/generalHelpers";
 import {routes} from "../../constants/routeConstants";
-import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 
 const useProfileEditPageHook = (): any => {
     let alertData: ErrorAlertType | null = null;
@@ -39,7 +39,7 @@ const useProfileEditPageHook = (): any => {
             city: globalAddressState.city,
             country: globalAddressState.country,
         });
-    }, []);
+    });
 
     const {
         isLoading: isQueryLoading, isError: isQueryError,

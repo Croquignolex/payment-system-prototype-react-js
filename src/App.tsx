@@ -34,7 +34,7 @@ const GlobalState: FC = (): ReactElement => {
         } else {
             setGlobalUserState({ type: TRUST_UNAUTHORIZED_USER });
         }
-    }, []);
+    });
 
     if(!globalUserState.isTrustedData) {
         return <SuspenseLoader />;

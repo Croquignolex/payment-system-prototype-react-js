@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from "react";
-import { AlertIcon, Alert, Stack } from "@chakra-ui/react";
+import { AlertIcon, Alert } from "@chakra-ui/react";
 
 import {ErrorAlertType} from "../types/othersTypes";
 

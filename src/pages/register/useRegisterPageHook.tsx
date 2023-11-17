@@ -14,7 +14,7 @@ const useRegisterPageHook = (): any => {
         if(locationState?.trustedData) {
             setCheckEmailInitialValues({email: locationState?.email});
         }
-    }, []);
+    });
 
     const handleCheckEmail = ({ email }: CheckEmailFormType): void => {
         navigate(routes.registerStepOne.path, {state: { trustedData: true, email }});

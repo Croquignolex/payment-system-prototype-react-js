@@ -30,7 +30,7 @@ const useRegisterStepOnePageHook = (): any => {
         if(locationState?.trustedData) {
             setChooseCountryInitialValues({country: locationState?.country});
         }
-    }, []);
+    });
 
     const handleChooseCountry = ({ country }: ChooseCountryFormType): void => {
         navigate(routes.registerStepTwo.path, {state: { trustedData: true, email: locationState?.email, country }});

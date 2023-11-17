@@ -38,7 +38,7 @@ export const passwordInitialValues: PasswordFormType = { password: '', confirmPa
 export const passwordSchema: Yup.ObjectSchema<PasswordFormType> = Yup.object().shape({
     password: Yup.string()
         .required(formValidationMessage.required)
-        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{4,})/, formValidationMessage.password),
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{4,})/, formValidationMessage.password),
     confirmPassword: Yup.string()
         .required(formValidationMessage.required)
         .oneOf([Yup.ref('password')], formValidationMessage.confirm)
