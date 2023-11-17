@@ -26,7 +26,8 @@ const useRegisterStepTreePageHook = (): any => {
         if(!locationState?.trustedData) {
             navigate(routes.register.path);
         }
-    });
+        // @ts-ignore
+    }, []);
 
     const { isLoading, isError, isSuccess, data, error, variables, mutate }: RequestResponseType = useMutation(registerRequest);
 

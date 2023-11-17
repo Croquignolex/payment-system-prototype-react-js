@@ -1,5 +1,5 @@
 import React, {ReactElement} from "react";
-import {Box, Stack, HStack, Avatar, Text, Container, Flex, Spacer} from "@chakra-ui/react";
+import {Box, Stack, HStack, Avatar, Text, Container, Flex} from "@chakra-ui/react";
 import {FiUser} from "react-icons/fi";
 import {Link} from "react-router-dom";
 

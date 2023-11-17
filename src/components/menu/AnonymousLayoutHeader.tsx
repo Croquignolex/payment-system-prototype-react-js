@@ -36,7 +36,8 @@ const AnonymousLayoutHeader: FC = (): ReactElement => {
                     setActiveStep(0);
             }
         }
-    }, [currentPath, showStepIndicator]);
+        // @ts-ignore
+    }, [currentPath]);
 
     return (
         <Flex h={20} alignItems="center" borderBottomWidth={1}>

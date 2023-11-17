@@ -18,7 +18,8 @@ const useRegisterStepTwoPageHook = (): any => {
         if(locationState?.trustedData) {
             setVerifyPhoneInitialValues({phoneNumber: locationState?.phoneNumber, phoneCode: locationState?.phoneCode});
         }
-    });
+        // @ts-ignore
+    }, []);
 
     const handleVerifyPhone = ({ phoneCode, phoneNumber }: VerifyPhoneFormType): void => {
         const state: any = {

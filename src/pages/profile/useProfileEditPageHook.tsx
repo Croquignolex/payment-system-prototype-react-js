@@ -39,7 +39,8 @@ const useProfileEditPageHook = (): any => {
             city: globalAddressState.city,
             country: globalAddressState.country,
         });
-    });
+        // @ts-ignore
+    }, []);
 
     const {
         isLoading: isQueryLoading, isError: isQueryError,

@@ -1,4 +1,4 @@
-import React, {FC, Fragment, ReactElement} from 'react';
+import React, {FC, ReactElement} from 'react';
 import {Box, Flex, Text, CloseButton, BoxProps, Button, Stack} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
