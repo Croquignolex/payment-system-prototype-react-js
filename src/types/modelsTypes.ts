@@ -3,7 +3,7 @@ export interface UserModelType {
     isAuthorized: boolean;
     lastName: string;
     firstName: string;
-    email: string;
+    emailAddress: string;
     phoneNumber: string;
     accountId: string;
 }

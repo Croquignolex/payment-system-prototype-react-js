@@ -32,7 +32,9 @@ const useRegisterStepTreePageHook = (): any => {
     const { isLoading, isError, isSuccess, data, error, variables, mutate }: RequestResponseType = useMutation(registerRequest);
 
     if(isError) {
-        alertData = { show: isError, status: AlertStatusType.error, message: error?.message };
+        const message: string = error?.response?.data?.message || error?.message;
+
+        alertData = { show: isError, status: AlertStatusType.error, message };
     }
 
     if(isSuccess) {
@@ -46,7 +48,7 @@ const useRegisterStepTreePageHook = (): any => {
 
         navigate(routes.home.path);
 
-        toastAlert(toast, `Bienvenue ${firstName}`, AlertStatusType.info);
+        toastAlert(toast, `Bienvenue ${firstName} ${lastName}`, AlertStatusType.info);
     }
 
     const handleRegister = ({ password }: PasswordFormType): void => {

@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQueryClient, QueryClient} from "@tanstack/react-query";
 import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 
@@ -15,6 +15,7 @@ import {AccountAddFormType} from "./accountPagesData";
 const useAccountAddPageHook = (): any => {
     let alertData: ErrorAlertType | null = null;
 
+    const queryClient: QueryClient = useQueryClient();
     const toast: CreateToastFnReturn = useToast();
     const navigate: NavigateFunction = useNavigate();
     const { globalUserState } = useContext(UserContext);
@@ -25,15 +26,19 @@ const useAccountAddPageHook = (): any => {
     if(isError) {
         window.scrollTo({top: 0, behavior: 'smooth'});
 
-        alertData = { show: isError, status: AlertStatusType.error, message: error?.message };
+        const message: string = error?.response?.data?.message || error?.message;
+
+        alertData = { show: isError, status: AlertStatusType.error, message };
     }
 
     if(isSuccess) {
-        const { firstName } = variables;
+        queryClient.invalidateQueries({ queryKey: ["accounts"] }).then((): void => {
+            const { firstName } = variables;
 
-        navigate(routes.accounts.path);
+            navigate(routes.accounts.path);
 
-        toastAlert(toast, `Compte ${firstName} ajouté avec succès`);
+            toastAlert(toast, `Compte ${firstName} ajouté avec succès`);
+        });
     }
 
     const handleAccountAdd = ({payerType, currencyCode, firstName, lastName, emailAddress, countryCode, phoneNumber}: AccountAddFormType): void => {

@@ -4,7 +4,7 @@ import {useMutation} from "@tanstack/react-query";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 
 import {routes} from "../../constants/routeConstants";
-import {registerRequest} from "../../helpers/apiRequestsHelpers";
+import {loginRequest} from "../../helpers/apiRequestsHelpers";
 import {setLocaleStorageItem} from "../../helpers/localStorageHelpers";
 import {TRUST_AUTHORIZED_USER, UPDATE_USER_DATA, UserContext} from "../../contexts/UserContext";
 import {ErrorAlertType, RequestResponseType} from "../../types/othersTypes";
@@ -19,24 +19,28 @@ const useLoginPageHook = (): any => {
     const navigate: NavigateFunction = useNavigate();
     const { setGlobalUserState } = useContext(UserContext);
 
-    const { isLoading, isError, isSuccess, data, error, variables, mutate }: RequestResponseType = useMutation(registerRequest);
+    const { isLoading, isError, isSuccess, data, error, mutate }: RequestResponseType = useMutation(loginRequest);
 
     if(isError) {
-        alertData = { show: isError, status: AlertStatusType.error, message: error?.message };
+        const message: string = error?.response?.data?.message || error?.message;
+
+        alertData = { show: isError, status: AlertStatusType.error, message };
     }
 
     if(isSuccess) {
         const accountId: string = data?.data?.accountId;
-        const { lastName, firstName, email } = variables;
+        const emailAddress: string = data?.data?.emailAddress;
+        const firstName: string = data?.data?.firstName;
+        const lastName: string = data?.data?.lastName;
 
-        setLocaleStorageItem('user', { lastName, firstName, email, accountId });
+        setLocaleStorageItem('user', { lastName, firstName, emailAddress, accountId });
 
         setGlobalUserState({type: TRUST_AUTHORIZED_USER});
-        setGlobalUserState({type: UPDATE_USER_DATA, payload: { lastName, firstName, email, accountId }});
+        setGlobalUserState({type: UPDATE_USER_DATA, payload: { lastName, firstName, emailAddress, accountId }});
 
         navigate(routes.home.path);
 
-        toastAlert(toast, `Bienvenue ${firstName}`, AlertStatusType.info);
+        toastAlert(toast, `Bienvenue ${firstName} ${lastName}`, AlertStatusType.info);
     }
 
     const handleLogin = ({ email, password }: LoginFormType): void => mutate({ email, password, firstName: 'Fake user', lastName: '' });

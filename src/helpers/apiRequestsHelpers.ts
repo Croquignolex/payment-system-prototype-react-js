@@ -6,18 +6,12 @@ import {AccountAddressUpdateRequestType, AccountDetailsRequestType} from "../typ
 import {ContactAddRequestType} from "../types/pages/contactsTypes";
 import {AccountAddRequestType} from "../types/pages/accountsTypes";
 
-// const API_V1_URL: string = `${apiBaseURL}/api/v1`;
 const API_V1_URL: string = `${apiBaseURL}`;
 
 export const loginRequest = ({ email, password }: LoginRequestType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(authApiURI.login);
     return postRequest(url, { email, password });
 };
-
-/*export const logoutRequest = (): Promise<any> => {
-    const url: string = joinBaseUrlWithParams(authApiURI.logout);
-    return postRequest(url);
-};*/
 
 export const registerRequest = ({ firstName, lastName, email, password }: RegisterRequestType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(authApiURI.register);

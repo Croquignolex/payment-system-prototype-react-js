@@ -27,14 +27,15 @@ const GlobalState: FC = (): ReactElement => {
         const userPersistedData = getLocaleStorageItem('user');
 
         if(userPersistedData) {
-            const { lastName, firstName, email, phoneNumber, birthData, accountId } = userPersistedData;
+            const { lastName, firstName, emailAddress, phoneNumber, birthData, accountId } = userPersistedData;
 
             setGlobalUserState({ type: TRUST_AUTHORIZED_USER });
-            setGlobalUserState({ type: UPDATE_USER_DATA, payload: { lastName, firstName, email, birthData, phoneNumber, accountId } });
+            setGlobalUserState({ type: UPDATE_USER_DATA, payload: { lastName, firstName, emailAddress, birthData, phoneNumber, accountId } });
         } else {
             setGlobalUserState({ type: TRUST_UNAUTHORIZED_USER });
         }
-    });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     if(!globalUserState.isTrustedData) {
         return <SuspenseLoader />;

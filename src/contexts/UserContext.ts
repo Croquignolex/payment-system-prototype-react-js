@@ -11,7 +11,7 @@ export const CLEAR_USER_DATA: string = 'CLEAR_USER_DATA';
 export const initialGlobalUserState: UserModelType = {
     isTrustedData: false,
     isAuthorized: false,
-    email: '',
+    emailAddress: '',
     lastName: '',
     firstName: '',
     accountId: '',
@@ -35,7 +35,7 @@ export const userReducer = (state: UserModelType = initialGlobalUserState, actio
                 ...state,
                 firstName: action.payload?.firstName,
                 lastName: action.payload?.lastName,
-                email: action.payload?.email,
+                emailAddress: action.payload?.emailAddress,
                 phoneNumber: action.payload?.phoneNumber,
                 accountId: action.payload?.accountId,
             };
