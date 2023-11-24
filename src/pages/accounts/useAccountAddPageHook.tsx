@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {useMutation, useQueryClient, QueryClient} from "@tanstack/react-query";
+import {useMutation} from "@tanstack/react-query";
 import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 
@@ -15,7 +15,6 @@ import {AccountAddFormType} from "./accountPagesData";
 const useAccountAddPageHook = (): any => {
     let alertData: ErrorAlertType | null = null;
 
-    const queryClient: QueryClient = useQueryClient();
     const toast: CreateToastFnReturn = useToast();
     const navigate: NavigateFunction = useNavigate();
     const { globalUserState } = useContext(UserContext);
@@ -32,13 +31,11 @@ const useAccountAddPageHook = (): any => {
     }
 
     if(isSuccess) {
-        queryClient.invalidateQueries({ queryKey: ["accounts"] }).then((): void => {
-            const { firstName } = variables;
+        const { firstName } = variables;
 
-            navigate(routes.accounts.path);
+        navigate(routes.accounts.path);
 
-            toastAlert(toast, `Compte ${firstName} ajouté avec succès`);
-        });
+        toastAlert(toast, `Compte ${firstName} ajouté avec succès`);
     }
 
     const handleAccountAdd = ({payerType, currencyCode, firstName, lastName, emailAddress, countryCode, phoneNumber}: AccountAddFormType): void => {

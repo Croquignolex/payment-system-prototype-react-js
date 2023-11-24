@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {QueryClient, useMutation, useQueryClient} from "@tanstack/react-query";
+import {useMutation} from "@tanstack/react-query";
 import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 
@@ -15,7 +15,6 @@ import {routes} from "../../constants/routeConstants";
 const useContactAddPageHook = (): any => {
     let alertData: ErrorAlertType | null = null;
 
-    const queryClient: QueryClient = useQueryClient();
     const toast: CreateToastFnReturn = useToast();
     const navigate: NavigateFunction = useNavigate();
     const { globalUserState } = useContext(UserContext);
@@ -32,13 +31,11 @@ const useContactAddPageHook = (): any => {
     }
 
     if(isSuccess) {
-        queryClient.invalidateQueries({ queryKey: ["contacts"] }).then((): void => {
-            const { firstName } = variables;
+        const { firstName } = variables;
 
-            navigate(routes.contacts.path);
+        navigate(routes.contacts.path);
 
-            toastAlert(toast, `Contact ${firstName} ajouté avec succès`);
-        });
+        toastAlert(toast, `Contact ${firstName} ajouté avec succès`);
     }
 
     const handleContactAdd = ({recipientType, currencyCode, firstName, lastName, emailAddress, countryCode, phoneNumber}: ContactAddFormType): void => {
