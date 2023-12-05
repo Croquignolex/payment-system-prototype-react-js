@@ -1,3 +1,5 @@
+import {AccountModelType, ContactModelType} from "../modelsTypes";
+
 export interface CheckEmailRequestType {
     email: string,
 }
@@ -35,4 +37,8 @@ export interface VerifyCodeFormType {
 export interface PasswordFormType {
     password: string,
     confirmPassword: string,
+}
+
+export interface registerDataType {
+    email: string,
 }

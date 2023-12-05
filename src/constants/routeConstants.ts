@@ -5,15 +5,11 @@ import AnonymousLayout from "../layouts/AnonymousLayout";
 import MainLayout from "../layouts/MainLayout";
 
 const LazyLoginPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/login/LoginPage'));
-const LazyRegisterPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register'));
+const LazyRegisterPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/RegisterPage'));
 const LazyHomePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/HomePage'));
 const LazyProfilePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/profile/ProfilePage'));
 const LazyProfileEditPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/profile/ProfileEditPage'));
 const LazyNotFoundPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/NotFoundPage'));
-const LazyRegisterStepOnePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerStepOnePage'));
-const LazyRegisterStepTwoPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerStepTwoPage'));
-const LazyRegisterStepTreePage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerStepTreePage'));
-const LazyRegisterVerificationPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/register/registerVerificationPage'));
 const LazyContactsPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/contacts/ContactsPage'));
 const LazyContactAddPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/contacts/ContactAddPage'));
 const LazyAccountsPage: LazyExoticComponent<() => ReactElement> = lazy(() => import('../pages/accounts/AccountsPage'));
@@ -36,42 +32,6 @@ export const routes = {
         title: 'Inscription',
         component: LazyRegisterPage,
         path: '/register',
-        icon: null,
-        onSidebar: false,
-        onHeader: false,
-    },
-    registerStepOne: {
-        name: 'registerStepOne',
-        title: 'Inscription',
-        component: LazyRegisterStepOnePage,
-        path: '/register/step-one',
-        icon: null,
-        onSidebar: false,
-        onHeader: false,
-    },
-    registerStepTwo: {
-        name: 'registerStepTwo',
-        title: 'Inscription',
-        component: LazyRegisterStepTwoPage,
-        path: '/register/step-two',
-        icon: null,
-        onSidebar: false,
-        onHeader: false,
-    },
-    registerStepTree: {
-        name: 'registerStepTree',
-        title: 'Inscription',
-        component: LazyRegisterStepTreePage,
-        path: '/register/step-tree',
-        icon: null,
-        onSidebar: false,
-        onHeader: false,
-    },
-    registerVerification: {
-        name: 'registerVerification',
-        title: 'Inscription',
-        component: LazyRegisterVerificationPage,
-        path: '/register/verification',
         icon: null,
         onSidebar: false,
         onHeader: false,
@@ -181,10 +141,7 @@ export const routesDefinition = [
     {
         layout: AnonymousLayout,
         isPublic: true,
-        routes: [
-            routes.login, routes.register, routes.registerStepOne,
-            routes.registerStepTwo, routes.registerStepTree, routes.registerVerification
-        ]
+        routes: [routes.login, routes.register]
     },
     {
         layout: MainLayout,

@@ -1,27 +1,33 @@
-import {useEffect, useState} from "react";
-import {useNavigate, NavigateFunction, useLocation} from "react-router-dom";
+import React, {ReactElement, useState} from "react";
+import {useSteps} from "@chakra-ui/react";
 
-import { routes } from "../../constants/routeConstants";
-import {CheckEmailFormType} from "../../types/pages/authTypes";
+import {registerDataType} from "../../types/pages/authTypes";
+import RegisterStepOnePage from "./RegisterStepOnePage";
 
 const useRegisterPageHook = (): any => {
-    const navigate: NavigateFunction = useNavigate();
-    const { state: locationState } = useLocation();
+    const { activeStep, setActiveStep } = useSteps();
 
-    const [checkEmailInitialValues, setCheckEmailInitialValues] = useState<CheckEmailFormType>({email: ''} );
+    const [registerData, setRegisterData] = useState<registerDataType>({email: ''});
 
-    useEffect((): void => {
-        if(locationState?.trustedData) {
-            setCheckEmailInitialValues({email: locationState?.email});
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const handleCheckEmail = ({ email }: CheckEmailFormType): void => {
-        navigate(routes.registerStepOne.path, {state: { trustedData: true, email }});
+    const moveStep = (next: boolean = true): void => {
+        setActiveStep(next ? activeStep + 1 : activeStep - 1);
     };
 
-    return { handleCheckEmail, checkEmailInitialValues };
+    const updateEmail = (email: string): void => {
+        setRegisterData({...registerData, email});
+    };
+
+    const StepComponent = (): ReactElement | null => {
+        switch (activeStep) {
+            case 0: return <RegisterStepOnePage moveStep={moveStep} selectedEmail={registerData.email} updateEmail={updateEmail} />;
+            // case 1: return <TransferAddStepTwo moveStep={moveStep} selectedContact={transferData.contact} updateContact={updateContact} />;
+            // case 2: return <TransferAddStepTree moveStep={moveStep} amount={transferData.amount} currency={transferData.currency} updateAmountAndCurrency={updateAmountAndCurrency} />;
+            // case 3: return <TransferAddStepFour moveStep={moveStep} transferData={transferData} />;
+            default: return null;
+        }
+    };
+
+    return { activeStep, StepComponent};
 };
 
 export default useRegisterPageHook;

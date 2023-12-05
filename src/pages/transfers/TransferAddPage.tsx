@@ -8,7 +8,7 @@ const TransferAddPage = (): ReactElement => {
     const { activeStep, StepComponent } = useTransferAddPageHook();
 
     return (
-        <Stack>
+        <Stack w={'full'}>
             <Stepper size='sm' index={activeStep}>
                 {transferStepsLabels.map((label: string, index: number): ReactElement => (
                     <Step key={index}>

@@ -5,19 +5,15 @@ import {CheckEmailFormType, ChooseCountryFormType, PasswordFormType,
     VerifyCodeFormType, VerifyPhoneFormType
 } from "../../types/pages/authTypes";
 
-// export const checkEmailInitialValues: CheckEmailFormType = { email: '' };
+export const registerStepsLabels: string[] = ['Email', 'Pays', 'Vérification', 'Mot de passe'];
 
 export const checkEmailSchema: Yup.ObjectSchema<CheckEmailFormType> = Yup.object().shape({
     email: Yup.string().required(formValidationMessage.required).email(formValidationMessage.email),
 });
 
-// export const chooseCountryInitialValues: ChooseCountryFormType = { country: '' };
-
 export const chooseCountrySchema: Yup.ObjectSchema<ChooseCountryFormType> = Yup.object().shape({
     country: Yup.string().required(formValidationMessage.required),
 });
-
-// export const verifyPhoneInitialValues: VerifyPhoneFormType = { phoneCode: '', phoneNumber: '' };
 
 export const verifyPhoneSchema: Yup.ObjectSchema<VerifyPhoneFormType> = Yup.object().shape({
     phoneCode: Yup.string().required(formValidationMessage.required),

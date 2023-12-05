@@ -10,6 +10,7 @@ import {transferDataType} from "../../types/othersTypes";
 
 const useTransferAddPageHook = (): any => {
     const { activeStep, setActiveStep } = useSteps();
+
     const [transferData, setTransferData] = useState<transferDataType>({account: undefined, contact: undefined, amount: 0, currency: ''});
 
     const moveStep = (next: boolean = true): void => {
