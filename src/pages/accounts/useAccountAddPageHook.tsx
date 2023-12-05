@@ -6,7 +6,7 @@ import {NavigateFunction, useNavigate} from "react-router-dom";
 import {accountAddRequest} from "../../helpers/apiRequestsHelpers";
 import {UserContext} from "../../contexts/UserContext";
 import {ErrorAlertType, RequestResponseType} from "../../types/othersTypes";
-import {AlertStatusType} from "../../types/enumsTypes";
+import {AlertStatusEnumType} from "../../types/enumsTypes";
 import useJsonFileHook from "../../hooks/useJsonFileHook";
 import {toastAlert} from "../../helpers/generalHelpers";
 import {routes} from "../../constants/routeConstants";
@@ -27,7 +27,7 @@ const useAccountAddPageHook = (): any => {
 
         const message: string = error?.response?.data?.message || error?.message;
 
-        alertData = { show: isError, status: AlertStatusType.error, message };
+        alertData = { show: isError, status: AlertStatusEnumType.error, message };
     }
 
     if(isSuccess) {

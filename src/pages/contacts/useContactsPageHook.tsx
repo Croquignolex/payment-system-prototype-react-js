@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import {contactsRequest} from "../../helpers/apiRequestsHelpers";
 import {UserContext} from "../../contexts/UserContext";
 import {ErrorAlertType, RequestResponseType} from "../../types/othersTypes";
-import {AlertStatusType} from "../../types/enumsTypes";
+import {AlertStatusEnumType} from "../../types/enumsTypes";
 import {ContactModelType} from "../../types/modelsTypes";
 
 const useContactsPageHook = (): any => {
@@ -22,7 +22,7 @@ const useContactsPageHook = (): any => {
     });
 
     if(isError) {
-        alertData = { show: isError, status: AlertStatusType.error, message: error?.message };
+        alertData = { show: isError, status: AlertStatusEnumType.error, message: error?.message };
     }
 
     if(queryEnabled && isSuccess) {
@@ -32,6 +32,7 @@ const useContactsPageHook = (): any => {
 
         data?.data.forEach((item: any) => {
             const contact: ContactModelType = {
+                recipientId: item?.recipientId,
                 firstName: item?.firstName,
                 lastName: item?.lastName,
                 emailAddress: item?.emailAddress,

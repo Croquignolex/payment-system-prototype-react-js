@@ -1,10 +1,12 @@
 import {getRequest, postRequest, putRequest} from "./axiosHelpers";
-import {accountApiURI, accountsApiURI, authApiURI, contactsApiURI} from "../constants/apiURIConstants";
-import { apiBaseURL } from "../constants/envConstants";
+import {accountApiURI, accountsApiURI, authApiURI, contactsApiURI, transfersApiURI} from "../constants/apiURIConstants";
+import {apiBaseURL} from "../constants/envConstants";
 import {LoginRequestType, RegisterRequestType} from "../types/pages/authTypes";
 import {AccountAddressUpdateRequestType, AccountDetailsRequestType} from "../types/pages/accountTypes";
 import {ContactAddRequestType} from "../types/pages/contactsTypes";
 import {AccountAddRequestType} from "../types/pages/accountsTypes";
+import {TransferAddRequestType} from "../types/pages/transfersTypes";
+import {TransferEnumType} from "../types/enumsTypes";
 
 const API_V1_URL: string = `${apiBaseURL}`;
 
@@ -46,6 +48,18 @@ export const accountsRequest = ({ accountId }: AccountDetailsRequestType) => {
 export const accountAddRequest = ({ payerType, currencyCode, firstName, lastName, emailAddress, countryCode, phoneNumber, accountId }: AccountAddRequestType) => {
     const url: string = joinBaseUrlWithParams(accountsApiURI.add, [{param: 'accountId', value: accountId}]);
     return putRequest(url, { payerType, currencyCode, firstName, lastName, emailAddress, countryCode, phoneNumber });
+};
+
+export const transferAddRequest = ({ accountId, payerId, recipientId, amount, transferType }: TransferAddRequestType) => {
+    let url: string;
+
+    switch (transferType) {
+        case TransferEnumType.mtnToMtn:
+            url = joinBaseUrlWithParams(transfersApiURI.addMtnToMtn, [{param: 'accountId', value: accountId}]);
+            break;
+    }
+
+    return putRequest(url, { payerId, recipientId, amount });
 };
 
 // Build complete url

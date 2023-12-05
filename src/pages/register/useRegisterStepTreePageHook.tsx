@@ -8,7 +8,7 @@ import {PasswordFormType} from "../../types/pages/authTypes";
 import {TRUST_AUTHORIZED_USER, UPDATE_USER_DATA, UserContext} from "../../contexts/UserContext";
 import {ErrorAlertType, RequestResponseType} from "../../types/othersTypes";
 import {registerRequest} from "../../helpers/apiRequestsHelpers";
-import {AlertStatusType} from "../../types/enumsTypes";
+import {AlertStatusEnumType} from "../../types/enumsTypes";
 import {setLocaleStorageItem} from "../../helpers/localStorageHelpers";
 import {toastAlert} from "../../helpers/generalHelpers";
 
@@ -34,7 +34,7 @@ const useRegisterStepTreePageHook = (): any => {
     if(isError) {
         const message: string = error?.response?.data?.message || error?.message;
 
-        alertData = { show: isError, status: AlertStatusType.error, message };
+        alertData = { show: isError, status: AlertStatusEnumType.error, message };
     }
 
     if(isSuccess) {
@@ -48,7 +48,7 @@ const useRegisterStepTreePageHook = (): any => {
 
         navigate(routes.home.path);
 
-        toastAlert(toast, `Bienvenue ${firstName} ${lastName}`, AlertStatusType.info);
+        toastAlert(toast, `Bienvenue ${firstName} ${lastName}`, AlertStatusEnumType.info);
     }
 
     const handleRegister = ({ password }: PasswordFormType): void => {

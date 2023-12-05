@@ -1,7 +1,7 @@
 import flattenDeep from "lodash/flattenDeep";
 import {CreateToastFnReturn} from "@chakra-ui/react";
 
-import {AlertStatusType} from "../types/enumsTypes";
+import {AlertStatusEnumType} from "../types/enumsTypes";
 import mtnIcon from "../../src/assets/img/icon/mtn.png";
 import orangeIcon from "../../src/assets/img/icon/orange.png";
 import paypalIcon from "../../src/assets/img/icon/paypal.png";
@@ -48,7 +48,7 @@ export const generateFlattenRoutes = (routes: any[]): any[] => {
 };
 
 // Toast alert
-export const toastAlert = (toast: CreateToastFnReturn, title: string, status: AlertStatusType = AlertStatusType.success): void => {
+export const toastAlert = (toast: CreateToastFnReturn, title: string, status: AlertStatusEnumType = AlertStatusEnumType.success): void => {
     toast.closeAll();
 
     toast({title, status});

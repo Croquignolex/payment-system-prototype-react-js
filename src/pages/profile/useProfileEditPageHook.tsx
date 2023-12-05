@@ -6,7 +6,7 @@ import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
 import {accountAddressUpdateRequest, accountDetailsRequest} from "../../helpers/apiRequestsHelpers";
 import {UPDATE_USER_DATA, UserContext} from "../../contexts/UserContext";
 import {ErrorAlertType, RequestResponseType} from "../../types/othersTypes";
-import {AlertStatusType} from "../../types/enumsTypes";
+import {AlertStatusEnumType} from "../../types/enumsTypes";
 import {ProfileFormType} from "./profilePagesData";
 import {AddressContext, UPDATE_ADDRESS_DATA} from "../../contexts/AddressContext";
 import {setLocaleStorageItem} from "../../helpers/localStorageHelpers";
@@ -62,7 +62,7 @@ const useProfileEditPageHook = (): any => {
         const show: boolean = isMutationError || isQueryError;
         const message: string = mutationError?.message || queryError?.message;
 
-        alertData = { show, status: AlertStatusType.error, message };
+        alertData = { show, status: AlertStatusEnumType.error, message };
     }
 
     if(queryEnabled && isQuerySuccess) {

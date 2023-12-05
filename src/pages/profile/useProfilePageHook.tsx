@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import {accountDetailsRequest} from "../../helpers/apiRequestsHelpers";
 import {UPDATE_USER_DATA, UserContext} from "../../contexts/UserContext";
 import {ErrorAlertType, RequestResponseType} from "../../types/othersTypes";
-import {AlertStatusType} from "../../types/enumsTypes";
+import {AlertStatusEnumType} from "../../types/enumsTypes";
 import {setLocaleStorageItem} from "../../helpers/localStorageHelpers";
 import {AddressContext, UPDATE_ADDRESS_DATA} from "../../contexts/AddressContext";
 
@@ -23,7 +23,7 @@ const useProfilePageHook = (): any => {
     });
 
     if(isError) {
-        alertData = { show: isError, status: AlertStatusType.error, message: error?.message };
+        alertData = { show: isError, status: AlertStatusEnumType.error, message: error?.message };
     }
 
     if(queryEnabled && isSuccess) {

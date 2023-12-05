@@ -1,9 +1,16 @@
 import * as Yup from "yup";
 
 import {formValidationMessage} from "../../constants/generalConstants";
-import {ContactModelType} from "../../types/modelsTypes";
 
-export const initialValues: ContactAddFormType = { emailAddress: '', firstName: '', lastName: '', countryCode: '', recipientType: '', phoneNumber: '', currencyCode: '' };
+export const initialValues: ContactAddFormType = {
+    emailAddress: '',
+    firstName: '',
+    lastName: '',
+    countryCode: '',
+    recipientType: '',
+    phoneNumber: '',
+    currencyCode: ''
+};
 
 export const contactAddSchema: Yup.ObjectSchema<ContactAddFormType> = Yup.object().shape({
     firstName: Yup.string().required(formValidationMessage.required),
@@ -15,6 +22,12 @@ export const contactAddSchema: Yup.ObjectSchema<ContactAddFormType> = Yup.object
     currencyCode: Yup.string().required(formValidationMessage.required),
 });
 
-export interface ContactAddFormType extends ContactModelType {
-
+export interface ContactAddFormType {
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+    phoneNumber: string;
+    recipientType: string;
+    currencyCode: string;
+    countryCode: string;
 }

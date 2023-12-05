@@ -1,6 +1,6 @@
 import {IconType} from "react-icons";
 
-import {AlertStatusType} from "./enumsTypes";
+import {AlertStatusEnumType} from "./enumsTypes";
 import {AccountModelType, ContactModelType} from "./modelsTypes";
 
 export interface ReducerActionType {
@@ -10,7 +10,7 @@ export interface ReducerActionType {
 
 export interface ErrorAlertType {
     show: boolean,
-    status: AlertStatusType,
+    status: AlertStatusEnumType,
     message: string
 }
 

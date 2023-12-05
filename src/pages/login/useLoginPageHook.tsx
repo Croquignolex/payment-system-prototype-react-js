@@ -9,7 +9,7 @@ import {setLocaleStorageItem} from "../../helpers/localStorageHelpers";
 import {TRUST_AUTHORIZED_USER, UPDATE_USER_DATA, UserContext} from "../../contexts/UserContext";
 import {ErrorAlertType, RequestResponseType} from "../../types/othersTypes";
 import {LoginFormType} from "../../types/pages/authTypes";
-import {AlertStatusType} from "../../types/enumsTypes";
+import {AlertStatusEnumType} from "../../types/enumsTypes";
 import {toastAlert} from "../../helpers/generalHelpers";
 
 const useLoginPageHook = (): any => {
@@ -24,7 +24,7 @@ const useLoginPageHook = (): any => {
     if(isError) {
         const message: string = error?.response?.data?.message || error?.message;
 
-        alertData = { show: isError, status: AlertStatusType.error, message };
+        alertData = { show: isError, status: AlertStatusEnumType.error, message };
     }
 
     if(isSuccess) {
@@ -40,7 +40,7 @@ const useLoginPageHook = (): any => {
 
         navigate(routes.home.path);
 
-        toastAlert(toast, `Bienvenue ${firstName} ${lastName}`, AlertStatusType.info);
+        toastAlert(toast, `Bienvenue ${firstName} ${lastName}`, AlertStatusEnumType.info);
     }
 
     const handleLogin = ({ email, password }: LoginFormType): void => mutate({ email, password, firstName: 'Fake user', lastName: '' });

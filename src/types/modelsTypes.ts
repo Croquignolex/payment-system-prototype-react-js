@@ -1,3 +1,7 @@
+import {AccountEnumType} from "./enumsTypes";
+import {AccountAddFormType} from "../pages/accounts/accountPagesData";
+import {ContactAddFormType} from "../pages/contacts/contactPagesData";
+
 export interface UserModelType {
     isTrustedData: boolean;
     isAuthorized: boolean;
@@ -15,22 +19,10 @@ export interface AddressModelType {
     country: string;
 }
 
-export interface ContactModelType {
-    firstName: string;
-    lastName: string;
-    emailAddress: string;
-    phoneNumber: string;
-    recipientType: string;
-    currencyCode: string;
-    countryCode: string;
+export interface ContactModelType extends ContactAddFormType {
+    recipientId: string;
 }
 
-export interface AccountModelType {
-    firstName: string;
-    lastName: string;
-    emailAddress: string;
-    phoneNumber: string;
-    payerType: string;
-    currencyCode: string;
-    countryCode: string;
+export interface AccountModelType extends AccountAddFormType {
+    payerId: string;
 }

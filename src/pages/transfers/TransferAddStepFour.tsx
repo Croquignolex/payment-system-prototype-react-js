@@ -5,18 +5,18 @@ import {Container, Avatar, Box, Button, Center, Divider, Flex, HStack, Text} fro
 import useTransferAddStepFourHook from "./useTransferAddStepFourHook";
 import {transferDataType} from "../../types/othersTypes";
 import AccountCard from "../accounts/AccountCard";
-import {routes} from "../../constants/routeConstants";
 import ContactCard from "../contacts/ContactCard";
-import {toastAlert} from "../../helpers/generalHelpers";
+import Loader from "../../components/Loader";
+import DisplayAlert from "../../components/DisplayAlert";
 
 const TransferAddStepFour: FC<TransferAddStepFourProps> = ({moveStep, transferData}): ReactElement => {
-    const {toast, navigate} = useTransferAddStepFourHook();
+    const {isLoading, alertData, handleTransferAdd} = useTransferAddStepFourHook(transferData);
 
     return (
         <>
             <strong>Confirmation</strong>
-            {/*<Loader isLoading={isLoading} />*/}
-            {/*<DisplayAlert data={alertData} />*/}
+            <Loader isLoading={isLoading} />
+            <DisplayAlert data={alertData} />
             <Center>
                 <HStack spacing={1}>
                     <AccountCard account={transferData.account} actionable={false} />
@@ -66,11 +66,7 @@ const TransferAddStepFour: FC<TransferAddStepFourProps> = ({moveStep, transferDa
                     size='lg'
                     rounded='full'
                     w={{sm: '50%', base: '100%'}}
-                    onClick={(): void => {
-                        navigate(routes.transfers.path);
-
-                        toastAlert(toast, `Transfert éffectué avec succès`);
-                    }}
+                    onClick={handleTransferAdd}
                 >
                     Valider
                 </Button>
