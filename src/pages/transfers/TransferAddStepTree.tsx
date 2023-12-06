@@ -1,80 +1,92 @@
 import React, {FC, ReactElement} from "react";
 import {FiArrowLeft, FiUser} from "react-icons/fi";
-import {Button, Center, Text, Container, FormLabel, Input,
-    FormControl, Select, Box, Flex, Divider, Avatar, HStack
-} from "@chakra-ui/react";
+import {Form, Formik, FormikProps} from "formik";
+import {Button, Center, Text, Container, Box, Flex, Divider, Avatar, HStack} from "@chakra-ui/react";
 
 import useTransferAddStepTreeHook from "./useTransferAddStepTreeHook";
-import {FormSelectOptionType} from "../../types/othersTypes";
+import TextField from "../../components/form/TextField";
+import SelectField from "../../components/form/SelectField";
+import {ChooseAmountAndCurrencyFormType} from "../../types/pages/transfersTypes";
+import {chooseAmountAndCurrencySchema} from "./transfertPagesData";
 
-const TransferAddStepTree: FC<TransferAddStepTreeProps> = ({moveStep, amount, currency, updateAmountAndCurrency}): ReactElement => {
-    const { currenciesData, nextAndSAve, amountInput, currencySelect, handleAmountInput, handleCurrencySelect } = useTransferAddStepTreeHook(moveStep, amount, currency, updateAmountAndCurrency);
+const TransferAddStepTree: FC<TransferAddStepTreeProps> = ({moveStep, selectedAmount, selectedCurrency, updateAmountAndCurrency}): ReactElement => {
+    const { currenciesData, handleChooseAmountAndCurrency } = useTransferAddStepTreeHook(moveStep, updateAmountAndCurrency);
 
     return (
         <>
             <strong>Entrez le montant</strong>
-            <Container maxW={"xl"} p={4} borderWidth='1px' borderRadius='3xl'>
-                <Flex>
-                    <FormControl mb={4}>
-                        <FormLabel fontSize='md' fontWeight='normal'>Dévise</FormLabel>
-                        <Select name="currency" size='lg' rounded='lg' borderColor="black" onChange={handleCurrencySelect} value={currencySelect}>
-                            <option value=''>Choisir</option>
-                            {currenciesData.map((item: FormSelectOptionType) => (
-                                <option value={item.key}>{item.label}</option>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <Box mx={3} />
-                    <FormControl mb={4}>
-                        <FormLabel fontSize='md' fontWeight='normal'>Montant</FormLabel>
-                        <Input name='amount' type="text" size='lg' borderColor="black" rounded='lg' value={amountInput} onChange={handleAmountInput} />
-                    </FormControl>
-                </Flex>
-                <Divider my={4} />
-                <Flex>
-                    <Box w={{base: '50%'}} fontWeight="bold">
-                        {amountInput * 0.01} {currencySelect}
-                    </Box>
-                    <Box w={{base: '50%'}} textAlign='right'>
-                        Frais de compte
-                    </Box>
-                </Flex>
-                <Flex>
-                    <Box w={{base: '50%'}} fontWeight="bold">
-                        {amountInput * 0.01} {currencySelect}
-                    </Box>
-                    <Box w={{base: '50%'}} textAlign='right'>
-                        Frais de service
-                    </Box>
-                </Flex>
-                <Flex>
-                    <Box w={{base: '50%'}} fontWeight="bold">
-                        {amountInput * 0.02} {currencySelect}
-                    </Box>
-                    <Box w={{base: '50%'}} textAlign='right'>
-                        Frais total
-                    </Box>
-                </Flex>
-                <Divider my={4} />
-                <HStack>
-                    <Avatar bg='gray.200' icon={<FiUser fontSize='1.5rem' color='black'/>} />
-                    <Box>
-                        <Text>Vous allez envoyer</Text>
-                        <strong>{amountInput + (amountInput * 0.02)} {currencySelect}</strong>
-                    </Box>
-                </HStack>
-            </Container>
-            <Center mt={10}>
-                <Button
-                    colorScheme='blue'
-                    size='lg'
-                    rounded='full'
-                    w={{sm: '50%', base: '100%'}}
-                    onClick={nextAndSAve}
-                >
-                    Suivant
-                </Button>
-            </Center>
+            <Formik initialValues={{currency: selectedCurrency, amount: selectedAmount.toString()}} validationSchema={chooseAmountAndCurrencySchema} onSubmit={handleChooseAmountAndCurrency} enableReinitialize>
+                {(props: FormikProps<ChooseAmountAndCurrencyFormType>) => (
+                    <Form>
+                        <Container maxW={"xl"} p={4} borderWidth='1px' borderRadius='3xl'>
+                            <Flex>
+                                <Box mb={4}>
+                                    <SelectField
+                                        label="Dévise"
+                                        name="currency"
+                                        values={currenciesData}
+                                        isInvalid={!!props.errors.currency && !!props.touched.currency}
+                                        errorMessage={props.errors.currency}
+                                    />
+                                </Box>
+                                <Box mx={3} />
+                                <Box mb={4}>
+                                    <TextField
+                                        label="Montant"
+                                        name="amount"
+                                        isInvalid={!!props.errors.amount && !!props.touched.amount}
+                                        errorMessage={props.errors.amount}
+                                    />
+                                </Box>
+                            </Flex>
+                            <Divider my={4} />
+                            <Flex>
+                                <Box w={{base: '50%'}} fontWeight="bold">
+                                    {+(props.values.amount) * 0.01} {props.values.currency}
+                                </Box>
+                                <Box w={{base: '50%'}} textAlign='right'>
+                                    Frais de compte
+                                </Box>
+                            </Flex>
+                            <Flex>
+                                <Box w={{base: '50%'}} fontWeight="bold">
+                                    {+(props.values.amount) * 0.01} {props.values.currency}
+                                </Box>
+                                <Box w={{base: '50%'}} textAlign='right'>
+                                    Frais de service
+                                </Box>
+                            </Flex>
+                            <Flex>
+                                <Box w={{base: '50%'}} fontWeight="bold">
+                                    {+(props.values.amount) * 0.02} {props.values.currency}
+                                </Box>
+                                <Box w={{base: '50%'}} textAlign='right'>
+                                    Frais total
+                                </Box>
+                            </Flex>
+                            <Divider my={4} />
+                            <HStack>
+                                <Avatar bg='gray.200' icon={<FiUser fontSize='1.5rem' color='black'/>} />
+                                <Box>
+                                    <Text>Vous allez envoyer</Text>
+                                    <strong>{+(props.values.amount) + (+(props.values.amount) * 0.02)} {props.values.currency}</strong>
+                                </Box>
+                            </HStack>
+                        </Container>
+                        <Center mt={10}>
+                            <Button
+                                colorScheme='blue'
+                                size='lg'
+                                rounded='full'
+                                w={{sm: '50%', base: '100%'}}
+                                type='submit'
+                            >
+                                Suivant
+                            </Button>
+                        </Center>
+                    </Form>
+                )}
+            </Formik>
             <Center mt={50}>
                 <FiArrowLeft />
                 <Text as='u' fontWeight='bold' onClick={() => moveStep(false)} cursor='pointer'>
@@ -88,8 +100,8 @@ const TransferAddStepTree: FC<TransferAddStepTreeProps> = ({moveStep, amount, cu
 interface TransferAddStepTreeProps {
     updateAmountAndCurrency: (a: number, b: string) => void,
     moveStep: (a: boolean) => void,
-    amount: number,
-    currency: string,
+    selectedAmount: number,
+    selectedCurrency: string,
 }
 
 export default TransferAddStepTree;

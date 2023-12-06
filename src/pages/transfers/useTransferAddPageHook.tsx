@@ -33,7 +33,7 @@ const useTransferAddPageHook = (): any => {
         switch (activeStep) {
             case 0: return <TransferAddStepOne moveStep={moveStep} selectedAccount={transferData.account} updateAccount={updateAccount} />;
             case 1: return <TransferAddStepTwo moveStep={moveStep} selectedContact={transferData.contact} updateContact={updateContact} />;
-            case 2: return <TransferAddStepTree moveStep={moveStep} amount={transferData.amount} currency={transferData.currency} updateAmountAndCurrency={updateAmountAndCurrency} />;
+            case 2: return <TransferAddStepTree moveStep={moveStep} selectedAmount={transferData.amount} selectedCurrency={transferData.currency} updateAmountAndCurrency={updateAmountAndCurrency} />;
             case 3: return <TransferAddStepFour moveStep={moveStep} transferData={transferData} />;
             default: return null;
         }

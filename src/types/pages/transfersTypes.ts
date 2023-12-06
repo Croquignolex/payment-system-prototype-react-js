@@ -7,3 +7,9 @@ export interface TransferAddRequestType {
     amount: string,
     transferType: TransferEnumType,
 }
+
+export interface ChooseAmountAndCurrencyFormType {
+    currency: string,
+    amount: string,
+}
+

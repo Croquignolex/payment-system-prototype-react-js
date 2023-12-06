@@ -12,7 +12,6 @@ const SubmitButton: FC<FormSubmitButtonProps> = ({ label = 'Confirmer', colorSch
                 type='submit'
                 size='lg'
                 rounded='full'
-                // onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
             >
                 {label}
             </Button>
