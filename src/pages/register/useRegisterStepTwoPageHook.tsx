@@ -1,40 +1,27 @@
-import {useEffect, useState} from "react";
-import {useNavigate, NavigateFunction, useLocation} from "react-router-dom";
+import {useMemo} from "react";
 
-import { routes } from "../../constants/routeConstants";
-import {VerifyPhoneFormType} from "../../types/pages/authTypes";
+import {ChooseCountryFormType} from "../../types/pages/authTypes";
+import {FormSelectOptionType} from "../../types/othersTypes";
+import countriesJSON from "../../assets/json/countries.json";
 
-const useRegisterStepTwoPageHook = (): any => {
-    const navigate: NavigateFunction = useNavigate();
-    const { state: locationState } = useLocation();
+const useRegisterStepTwoPageHook = (moveStep: (a: boolean) => void, updateCountry: (b: string) => void): any => {
+    const countriesData: FormSelectOptionType[] = useMemo((): FormSelectOptionType[] => (
+        countriesJSON.map((country: { name: string, code: string }): FormSelectOptionType => ({
+            label: country.name,
+            key: country.code
+        }))
+    ), []);
 
-    const [verifyPhoneInitialValues, setVerifyPhoneInitialValues] = useState<VerifyPhoneFormType>({phoneNumber: '', phoneCode: ''} );
+    const nextAndSAve = (country: string) => {
+        moveStep(true);
+        updateCountry(country);
+    }
 
-    useEffect((): void => {
-        if(!locationState?.trustedData) {
-            navigate(routes.register.path);
-        }
-
-        if(locationState?.trustedData) {
-            setVerifyPhoneInitialValues({phoneNumber: locationState?.phoneNumber, phoneCode: locationState?.phoneCode});
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const handleVerifyPhone = ({ phoneCode, phoneNumber }: VerifyPhoneFormType): void => {
-        const state: any = {
-            trustedData: true,
-            email: locationState?.email,
-            country: locationState?.country,
-            phoneCode,
-            phoneNumber
-        };
-        navigate(routes.registerVerification.path, {state});
+    const handleChooseCountry = ({ country }: ChooseCountryFormType): void => {
+        nextAndSAve(country);
     };
 
-    const backState: any = {trustedData: true, email: locationState?.email, country: locationState?.country};
-
-    return { handleVerifyPhone, verifyPhoneInitialValues, backState };
+    return { handleChooseCountry, countriesData };
 };
 
 export default useRegisterStepTwoPageHook;

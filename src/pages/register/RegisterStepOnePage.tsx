@@ -12,7 +12,7 @@ import { routes } from "../../constants/routeConstants";
 import SubmitButton from "../../components/form/SumitButton";
 
 const RegisterStepOnePage: FC<RegisterStepOneProps> = ({moveStep, selectedEmail, updateEmail}): ReactElement => {
-    const { handleCheckEmail, checkEmailInitialValues } = useRegisterStepOnePageHook(moveStep, selectedEmail, updateEmail);
+    const { handleCheckEmail } = useRegisterStepOnePageHook(moveStep, updateEmail);
 
     return (
         <>
@@ -24,7 +24,7 @@ const RegisterStepOnePage: FC<RegisterStepOneProps> = ({moveStep, selectedEmail,
                 </Text>
             </Box>
             <Stack my={6}>
-                <Formik initialValues={checkEmailInitialValues} validationSchema={checkEmailSchema} onSubmit={handleCheckEmail} enableReinitialize>
+                <Formik initialValues={{email: selectedEmail}} validationSchema={checkEmailSchema} onSubmit={handleCheckEmail} enableReinitialize>
                     {(props: FormikProps<CheckEmailFormType>) => (
                         <Form>
                             <TextField

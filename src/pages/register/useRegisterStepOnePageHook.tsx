@@ -1,15 +1,6 @@
-import {useEffect, useState} from "react";
-
 import {CheckEmailFormType} from "../../types/pages/authTypes";
 
-const useRegisterStepOnePageHook = (moveStep: () => void, selectedEmail: string, updateEmail: (b: string) => void): any => {
-    const [checkEmailInitialValues, setCheckEmailInitialValues] = useState<CheckEmailFormType>({email: ''} );
-
-    useEffect((): void => {
-        setCheckEmailInitialValues({email: selectedEmail});
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
+const useRegisterStepOnePageHook = (moveStep: () => void, updateEmail: (b: string) => void): any => {
     const nextAndSAve = (email: string) => {
         moveStep();
         updateEmail(email);
@@ -19,7 +10,7 @@ const useRegisterStepOnePageHook = (moveStep: () => void, selectedEmail: string,
         nextAndSAve(email);
     };
 
-    return { handleCheckEmail, checkEmailInitialValues };
+    return { handleCheckEmail };
 };
 
 export default useRegisterStepOnePageHook;

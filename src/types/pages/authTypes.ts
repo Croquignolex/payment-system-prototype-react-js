@@ -41,4 +41,5 @@ export interface PasswordFormType {
 
 export interface registerDataType {
     email: string,
+    country: string,
 }
