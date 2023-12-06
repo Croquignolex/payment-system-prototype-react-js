@@ -29,7 +29,7 @@ const RegisterStepTwoPage: FC<RegisterStepTwoProps> = ({moveStep, selectedCountr
                                 isInvalid={!!props.errors.country && !!props.touched.country}
                                 errorMessage={props.errors.country}
                             />
-                            <SubmitButton label="Continuer" isDisabled={!props.dirty}></SubmitButton>
+                            <SubmitButton label="Continuer"></SubmitButton>
                         </Form>
                     )}
                 </Formik>

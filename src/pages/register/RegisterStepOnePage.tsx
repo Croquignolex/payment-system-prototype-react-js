@@ -33,7 +33,7 @@ const RegisterStepOnePage: FC<RegisterStepOneProps> = ({moveStep, selectedEmail,
                                 isInvalid={!!props.errors.email && !!props.touched.email}
                                 errorMessage={props.errors.email}
                             />
-                            <SubmitButton label="Suivant" isDisabled={!props.dirty}></SubmitButton>
+                            <SubmitButton label="Suivant"></SubmitButton>
                         </Form>
                     )}
                 </Formik>

@@ -23,7 +23,7 @@ const RegisterPage = (): ReactElement => {
     return (
         <>
             <Flex align={'center'} justify={'center'}>
-                <Stepper size='sm' index={activeStep} w={'3xl'}>
+                <Stepper size='sm' index={activeStep} w={'4xl'}>
                     {registerStepsLabels.map((label: string, index: number): ReactElement => (
                         <Step key={index}>
                             <StepIndicator>

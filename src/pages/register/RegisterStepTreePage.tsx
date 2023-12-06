@@ -43,7 +43,7 @@ const RegisterStepTreePage: FC<RegisterStepTreeProps> = ({moveStep, selectedPhon
                                         props.errors.phoneNumber
                                     }
                                 />
-                                <SubmitButton label="Envoyer le code de vérification" isDisabled={!props.dirty}></SubmitButton>
+                                <SubmitButton label="Envoyer le code de vérification"></SubmitButton>
                             </Form>
                         )}
                     </Formik>

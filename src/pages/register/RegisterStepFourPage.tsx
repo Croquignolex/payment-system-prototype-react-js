@@ -41,7 +41,7 @@ const RegisterStepFourPage: FC<RegisterStepFourProps> = ({moveStep, selectedPhon
                                         Je n'ai pas reçus de code
                                     </Text>
                                 </Center>
-                                <SubmitButton isDisabled={!props.dirty} />
+                                <SubmitButton />
                             </Form>
                         )}
                     </Formik>
