@@ -3,6 +3,11 @@ import {IconType} from "react-icons";
 import {AlertStatusEnumType} from "./enumsTypes";
 import {AccountModelType, ContactModelType} from "./modelsTypes";
 
+export interface PhoneType {
+    phoneNumber: string;
+    phoneCode: string;
+}
+
 export interface ReducerActionType {
     type: string;
     payload: any;

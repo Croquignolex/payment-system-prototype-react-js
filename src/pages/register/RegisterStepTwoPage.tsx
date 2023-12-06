@@ -50,5 +50,4 @@ interface RegisterStepTwoProps {
     selectedCountry: string,
 }
 
-
 export default RegisterStepTwoPage;

@@ -1,4 +1,4 @@
-import {AccountModelType, ContactModelType} from "../modelsTypes";
+import {PhoneType} from "../othersTypes";
 
 export interface CheckEmailRequestType {
     email: string,
@@ -25,9 +25,7 @@ export interface ChooseCountryFormType {
     country: string,
 }
 
-export interface VerifyPhoneFormType {
-    phoneNumber: string,
-    phoneCode: string,
+export interface VerifyPhoneFormType extends PhoneType {
 }
 
 export interface VerifyCodeFormType {
@@ -39,7 +37,7 @@ export interface PasswordFormType {
     confirmPassword: string,
 }
 
-export interface registerDataType {
+export interface registerDataType extends PhoneType {
     email: string,
     country: string,
 }

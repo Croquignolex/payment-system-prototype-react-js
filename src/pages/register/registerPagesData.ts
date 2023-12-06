@@ -5,7 +5,7 @@ import {CheckEmailFormType, ChooseCountryFormType, PasswordFormType,
     VerifyCodeFormType, VerifyPhoneFormType
 } from "../../types/pages/authTypes";
 
-export const registerStepsLabels: string[] = ['Email', 'Pays', 'Vérification', 'Mot de passe'];
+export const registerStepsLabels: string[] = ['Email', 'Pays', 'Téléphone', 'Vérification', 'Mot de passe'];
 
 export const checkEmailSchema: Yup.ObjectSchema<CheckEmailFormType> = Yup.object().shape({
     email: Yup.string().required(formValidationMessage.required).email(formValidationMessage.email),
