@@ -1,17 +1,27 @@
-import {VerifyPhoneFormType} from "../../types/pages/authTypes";
+import {useMemo} from "react";
 
-const useRegisterStepTreePageHook = (moveStep: (a: boolean) => void, updatePhone: (a: string, b: string) => void): any => {
-    const nextAndSAve = (phoneCode: string, phoneNumber: string) => {
+import {ChooseCountryFormType} from "../../types/pages/authTypes";
+import {FormSelectOptionType} from "../../types/othersTypes";
+import countriesJSON from "../../assets/json/countries.json";
+
+const useRegisterStepTwoPageHook = (moveStep: (a: boolean) => void, updateCountry: (b: string) => void): any => {
+    const countriesData: FormSelectOptionType[] = useMemo((): FormSelectOptionType[] => (
+        countriesJSON.map((country: { name: string, code: string }): FormSelectOptionType => ({
+            label: country.name,
+            key: country.code
+        }))
+    ), []);
+
+    const nextAndSAve = (country: string) => {
         moveStep(true);
-        updatePhone(phoneCode, phoneNumber);
+        updateCountry(country);
     }
 
-    const handleVerifyPhone = ({ phoneCode, phoneNumber }: VerifyPhoneFormType): void => {
-        nextAndSAve(phoneCode, phoneNumber);
+    const handleChooseCountry = ({ country }: ChooseCountryFormType): void => {
+        nextAndSAve(country);
     };
 
-
-    return { handleVerifyPhone };
+    return { handleChooseCountry, countriesData };
 };
 
-export default useRegisterStepTreePageHook;
+export default useRegisterStepTwoPageHook;

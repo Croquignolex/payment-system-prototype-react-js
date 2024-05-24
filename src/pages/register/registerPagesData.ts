@@ -1,14 +1,20 @@
 import * as Yup from "yup";
 
 import {formValidationMessage} from "../../constants/generalConstants";
-import {CheckEmailFormType, ChooseCountryFormType, PasswordFormType,
+import {
+    CheckEmailFormType, ChooseCountryFormType, ChooseNamesFormType, PasswordFormType,
     VerifyCodeFormType, VerifyPhoneFormType
 } from "../../types/pages/authTypes";
 
-export const registerStepsLabels: string[] = ['Email', 'Pays', 'Téléphone', 'Vérification', 'Mot de passe'];
+export const registerStepsLabels: string[] = ['Email', 'Identité', 'Pays', 'Téléphone', 'Vérification', 'Mot de passe'];
 
 export const checkEmailSchema: Yup.ObjectSchema<CheckEmailFormType> = Yup.object().shape({
-    email: Yup.string().required(formValidationMessage.required).email(formValidationMessage.email),
+    emailAddress: Yup.string().required(formValidationMessage.required).email(formValidationMessage.email),
+});
+
+export const chooseNamesSchema: Yup.ObjectSchema<ChooseNamesFormType> = Yup.object().shape({
+    firstName: Yup.string().required(formValidationMessage.required),
+    lastName: Yup.string().required(formValidationMessage.required),
 });
 
 export const chooseCountrySchema: Yup.ObjectSchema<ChooseCountryFormType> = Yup.object().shape({

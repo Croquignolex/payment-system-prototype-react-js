@@ -24,14 +24,14 @@ const RegisterStepOnePage: FC<RegisterStepOneProps> = ({moveStep, selectedEmail,
                 </Text>
             </Box>
             <Stack my={6}>
-                <Formik initialValues={{email: selectedEmail}} validationSchema={checkEmailSchema} onSubmit={handleCheckEmail} enableReinitialize>
+                <Formik initialValues={{emailAddress: selectedEmail}} validationSchema={checkEmailSchema} onSubmit={handleCheckEmail} enableReinitialize>
                     {(props: FormikProps<CheckEmailFormType>) => (
                         <Form>
                             <TextField
                                 label="Tout d'abord, entrez votre addresse email"
-                                name="email"
-                                isInvalid={!!props.errors.email && !!props.touched.email}
-                                errorMessage={props.errors.email}
+                                name="emailAddress"
+                                isInvalid={!!props.errors.emailAddress && !!props.touched.emailAddress}
+                                errorMessage={props.errors.emailAddress}
                             />
                             <SubmitButton label="Suivant"></SubmitButton>
                         </Form>

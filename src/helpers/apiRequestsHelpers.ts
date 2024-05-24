@@ -10,14 +10,15 @@ import {TransferEnumType} from "../types/enumsTypes";
 
 const API_V1_URL: string = `${apiBaseURL}`;
 
-export const loginRequest = ({ email, password }: LoginRequestType): Promise<any> => {
+export const loginRequest = ({ emailAddress, password }: LoginRequestType): Promise<any> => {
     const url: string = joinBaseUrlWithParams(authApiURI.login);
-    return postRequest(url, { email, password });
+    return postRequest(url, { email: emailAddress, password });
 };
 
-export const registerRequest = ({ firstName, lastName, email, password }: RegisterRequestType): Promise<any> => {
+export const registerRequest = (values: RegisterRequestType): Promise<any> => {
+    const { firstName, lastName, email, emailAddress, countryCode, phoneNumber, password }: RegisterRequestType = values;
     const url: string = joinBaseUrlWithParams(authApiURI.register);
-    return postRequest(url, { firstName, lastName, email, password });
+    return postRequest(url, { firstName, lastName, email, emailAddress, countryCode, phoneNumber, password });
 };
 
 export const accountDetailsRequest = ({ accountId }: AccountDetailsRequestType) => {
@@ -59,7 +60,9 @@ export const transferAddRequest = ({ accountId, payerId, recipientId, amount, tr
             break;
     }
 
-    return putRequest(url, { payerId, recipientId, amount });
+    const amountStr: string = amount.toString();
+    return postRequest(url, { payerId, recipientId, amount: amountStr });
+    // return putRequest(url, { payerId, recipientId, amount });
 };
 
 // Build complete url

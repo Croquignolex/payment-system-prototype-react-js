@@ -1,11 +1,17 @@
-import {VerifyCodeFormType} from "../../types/pages/authTypes";
+import {VerifyPhoneFormType} from "../../types/pages/authTypes";
 
-const useRegisterStepFourPageHook = (moveStep: (a: boolean) => void): any => {
-    const handleCodePhone = ({ code }: VerifyCodeFormType): void => {
+const useRegisterStepTreePageHook = (moveStep: (a: boolean) => void, updatePhone: (a: string, b: string) => void): any => {
+    const nextAndSAve = (phoneCode: string, phoneNumber: string) => {
         moveStep(true);
+        updatePhone(phoneCode, phoneNumber);
+    }
+
+    const handleVerifyPhone = ({ phoneCode, phoneNumber }: VerifyPhoneFormType): void => {
+        nextAndSAve(phoneCode, phoneNumber);
     };
 
-    return { handleCodePhone };
+
+    return { handleVerifyPhone };
 };
 
-export default useRegisterStepFourPageHook;
+export default useRegisterStepTreePageHook;

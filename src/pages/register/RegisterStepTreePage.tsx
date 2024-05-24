@@ -1,69 +1,53 @@
 import React, {FC, ReactElement} from "react";
-import {Box, Center, Heading, Icon, Stack, Text} from "@chakra-ui/react";
-import {Link} from "react-router-dom";
-import {FiArrowLeft, FiExternalLink} from "react-icons/fi";
+import {Box, Center, Heading, Stack, Text} from "@chakra-ui/react";
+import {FiArrowLeft} from "react-icons/fi";
 import {Form, Formik, FormikProps} from "formik";
 
-import {verifyPhoneSchema} from "./registerPagesData";
-import {VerifyPhoneFormType} from "../../types/pages/authTypes";
+import {chooseCountrySchema} from "./registerPagesData";
+import {ChooseCountryFormType} from "../../types/pages/authTypes";
 import SubmitButton from "../../components/form/SumitButton";
-import CustomPhoneField from "../../components/form/CustomPhoneField";
+import SelectField from "../../components/form/SelectField";
 import useRegisterStepTreePageHook from "./useRegisterStepTreePageHook";
 
-const RegisterStepTreePage: FC<RegisterStepTreeProps> = ({moveStep, selectedPhoneNumber, selectedPhoneCode, updatePhone}): ReactElement => {
-    const { handleVerifyPhone } = useRegisterStepTreePageHook(moveStep, updatePhone);
+const RegisterStepTwoPage: FC<RegisterStepTwoProps> = ({moveStep, selectedCountry, updateCountry}): ReactElement => {
+    const { handleChooseCountry, countriesData } = useRegisterStepTreePageHook(moveStep, updateCountry);
 
     return (
         <>
-            <Stack w={'full'}>
-                <Heading fontSize={'2xl'} alignSelf='center'>Vérifiez votre numéro de téléphone avec un code</Heading>
-                <Box alignSelf='center' mt={2}>
-                    Ceci permet de garder votre compte sécurisé.
-                    <Link to="#">
-                        <Text as='u' fontWeight='bold' mx={1}>
-                            En savoir plus
-                        </Text>
-                        <Icon as={FiExternalLink}></Icon>
-                    </Link>
-                </Box>
-                <Stack my={6}>
-                    <Formik initialValues={{phoneCode: selectedPhoneCode, phoneNumber: selectedPhoneNumber}} validationSchema={verifyPhoneSchema} onSubmit={handleVerifyPhone} enableReinitialize>
-                        {(props: FormikProps<VerifyPhoneFormType>) => (
-                            <Form>
-                                <CustomPhoneField
-                                    label="Numéro de téléphone"
-                                    code="phoneCode"
-                                    number="phoneNumber"
-                                    isInvalid={
-                                        (!!props.errors.phoneCode && !!props.touched.phoneCode) ||
-                                        (!!props.errors.phoneNumber && !!props.touched.phoneNumber)
-                                    }
-                                    errorMessage={
-                                        props.errors.phoneCode ||
-                                        props.errors.phoneNumber
-                                    }
-                                />
-                                <SubmitButton label="Envoyer le code de vérification"></SubmitButton>
-                            </Form>
-                        )}
-                    </Formik>
-                </Stack>
-                <Center mt={50}>
-                    <FiArrowLeft />
-                    <Text as='u' fontWeight='bold' onClick={() => moveStep(false)} cursor='pointer'>
-                        Retour
-                    </Text>
-                </Center>
+            <Heading fontSize={'2xl'} alignSelf='center'>Où habitez-vous la plus part du temps?</Heading>
+            <Box alignSelf='center' mt={2}>
+                Il nous sera possible de vous demander de prouver votre addresse
+            </Box>
+            <Stack my={6}>
+                <Formik initialValues={{country: selectedCountry}} validationSchema={chooseCountrySchema} onSubmit={handleChooseCountry} enableReinitialize>
+                    {(props: FormikProps<ChooseCountryFormType>) => (
+                        <Form>
+                            <SelectField
+                                noLabel
+                                name="country"
+                                values={countriesData}
+                                isInvalid={!!props.errors.country && !!props.touched.country}
+                                errorMessage={props.errors.country}
+                            />
+                            <SubmitButton label="Continuer"></SubmitButton>
+                        </Form>
+                    )}
+                </Formik>
             </Stack>
+            <Center mt={50}>
+                <FiArrowLeft />
+                <Text as='u' fontWeight='bold' onClick={() => moveStep(false)} cursor='pointer'>
+                    Retour
+                </Text>
+            </Center>
         </>
     );
 };
 
-interface RegisterStepTreeProps {
-    updatePhone: (a: string, b: string) => void,
+interface RegisterStepTwoProps {
+    updateCountry: (b: string) => void,
     moveStep: (a: boolean) => void,
-    selectedPhoneNumber: string,
-    selectedPhoneCode: string,
+    selectedCountry: string,
 }
 
-export default RegisterStepTreePage;
+export default RegisterStepTwoPage;

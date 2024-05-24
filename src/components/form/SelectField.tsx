@@ -12,8 +12,8 @@ const SelectField: FC<SelectFormFieldProps> = ({ label = '', name, values = [], 
 
             <Field as={Select} name={name} size='lg' rounded='lg' borderColor="black">
                 <option value=''>Choisir</option>
-                {values.map((item: FormSelectOptionType) => (
-                    <option value={item.key}>{item.label}</option>
+                {values.map((item: FormSelectOptionType, key: number) => (
+                    <option value={item.key} key={key}>{item.label}</option>
                 ))}
             </Field>
 

@@ -43,7 +43,7 @@ const useLoginPageHook = (): any => {
         toastAlert(toast, `Bienvenue ${firstName} ${lastName}`, AlertStatusEnumType.info);
     }
 
-    const handleLogin = ({ email, password }: LoginFormType): void => mutate({ email, password, firstName: 'Fake user', lastName: '' });
+    const handleLogin = ({ emailAddress, password }: LoginFormType): void => mutate({ emailAddress, password, firstName: 'Fake user', lastName: '' });
 
     return { handleLogin, isLoading, alertData };
 };

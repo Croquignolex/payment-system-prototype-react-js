@@ -1,16 +1,21 @@
 import {PhoneType} from "../othersTypes";
 
 export interface CheckEmailRequestType {
-    email: string,
+    emailAddress: string,
 }
 
-export interface RegisterRequestType extends CheckEmailRequestType {
+export interface RegisterRequestType {
+    email: string,
+    emailAddress: string,
     firstName: string,
     lastName: string,
+    countryCode: string,
+    phoneNumber: string,
     password: string,
 }
 
-export interface LoginRequestType extends CheckEmailRequestType {
+export interface LoginRequestType {
+    emailAddress: string
     password: string
 }
 
@@ -19,6 +24,11 @@ export interface LoginFormType extends LoginRequestType {
 
 
 export interface CheckEmailFormType extends CheckEmailRequestType {
+}
+
+export interface ChooseNamesFormType {
+    firstName: string,
+    lastName: string,
 }
 
 export interface ChooseCountryFormType {
@@ -38,6 +48,8 @@ export interface PasswordFormType {
 }
 
 export interface registerDataType extends PhoneType {
-    email: string,
-    country: string,
+    emailAddress: string,
+    countryCode: string,
+    firstName: string,
+    lastName: string,
 }

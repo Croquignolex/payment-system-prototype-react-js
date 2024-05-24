@@ -6,8 +6,8 @@ const useRegisterStepOnePageHook = (moveStep: () => void, updateEmail: (b: strin
         updateEmail(email);
     }
 
-    const handleCheckEmail = ({ email }: CheckEmailFormType): void => {
-        nextAndSAve(email);
+    const handleCheckEmail = ({ emailAddress }: CheckEmailFormType): void => {
+        nextAndSAve(emailAddress);
     };
 
     return { handleCheckEmail };

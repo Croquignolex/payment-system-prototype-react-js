@@ -1,27 +1,16 @@
-import {useMemo} from "react";
+import {ChooseNamesFormType} from "../../types/pages/authTypes";
 
-import {ChooseCountryFormType} from "../../types/pages/authTypes";
-import {FormSelectOptionType} from "../../types/othersTypes";
-import countriesJSON from "../../assets/json/countries.json";
-
-const useRegisterStepTwoPageHook = (moveStep: (a: boolean) => void, updateCountry: (b: string) => void): any => {
-    const countriesData: FormSelectOptionType[] = useMemo((): FormSelectOptionType[] => (
-        countriesJSON.map((country: { name: string, code: string }): FormSelectOptionType => ({
-            label: country.name,
-            key: country.code
-        }))
-    ), []);
-
-    const nextAndSAve = (country: string) => {
+const useRegisterStepTwoPageHook = (moveStep: (a: boolean) => void, updateNames: (a: string, b: string) => void): any => {
+    const nextAndSAve = (firstName: string, lastName: string) => {
         moveStep(true);
-        updateCountry(country);
+        updateNames(firstName, lastName);
     }
 
-    const handleChooseCountry = ({ country }: ChooseCountryFormType): void => {
-        nextAndSAve(country);
+    const handleChooseNames = ({ firstName, lastName }: ChooseNamesFormType): void => {
+        nextAndSAve(firstName, lastName);
     };
 
-    return { handleChooseCountry, countriesData };
+    return { handleChooseNames };
 };
 
 export default useRegisterStepTwoPageHook;
