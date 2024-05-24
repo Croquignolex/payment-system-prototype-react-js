@@ -30,7 +30,7 @@ const useContactsPageHook = (): any => {
 
         let contacts: ContactModelType[] = [];
 
-        data?.data.forEach((item: any) => {
+        data?.data?.recipients.forEach((item: any) => {
             const contact: ContactModelType = {
                 recipientId: item?.recipientId,
                 firstName: item?.firstName,

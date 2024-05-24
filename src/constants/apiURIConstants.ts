@@ -21,4 +21,5 @@ export const accountsApiURI = {
 export const transfersApiURI = {
     fetch: '/account/{accountId}/transfers',
     addMtnToMtn: '/cmmtncmmtntransfer/{accountId}/account',
+    checkStatus: '/cmmtncmmtntransfer/transferStatus/{accountId}',
 };

@@ -65,6 +65,11 @@ export const transferAddRequest = ({ accountId, payerId, recipientId, amount, tr
     // return putRequest(url, { payerId, recipientId, amount });
 };
 
+export const transferCheck = (accountId: string = "") => {
+    const url: string = joinBaseUrlWithParams(transfersApiURI.checkStatus, [{param: 'accountId', value: accountId}]);
+    return getRequest(url);
+};
+
 // Build complete url
 const joinBaseUrlWithParams = (to: string, params?: URLParamType[], queries?: URLParamType[]): string => {
     let url: string = API_V1_URL + to;

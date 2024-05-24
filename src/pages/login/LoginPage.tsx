@@ -36,7 +36,7 @@ const LoginPage = (): ReactElement => {
                                     <Form>
                                         <TextField
                                             label="Votre addresse email"
-                                            name="email"
+                                            name="emailAddress"
                                             isInvalid={!!props.errors.emailAddress && !!props.touched.emailAddress}
                                             errorMessage={props.errors.emailAddress}
                                         />

@@ -10,6 +10,7 @@ const root: ReactDOM.Root = ReactDOM.createRoot(document.getElementById('root') 
 const queryClient: QueryClient = new QueryClient({
     defaultOptions: {
         queries: {
+            staleTime: 0,
             refetchOnWindowFocus: false,
             cacheTime: 0
         },
@@ -24,13 +25,13 @@ const theme = extendTheme({
 });
 
 root.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <ChakraProvider theme={theme} toastOptions={{ defaultOptions: { position: 'top' } }}>
             <QueryClientProvider client={queryClient}>
                 <App />
             </QueryClientProvider>
         </ChakraProvider>
-    </React.StrictMode>
+    // </React.StrictMode>
 );
 
 

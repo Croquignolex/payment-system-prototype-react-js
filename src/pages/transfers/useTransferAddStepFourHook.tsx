@@ -1,15 +1,16 @@
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import {CreateToastFnReturn, useToast} from "@chakra-ui/react";
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQuery, UseQueryResult} from "@tanstack/react-query";
 
 import {ErrorAlertType, RequestResponseType, transferDataType} from "../../types/othersTypes";
-import {transferAddRequest} from "../../helpers/apiRequestsHelpers";
+import {transferAddRequest, transferCheck} from "../../helpers/apiRequestsHelpers";
 import {AccountEnumType, AlertStatusEnumType, TransferEnumType} from "../../types/enumsTypes";
 import {AccountModelType, ContactModelType} from "../../types/modelsTypes";
 import {UserContext} from "../../contexts/UserContext";
 import {routes} from "../../constants/routeConstants";
 import {toastAlert} from "../../helpers/generalHelpers";
+import {AxiosError, AxiosResponse} from "axios";
 
 const useTransferAddStepFourPageHook = (transferData: transferDataType): any => {
     let alertData: ErrorAlertType | null = null;
@@ -18,7 +19,37 @@ const useTransferAddStepFourPageHook = (transferData: transferDataType): any => 
     const toast: CreateToastFnReturn = useToast();
     const { globalUserState } = useContext(UserContext);
 
-    const {isLoading, isError, isSuccess, error, variables, mutate}: RequestResponseType = useMutation(transferAddRequest);
+    const [queryEnabled, setQueryEnabled] = useState<boolean>(false);
+    const [sent, setSend] = useState<boolean>(false);
+
+    const { refetch, isLoading: isCheckLoading, isError: isCheckError, isSuccess: isCheckSuccess, data, error: checkError }: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
+        queryKey: ["check-transfer"],
+        queryFn: () => transferCheck(transferData.account?.payerId),
+        enabled: queryEnabled
+    });
+
+    if(queryEnabled && isCheckError) {
+        setQueryEnabled(false);
+        alertData = { show: isCheckError, status: AlertStatusEnumType.error, message: checkError?.message };
+    }
+
+    if(queryEnabled && isCheckSuccess) {
+        switch (data.data?.status) {
+            case "PENDING":
+                setTimeout(() => refetch(), 5000);
+                break;
+            case "FAILED":
+                const message: string = "Transfer error";
+                alertData = { show: false, status: AlertStatusEnumType.error, message };
+                break;
+            case "SUCCESS":
+                navigate(routes.transfers.path);
+                toastAlert(toast, `Transfer de ${transferData.amount} éffectué avec succès`);
+            break;
+        }
+    }
+
+    const {isLoading, isError, isSuccess, error, mutate}: RequestResponseType = useMutation(transferAddRequest);
 
     if(isError) {
         window.scrollTo({top: 0, behavior: 'smooth'});
@@ -28,12 +59,9 @@ const useTransferAddStepFourPageHook = (transferData: transferDataType): any => 
         alertData = { show: isError, status: AlertStatusEnumType.error, message };
     }
 
-    if(isSuccess) {
-        const { amount } = variables;
-
-        navigate(routes.transfers.path);
-
-        toastAlert(toast, `Transfer de ${amount} éffectué avec succès`);
+    if(!sent && isSuccess) {
+        setSend(true);
+        setQueryEnabled(true);
     }
 
     const handleTransferAdd = (): void => {
@@ -50,7 +78,7 @@ const useTransferAddStepFourPageHook = (transferData: transferDataType): any => 
         else toastAlert(toast, "Opération non permise pour le moment", AlertStatusEnumType.warning);
     };
 
-    return {isLoading, alertData, handleTransferAdd};
+    return {isLoading: isLoading || sent, alertData, handleTransferAdd};
 };
 
 export default useTransferAddStepFourPageHook;

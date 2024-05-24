@@ -1,4 +1,4 @@
-import React, {ReactElement} from "react";
+import React, {Fragment, ReactElement} from "react";
 import {Box, Stack, Flex, Button, SimpleGrid} from "@chakra-ui/react";
 import {Link} from "react-router-dom";
 
@@ -32,7 +32,9 @@ const ContactsPage = (): ReactElement => {
             </Stack>
 
             <SimpleGrid columns={{ lg: 2, sm: 2}} spacing={4} mt={4}>
-                {contacts.map((contact: ContactModelType): ReactElement => <ContactCard contact={contact} />)}
+                {contacts.map((contact: ContactModelType, key: number): ReactElement => (
+                    <Fragment key={key}><ContactCard contact={contact} /></Fragment>
+                ))}
             </SimpleGrid>
         </Stack>
     );

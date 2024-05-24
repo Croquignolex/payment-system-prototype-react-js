@@ -30,7 +30,7 @@ const useAccountsPageHook = (): any => {
 
         let accounts: AccountModelType[] = [];
 
-        data?.data.forEach((item: any) => {
+        data?.data?.payers.forEach((item: any) => {
             const contact: AccountModelType = {
                 payerId: item?.payerId,
                 firstName: item?.firstName,
