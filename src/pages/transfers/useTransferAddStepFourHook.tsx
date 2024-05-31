@@ -22,25 +22,25 @@ const useTransferAddStepFourPageHook = (transferData: transferDataType): any => 
     const [queryEnabled, setQueryEnabled] = useState<boolean>(false);
     const [sent, setSend] = useState<boolean>(false);
 
-    const { refetch, isLoading: isCheckLoading, isError: isCheckError, isSuccess: isCheckSuccess, data, error: checkError }: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
+    const { refetch, isFetching: isCheckLoading, isError: isCheckError, isSuccess: isCheckSuccess, data: checkData, error: checkError }: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
         queryKey: ["check-transfer"],
         queryFn: () => transferCheck(transferData.account?.payerId),
         enabled: queryEnabled
     });
 
-    if(queryEnabled && isCheckError) {
+    if(!isCheckLoading && queryEnabled && isCheckError) {
         setQueryEnabled(false);
         alertData = { show: isCheckError, status: AlertStatusEnumType.error, message: checkError?.message };
     }
 
-    if(queryEnabled && isCheckSuccess) {
-        switch (data.data?.status) {
+    if(!isCheckLoading && queryEnabled && isCheckSuccess) {
+        switch (checkData.data?.status) {
             case "PENDING":
-                setTimeout(() => refetch(), 5000);
+                refetch().then();
                 break;
             case "FAILED":
                 const message: string = "Transfer error";
-                alertData = { show: false, status: AlertStatusEnumType.error, message };
+                alertData = { show: true, status: AlertStatusEnumType.error, message };
                 break;
             case "SUCCESS":
                 navigate(routes.transfers.path);
@@ -49,7 +49,7 @@ const useTransferAddStepFourPageHook = (transferData: transferDataType): any => 
         }
     }
 
-    const {isLoading, isError, isSuccess, error, mutate}: RequestResponseType = useMutation(transferAddRequest);
+    const {isLoading, isError, isSuccess, error, data, mutate}: RequestResponseType = useMutation(transferAddRequest);
 
     if(isError) {
         window.scrollTo({top: 0, behavior: 'smooth'});
@@ -60,11 +60,20 @@ const useTransferAddStepFourPageHook = (transferData: transferDataType): any => 
     }
 
     if(!sent && isSuccess) {
-        setSend(true);
-        setQueryEnabled(true);
+        const message: string = data.data?.message;
+
+        if(message) alertData = { show: true, status: AlertStatusEnumType.error, message };
+        else {
+            setSend(true);
+            setQueryEnabled(true);
+        }
     }
 
     const handleTransferAdd = (): void => {
+        alertData = null;
+        setSend(false);
+        setQueryEnabled(false);
+
         const account: AccountModelType | undefined = transferData.account;
         const contact: ContactModelType | undefined = transferData.contact;
         const amount: number = transferData.amount;
@@ -78,7 +87,7 @@ const useTransferAddStepFourPageHook = (transferData: transferDataType): any => 
         else toastAlert(toast, "Opération non permise pour le moment", AlertStatusEnumType.warning);
     };
 
-    return {isLoading: isLoading || sent, alertData, handleTransferAdd};
+    return {isLoading: isLoading || isCheckLoading, alertData, handleTransferAdd};
 };
 
 export default useTransferAddStepFourPageHook;
