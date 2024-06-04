@@ -11,7 +11,7 @@ import DisplayAlert from "../../components/DisplayAlert";
 
 const TransferAddStepFour: FC<TransferAddStepFourProps> = ({moveStep, transferData}): ReactElement => {
     const {isLoading, alertData, handleTransferAdd} = useTransferAddStepFourHook(transferData);
-console.log({alertData})
+
     return (
         <>
             <strong>Confirmation</strong>

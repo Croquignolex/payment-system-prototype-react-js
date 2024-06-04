@@ -21,19 +21,20 @@ const useTransferAddStepFourPageHook = (transferData: transferDataType): any => 
 
     const [queryEnabled, setQueryEnabled] = useState<boolean>(false);
     const [sent, setSend] = useState<boolean>(false);
+    const [transferId, setTransferId] = useState<string>("");
 
     const { refetch, isFetching: isCheckLoading, isError: isCheckError, isSuccess: isCheckSuccess, data: checkData, error: checkError }: UseQueryResult<AxiosResponse, AxiosError> = useQuery({
         queryKey: ["check-transfer"],
-        queryFn: () => transferCheck(transferData.account?.payerId),
+        queryFn: () => transferCheck(transferId),
         enabled: queryEnabled
     });
 
-    if(!isCheckLoading && queryEnabled && isCheckError) {
+    if(sent && !isCheckLoading && queryEnabled && isCheckError) {
         setQueryEnabled(false);
         alertData = { show: isCheckError, status: AlertStatusEnumType.error, message: checkError?.message };
     }
 
-    if(!isCheckLoading && queryEnabled && isCheckSuccess) {
+    if(sent && !isCheckLoading && queryEnabled && isCheckSuccess) {
         switch (checkData.data?.status) {
             case "PENDING":
                 refetch().then();
@@ -51,7 +52,7 @@ const useTransferAddStepFourPageHook = (transferData: transferDataType): any => 
 
     const {isLoading, isError, isSuccess, error, data, mutate}: RequestResponseType = useMutation(transferAddRequest);
 
-    if(isError) {
+    if(!sent && isError) {
         window.scrollTo({top: 0, behavior: 'smooth'});
 
         const message: string = error?.response?.data?.message || error?.message;
@@ -61,10 +62,12 @@ const useTransferAddStepFourPageHook = (transferData: transferDataType): any => 
 
     if(!sent && isSuccess) {
         const message: string = data.data?.message;
+        const transferId: string = data.data?.transferId;
 
         if(message) alertData = { show: true, status: AlertStatusEnumType.error, message };
         else {
             setSend(true);
+            setTransferId(transferId);
             setQueryEnabled(true);
         }
     }
