@@ -62,11 +62,10 @@ export const transferAddRequest = ({ accountId, payerId, recipientId, amount, tr
 
     const amountStr: string = amount.toString();
     return postRequest(url, { payerId, recipientId, amount: amountStr });
-    // return putRequest(url, { payerId, recipientId, amount });
 };
 
-export const transferCheck = (accountId: string = "") => {
-    const url: string = joinBaseUrlWithParams(transfersApiURI.checkStatus, [{param: 'accountId', value: accountId}]);
+export const transferCheck = (transferId: string = "") => {
+    const url: string = joinBaseUrlWithParams(transfersApiURI.checkStatus, [{param: 'transferId', value: transferId}]);
     return getRequest(url);
 };
 

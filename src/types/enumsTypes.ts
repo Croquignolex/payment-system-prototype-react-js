@@ -12,8 +12,8 @@ export enum TransferEnumType {
 
 export enum AccountEnumType {
     none = 'NONE',
-    orangeCM = 'CM_ORANGE',
-    mtnCM = 'CM_MTN',
+    orangeCM = 'ORANGE',
+    mtnCM = 'MTN',
     paypal = 'PAYPAL',
     stripe = 'STRIPE',
 }

@@ -62,7 +62,7 @@ const useTransferAddStepFourPageHook = (transferData: transferDataType): any => 
 
     if(!sent && isSuccess) {
         const message: string = data.data?.message;
-        const transferId: string = data.data?.transferId;
+        const transferId: string = data.data?.id;
 
         if(message) alertData = { show: true, status: AlertStatusEnumType.error, message };
         else {

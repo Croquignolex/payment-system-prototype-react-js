@@ -57,9 +57,9 @@ export const toastAlert = (toast: CreateToastFnReturn, title: string, status: Al
 // Payment type icon
 export const paymentTypeIcon = (name: string): any|null => {
     switch (name) {
-        case 'CM_ORANGE': return orangeIcon;
+        case 'ORANGE': return orangeIcon;
         case 'PAYPAL': return paypalIcon;
-        case 'CM_MTN': return mtnIcon;
+        case 'MTN': return mtnIcon;
         case 'STRIPE': return stripeIcon;
         default: return null;
     }
